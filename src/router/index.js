@@ -24,7 +24,7 @@ const router = createRouter({
     // 重定向
     {
       path: '/',
-      redirect: '/login',
+      redirect: '/home',
     },
     // 首页
     {
@@ -36,10 +36,19 @@ const router = createRouter({
         icon: 'ele-HomeFilled',
       }
     },
+    {
+      path: '/test',
+      name: 'Test',
+      component: () => import('@/views/test/index.vue'),
+      meta: {
+        title: '测试',
+        icon: 'ele-HomeFilled',
+      }
+    },
     //面像评测
     {
       path: '/face',
-      name: 'face',
+      name: 'Face',
       component: () => import('@/views/face/index.vue'),
       meta: {
         title: '面像评测',
