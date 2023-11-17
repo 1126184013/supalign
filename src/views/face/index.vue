@@ -67,15 +67,33 @@
             </div> -->
             <div class="faceimg">
               <img src="../../assets/face/face1.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-              <img :src="imagelist[1]?.url" alt="" style="width: 100%;height: 100%;" v-else>
+              <el-image 
+                v-else
+                style="width: 100%; height: 100%"
+                :src="imagelist[1]?.url" 
+                :preview-src-list="srcList">
+              </el-image>
+              <!-- <img :src="imagelist[1]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
             </div>
             <div class="faceimg">
               <img src="../../assets/face/face2.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-              <img :src="imagelist[0]?.url" alt="" style="width: 100%;height: 100%;" v-else>
+              <el-image 
+                v-else
+                style="width: 100%; height: 100%"
+                :src="imagelist[0]?.url" 
+                :preview-src-list="srcList1">
+              </el-image>
+              <!-- <img :src="imagelist[0]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
             </div>
             <div class="faceimg">
               <img src="../../assets/face/face3.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-              <img :src="imagelist[2]?.url" alt="" style="width: 100%;height: 100%;" v-else>
+              <el-image 
+                v-else
+                style="width: 100%; height: 100%"
+                :src="imagelist[2]?.url" 
+                :preview-src-list="srcList2">
+              </el-image>
+              <!-- <img :src="imagelist[2]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
             </div>
         </div>
       </div>
@@ -91,6 +109,7 @@
         <div @click="nexttype" class="nextsty" v-else>下一步</div>
       </div>
       <el-loading v-if="loading" :text="loadingText" :spinner="loadingSpinner" >
+        <i class="el-icon-phone"></i>
         <div class="loading">正在分析...</div>
       </el-loading>
     </div>
@@ -110,6 +129,9 @@
             procedure:0,
             imagelist: [],
             face:{},
+            srcList:[],
+            srcList1:[],
+            srcList2:[],
             loading: false,
             loadingText: '加载中...', // 加载动画的文本提示
             loadingSpinner: 'el-icon-loading', // 加载动画的图标
@@ -178,7 +200,9 @@
             console.log(response,'处理上传成功的回调');
             this.imagelist = response.data
             this.face.img = this.imagelist
-            
+            this.srcList.push(this.imagelist[1]?.url)
+            this.srcList1.push(this.imagelist[0]?.url)
+            this.srcList2.push(this.imagelist[2]?.url)
           })
           .catch(error => {
             // 处理上传失败的回调

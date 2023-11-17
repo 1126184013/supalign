@@ -10,15 +10,30 @@
         <div style="padding-top: 30px;display: flex;justify-content: space-between;">
             <div class="imglist">
               <div>
-                <img :src="faceimg[1].url" alt="" style="width: 120px;height: 130px;">
+                <!-- <img :src="faceimg[1].url" alt="" style="width: 120px;height: 130px;"> -->
+                <el-image 
+                  style="width: 120px; height: 130px"
+                  :src="faceimg[1].url" 
+                  :preview-src-list="srcList0">
+                </el-image>
                 <div @click="click">正面照</div>
               </div>
               <div>
-                <img :src="faceimg[0].url" alt="" style="width: 120px;height: 130px;">
+                <!-- <img :src="faceimg[0].url" alt="" style="width: 120px;height: 130px;"> -->
+                <el-image 
+                  style="width: 120px; height: 130px"
+                  :src="faceimg[0].url" 
+                  :preview-src-list="srcList0">
+                </el-image>
                 <div>侧面照</div>
               </div>
               <div>
-                <img :src="faceimg[2].url" alt="" style="width: 120px;height: 130px;">
+                <!-- <img :src="faceimg[2].url" alt="" style="width: 120px;height: 130px;"> -->
+                <el-image 
+                  style="width: 120px; height: 130px"
+                  :src="faceimg[2].url" 
+                  :preview-src-list="srcList">
+                </el-image>
                 <div>微笑照</div>
               </div>
             </div>
@@ -183,14 +198,17 @@
     export default {
       name: 'face',
       props: ['face'],
-      faceimg:[],
-      facelist:{},
       data() {
         return {
             active: 1,
             dialogImageUrl: '',
             dialogVisible: false,
             procedure:0,
+            srcList:[],
+            srcList0:[],
+            srcList1:[],
+            faceimg:[],
+            facelist:{},
             value:'0',
             value0:"",
             value1:"",
@@ -293,8 +311,12 @@
         }
       },
       created() {
-        console.log(this.face,'sss')
+        
         this.faceimg = this.face.img
+        console.log(this.faceimg,'sss')
+        this.srcList.push(this.faceimg[2].url)
+        this.srcList0.push(this.faceimg[0].url)
+        this.srcList1.push(this.faceimg[1].url)
         this.facelist = this.face.list
         this.value0 = this.face.list.results[0]
         this.value1 = this.face.list.results[1]
