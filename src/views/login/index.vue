@@ -75,7 +75,7 @@ const handleLogin = async () => {
       font-family: Microsoft YaHei;
       font-weight: 400;
       color: #000000;
-      line-height: 30px;
+      line-height: 47%;
     }
 
     .text2 {
@@ -91,9 +91,11 @@ const handleLogin = async () => {
     position: relative;
 
     .logo {
-      position: absolute;
-      top: 110px;
-      left: 68px;
+      // position: absolute;
+      // top: 12%;
+      // left: 68px;
+      margin-left: 25%;
+      padding-top: 5%;
     }
 
     .form {
@@ -103,7 +105,7 @@ const handleLogin = async () => {
       justify-content: center;
       position: relative;
       left: 50%;
-      top: 50%;
+      top: 40%;
       transform: translate(-50%, -50%);
 
       p {

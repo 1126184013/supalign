@@ -13,8 +13,8 @@
                 <!-- <img :src="faceimg[1].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
                   style="width: 120px; height: 130px"
-                  :src="faceimg[1].url" 
-                  :preview-src-list="srcList0">
+                  :src="faceimg.find(image => image.type === 'front').url" 
+                  :preview-src-list="srcList">
                 </el-image>
                 <div @click="click">正面照</div>
               </div>
@@ -22,7 +22,7 @@
                 <!-- <img :src="faceimg[0].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
                   style="width: 120px; height: 130px"
-                  :src="faceimg[0].url" 
+                  :src="faceimg.find(image => image.type === 'profile').url" 
                   :preview-src-list="srcList0">
                 </el-image>
                 <div>侧面照</div>
@@ -31,8 +31,8 @@
                 <!-- <img :src="faceimg[2].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
                   style="width: 120px; height: 130px"
-                  :src="faceimg[2].url" 
-                  :preview-src-list="srcList">
+                  :src="faceimg.find(image => image.type === 'smile').url" 
+                  :preview-src-list="srcList1">
                 </el-image>
                 <div>微笑照</div>
               </div>
@@ -152,11 +152,12 @@
                     </el-option>
                   </el-select>
                 </div>
+
                 <div>
                   <text>侧貌-颏位：</text>
-                  <el-select v-model="value" placeholder="请选择">
+                  <el-select v-model="value11" placeholder="请选择">
                     <el-option
-                      v-for="item in options"
+                      v-for="item in options11"
                       :key="item.value"
                       :label="item.label"
                       :value="item.value">
@@ -165,9 +166,9 @@
                 </div>
                 <div>
                   <text>侧貌-下颌角：</text>
-                  <el-select v-model="value" placeholder="请选择">
+                  <el-select v-model="value9" placeholder="请选择">
                     <el-option
-                      v-for="item in options"
+                      v-for="item in options9"
                       :key="item.value"
                       :label="item.label"
                       :value="item.value">
@@ -176,9 +177,9 @@
                 </div>
                 <div>
                   <text>口周肌肉分析：</text>
-                  <el-select v-model="value" placeholder="请选择">
+                  <el-select v-model="value10" placeholder="请选择">
                     <el-option
-                      v-for="item in options"
+                      v-for="item in options10"
                       :key="item.value"
                       :label="item.label"
                       :value="item.value">
@@ -219,6 +220,9 @@
             value6:"",
             value7:"",
             value8:"",
+            value9:0,
+            value10:0,
+            value11:0,
             options: [{
               value: '0',
               label: '正常'
@@ -307,6 +311,39 @@
               value: 1,
               label: '颏唇沟正常'
             }],
+            options9: [{
+              value: 0,
+              label: '正常'
+            },{
+              value: 1,
+              label: '下颌角变大'
+            },{
+              value: 2,
+              label: '下颌角变小'
+            }],
+            options10: [{
+              value: 0,
+              label: '无'
+            },{
+              value: 1,
+              label: '须肌紧张'
+            },{
+              value: 2,
+              label: '口周肌肉紧张'
+            },{
+              value: 3,
+              label: '唇闭合不全'
+            },{
+              value: 4,
+              label: '无明显异常'
+            }],
+            options11: [{
+              value: 0,
+              label: '正常'
+            },{
+              value: 1,
+              label: '异常'
+            }],
             
         }
       },
@@ -314,9 +351,10 @@
         
         this.faceimg = this.face.img
         console.log(this.faceimg,'sss')
-        this.srcList.push(this.faceimg[2].url)
-        this.srcList0.push(this.faceimg[0].url)
-        this.srcList1.push(this.faceimg[1].url)
+        
+        this.srcList.push(this.faceimg[0]?.url)
+        this.srcList0.push(this.faceimg[1]?.url)
+        this.srcList1.push(this.faceimg[2]?.url)
         this.facelist = this.face.list
         this.value0 = this.face.list.results[0]
         this.value1 = this.face.list.results[1]

@@ -20,79 +20,47 @@
           <!-- <text>(上传规则)</text> -->
         </div>
         <div class="uoload">
-            <!-- <div>
-                <el-upload
-                action="/api/upload"
-                list-type="picture-card"
-                :limit="1"
-                :show-file-list="true"
-                :class="{hide: hideUpload}"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove">
-                    <i class="el-icon-plus"></i>
-                    <img src="../../assets/face/face1.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-                    <img :src="imagelist[1]?.url" alt="" style="width: 100%;height: 100%;" v-else>
-                </el-upload>
-                
-                <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-                
-            </div>
-            <div>
-                <el-upload
-                action="http://118.31.52.215:8097/api/upload"
-                list-type="picture-card"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove">
-                <img src="../../assets/face/face2.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-                  <img :src="imagelist[0].url" alt="" style="width: 100%;height: 100%;" v-else>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-            </div>
-            <div>
-                <el-upload
-                action="http://118.31.52.215:8097/api/upload"
-                list-type="picture-card"
-                :on-preview="handlePictureCardPreview"
-                :on-remove="handleRemove">
-                <img src="../../assets/face/face3.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-                  <img :src="imagelist[2].url" alt="" style="width: 100%;height: 100%;" v-else>
-                </el-upload>
-                <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
-            </div> -->
             <div class="faceimg">
-              <img src="../../assets/face/face1.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-              <el-image 
-                v-else
-                style="width: 100%; height: 100%"
-                :src="imagelist[1]?.url" 
-                :preview-src-list="srcList">
-              </el-image>
+              <input type="file" ref="fileupimgfron" multiple @change="upimgfron" style="display: none">
+              <img src="../../assets/face/face1.png" alt="" style="width: 100%;height: 100%;" v-if="frontimg.length<1"  @click="openupimgfron">
+                  <div v-else >
+                    <el-image 
+                      style="width: 150px; height: 190px"
+                      :src="frontimg" 
+                      :preview-src-list="frontimgbig">
+                    </el-image>
+                    <div class="imgdel" @click="imgdel('frontimg')">删除</div>
+                  </div>
+              
               <!-- <img :src="imagelist[1]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
             </div>
             <div class="faceimg">
-              <img src="../../assets/face/face2.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-              <el-image 
-                v-else
-                style="width: 100%; height: 100%"
-                :src="imagelist[0]?.url" 
-                :preview-src-list="srcList1">
-              </el-image>
+              <input type="file" ref="flankimg" multiple @change="upflankimg" style="display: none">
+              <img src="../../assets/face/face2.png" alt="" style="width: 100%;height: 100%;" v-if="flankimg.length<1"  @click="openflankimg">
+              <div v-else >
+                <el-image 
+                  style="width: 150px; height: 190px"
+                  :src="flankimg" 
+                  :preview-src-list="flankimgbig">
+                </el-image>
+                <div class="imgdel" @click="imgdel('flankimg')">删除</div>
+              </div>
+              
               <!-- <img :src="imagelist[0]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
             </div>
             <div class="faceimg">
-              <img src="../../assets/face/face3.png" alt="" style="width: 100%;height: 100%;" v-if="imagelist.length<1">
-              <el-image 
-                v-else
-                style="width: 100%; height: 100%"
-                :src="imagelist[2]?.url" 
-                :preview-src-list="srcList2">
-              </el-image>
+              <input type="file" ref="smileimg" multiple @change="upsmileimg" style="display: none">
+              <img src="../../assets/face/face3.png" alt="" style="width: 100%;height: 100%;" v-if="smileimg.length<1" @click="opensmileimg">
+              <div v-else  >
+                <el-image 
+                  style="width: 150px; height: 190px"
+                  :src="smileimg" 
+                  :preview-src-list="smileimgbig">
+                </el-image>
+                <div class="imgdel" @click="imgdel('smileimg')">删除</div>
+
+              </div>
+              
               <!-- <img :src="imagelist[2]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
             </div>
         </div>
@@ -129,9 +97,12 @@
             procedure:0,
             imagelist: [],
             face:{},
-            srcList:[],
-            srcList1:[],
-            srcList2:[],
+            frontimg:[],
+            flankimg:[],
+            smileimg:[],
+            frontimgbig:[],
+            flankimgbig:[],
+            smileimgbig:[],
             loading: false,
             loadingText: '加载中...', // 加载动画的文本提示
             loadingSpinner: 'el-icon-loading', // 加载动画的图标
@@ -143,11 +114,13 @@
       methods: {
         nexttype(){
           this.loading = true; // 显示加载动画
+          console.log(this.imagelist,'下一步')
           axios.post('/api/face', this.imagelist)
           .then(response => {
             // 处理上传成功的回调
             console.log(response,'处理上传成功的回调');
             this.face.list = response.data
+            this.face.img = this.imagelist
             this.loading = false; // 隐藏加载动画
             this.procedure++
           })
@@ -165,6 +138,15 @@
           }
           
         },
+        imgdel(type){
+          this[type] = []
+          this[type+`big`] = []
+          let todata = this.imagelist.find(image => image.type === 'front');
+            if(todata){
+              this.imagelist.splice(todata,1)
+            }
+          console.log(this[type],this[type+`big`],this.imagelist,'删除图片');
+        },
         handleRemove(file, fileList) {
             this.hideUpload = false
             console.log(file, fileList);
@@ -175,15 +157,234 @@
             this.dialogVisible = true;
             this.hideUpload = true
         },
+        open(text) {
+        this.$confirm(text, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(()=>{
+
+        })
+      },
+        upimgfron(event){
+          console.log(event,'event');
+          const files = event.target.files;
+
+          const formData = new FormData();
+          for (let i = 0; i < files.length; i++) {
+            formData.append('image', files[i]);  // 修改键名以匹配后端期望
+          console.log(formData); // 打印 formData 对象
+          }
+
+          // 发送请求
+          axios.post('/api/single', formData)
+          .then(response => {
+            // 处理上传成功的回调
+            console.log(response,'处理上传成功的回调');
+            if(response.data.type=='wrong'){
+              this.$confirm('没有检测到人脸，是否继续', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.frontimg = response.data.url
+                this.frontimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'front');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'front',url:response.data.url})
+                }
+              })
+
+              // this.open('没有检测到人脸，是否继续').then(()=>{
+              //   this.frontimg = response.data.url
+              // this.imagelist.push(response.data.url)
+              // })
+            }else if(response.data.type=='profile'){
+              this.$confirm('检测到的是侧脸，是否使用', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.frontimg = response.data.url
+                this.frontimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'front');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'front',url:response.data.url})
+                }
+              })
+
+              // this.open('检测到的是正脸，是否使用').then(()=>{
+              //   this.frontimg = response.data.url
+              //   this.imagelist.push(response.data.url)
+              // })
+            }
+            else {
+              this.frontimg = response.data.url
+              this.frontimgbig[0] = response.data.url
+              let todata = this.imagelist.find(image => image.type === 'front');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'front',url:response.data.url})
+                }
+
+            }
+          })
+        },
+        upflankimg(event){
+          console.log(event,'event');
+          const files = event.target.files;
+
+          const formData = new FormData();
+          for (let i = 0; i < files.length; i++) {
+            formData.append('image', files[i]);  // 修改键名以匹配后端期望
+          console.log(formData); // 打印 formData 对象
+          }
+
+          // 发送请求
+          axios.post('/api/single', formData)
+          .then(response => {
+            // 处理上传成功的回调
+            console.log(response,'处理上传成功的回调');
+            if(response.data.type=='wrong'){
+              this.$confirm('没有检测到人脸，是否继续', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.flankimg = response.data.url
+                this.flankimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'profile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'profile',url:response.data.url})
+                }
+
+              })
+              // this.open('没有检测到人脸，是否继续').then(()=>{
+              //   this.flankimg = response.data.url
+              // this.imagelist.push(response.data.url)
+              // })
+            }else if(response.data.type=='front'){
+              this.$confirm('检测到的是正脸，是否使用', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.flankimg = response.data.url
+                his.flankimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'profile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'profile',url:response.data.url})
+                }
+
+              })
+
+              // this.open('检测到的是正脸，是否使用').then(()=>{
+              //   this.flankimg = response.data.url
+              // this.imagelist.push(response.data.url)
+              // })
+            }
+            else {
+              this.flankimg = response.data.url
+              this.flankimgbig[0] = response.data.url
+              let todata = this.imagelist.find(image => image.type === 'profile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'profile',url:response.data.url})
+                }
+
+            }
+          })
+        },
+        //微笑
+        upsmileimg(event){
+          console.log(event,'event');
+          const files = event.target.files;
+
+          const formData = new FormData();
+          for (let i = 0; i < files.length; i++) {
+            formData.append('image', files[i]);  // 修改键名以匹配后端期望
+          console.log(formData); // 打印 formData 对象
+          }
+
+          // 发送请求
+          axios.post('/api/single', formData)
+          .then(response => {
+            // 处理上传成功的回调
+            console.log(response,'处理上传成功的回调');
+            if(response.data.type=='wrong'){
+              this.$confirm('没有检测到人脸，是否继续', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.smileimg = response.data.url
+                this.smileimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'smile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'smile',url:response.data.url})
+                }
+
+              })
+
+              // this.open('没有检测到人脸，是否继续').then(()=>{
+              //   this.smileimg = response.data.url
+              //   this.imagelist.push(response.data.url)
+              // })
+            }else if(response.data.type=='profile'){
+              this.$confirm('检测到的是侧脸，是否使用', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.smileimg = response.data.url
+                this.smileimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'smile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'smile',url:response.data.url})
+                }
+
+              })
+
+              // this.open('检测到的是正脸，是否使用').then(()=>{
+              //   this.smileimg = response.data.url
+              //   this.imagelist.push(response.data.url)
+              // })
+            }else {
+              this.smileimg = response.data.url
+              this.smileimgbig[0] = response.data.url
+              let todata = this.imagelist.find(image => image.type === 'smile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'smile',url:response.data.url})
+                }
+
+            }
+          })
+        },
         handleFileChange(event) {
           const files = event.target.files;
           console.log(files); // 打印文件列表
 
           // 确保用户选择了三个文件
-          if (files.length !== 3) {
-            console.error('You must select 3 files');
-            return;
-          }
+          // if (files.length !== 3) {
+          //   console.error('You must select 3 files');
+          //   return;
+          // }
 
           const formData = new FormData();
           for (let i = 0; i < files.length; i++) {
@@ -200,13 +401,34 @@
             console.log(response,'处理上传成功的回调');
             this.imagelist = response.data
             this.face.img = this.imagelist
-            this.srcList.push(this.imagelist[1]?.url)
-            this.srcList1.push(this.imagelist[0]?.url)
-            this.srcList2.push(this.imagelist[2]?.url)
+            if(this.imagelist[1]){
+              this.frontimg.push(this.imagelist[1]?.url)
+            }
+             if(this.imagelist[0]){
+              this.flankimg.push(this.imagelist[0]?.url)
+            }
+             if(this.imagelist[2]){
+              this.smileimg.push(this.imagelist[2]?.url)
+            }
+            
+            
+            
           })
           .catch(error => {
             // 处理上传失败的回调
           });
+        },
+        openupimgfron(){
+          this.$refs.fileupimgfron.click();
+
+        },
+        opensmileimg(){
+          this.$refs.smileimg.click();
+
+        },
+        openflankimg(){
+          this.$refs.flankimg.click();
+
         },
         openFileInput() {
           this.$refs.fileInput.click();
@@ -250,6 +472,17 @@
     }
     .analyze{
         padding-top: 30px;
+    }
+    .imgdel{
+        width: 150px;
+        background-color: #1d1d1d63;
+        color: #FFFFFF;
+        position: relative;
+        left: 0;
+        top: -25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .uoload{
         margin-top: 15px;
