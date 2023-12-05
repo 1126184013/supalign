@@ -41,151 +41,253 @@
             <div class="inform">
               <div>面像分析结果（13项）</div>
               <div class="informList">
-                <div>
-                  <text>正貌-正面型：</text>
-                  <el-select v-model="value0" placeholder="请选择">
-                    <el-option
-                      v-for="item in options0"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                <div class="front">
+                  <div>
+                  <div class="placeleft">
+                    <text>正貌-正面型：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value0" placeholder="请选择">
+                      <el-option
+                        v-for="item in options0"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <text>正貌-对称性：</text>
-                  <el-select v-model="value1" placeholder="请选择" >
-                    <el-option
-                      v-for="item in options1"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>正貌-下面高：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value2" placeholder="请选择">
+                      <el-option
+                        v-for="item in options2"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked2">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <text>正貌-下面高：</text>
-                  <el-select v-model="value2" placeholder="请选择">
-                    <el-option
-                      v-for="item in options2"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>正貌-对称性：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value1" placeholder="请选择">
+                      <el-option
+                        v-for="item in options1"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked0">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <text>正貌-唇齿位：</text>
-                  <el-select v-model="value3" placeholder="请选择">
-                    <el-option
-                      v-for="item in options3"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>正貌-颏位：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value4" placeholder="请选择">
+                      <el-option
+                        v-for="item in options4"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked4">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <text>正貌-颏位：</text>
-                  <el-select v-model="value4" placeholder="请选择">
-                    <el-option
-                      v-for="item in options4"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>正貌-唇齿位：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value3" placeholder="请选择">
+                      <el-option
+                        v-for="item in options3"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked3">?</el-checkbox>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <div>
+                  <div class="placeleft">
+                    <text>正貌-微笑：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value5" placeholder="请选择">
+                      <el-option
+                        v-for="item in options5"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked5">?</el-checkbox>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="flank" style="margin-left: 1%;">
+                  <div>
+                  <div class="placeleft">
+                    <text>侧貌-侧面型：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value6" placeholder="请选择">
+                      <el-option
+                        v-for="item in options6"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked6">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <text>正貌-微笑：</text>
-                  <el-select v-model="value5" placeholder="请选择">
-                    <el-option
-                      v-for="item in options5"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>侧貌-唇位：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value12" placeholder="请选择">
+                      <el-option
+                        v-for="item in options12"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked12">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <text>侧貌-侧面型：</text>
-                  <el-select v-model="value6" placeholder="请选择">
-                    <el-option
-                      v-for="item in options6"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>侧貌-颏位：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value11" placeholder="请选择">
+                      <el-option
+                        v-for="item in options11"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked11">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <text>侧貌-鼻唇角：</text>
-                  <el-select v-model="value7" placeholder="请选择">
-                    <el-option
-                      v-for="item in options7"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>侧貌-鼻唇角：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value7" placeholder="请选择">
+                      <el-option
+                        v-for="item in options7"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked7">?</el-checkbox>
+                    </div>
+                  </div>
+                  
                 </div>
-                <div>
-                  <text>侧貌-唇位：</text>
-                  <el-select v-model="value8" placeholder="请选择">
-                    <el-option
-                      v-for="item in options8"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
+                
 
                 <div>
-                  <text>侧貌-颏唇沟：</text>
-                  <el-select v-model="value" placeholder="请选择">
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>侧貌-颏唇沟：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value8" placeholder="请选择">
+                      <el-option
+                        v-for="item in options8"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked8">?</el-checkbox>
+                    </div>
+                  </div>
                 </div>
-
+                
                 <div>
-                  <text>侧貌-颏位：</text>
-                  <el-select v-model="value11" placeholder="请选择">
-                    <el-option
-                      v-for="item in options11"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <div class="placeleft">
+                    <text>侧貌-下颌角：</text>
+                  </div>
+                  <div class="placeright">
+                    <el-select v-model="value9" placeholder="请选择">
+                      <el-option
+                        v-for="item in options9"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked9">?</el-checkbox>
+                    </div>
+                  </div>
+                  
                 </div>
-                <div>
-                  <text>侧貌-下颌角：</text>
-                  <el-select v-model="value9" placeholder="请选择">
-                    <el-option
-                      v-for="item in options9"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
                 </div>
-                <div>
-                  <text>口周肌肉分析：</text>
-                  <el-select v-model="value10" placeholder="请选择">
-                    <el-option
-                      v-for="item in options10"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                <div style="display: flex;justify-content: flex-start;width: 66%; ">
+                  <div style="text-align: left;width: 160px;">
+                    <text>口周肌肉分析：</text>
+                  </div>
+                  <div class="placeright" style="width: 100%;">
+                    <el-select v-model="value10" multiple placeholder="请选择" style="width: 100%;">
+                      <el-option
+                        v-for="item in options10"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                    <div class="check">
+                      <el-checkbox v-model="checked10">?</el-checkbox>
+                    </div>
+                  </div>
+                  
                 </div>
+                
               </div>
             </div>
         </div>
@@ -205,11 +307,25 @@
             dialogImageUrl: '',
             dialogVisible: false,
             procedure:0,
+            
             srcList:[],
             srcList0:[],
             srcList1:[],
             faceimg:[],
             facelist:{},
+            checked0: false,
+            checked1: false,
+            checked2: false,
+            checked3: false,
+            checked4: false,
+            checked5: false,
+            checked6: false,
+            checked7: false,
+            checked8: false,
+            checked9: false,
+            checked10: false,
+            checked11: false,
+            checked12: false,
             value:'0',
             value0:"",
             value1:"",
@@ -220,9 +336,10 @@
             value6:"",
             value7:"",
             value8:"",
-            value9:0,
-            value10:0,
-            value11:0,
+            value9:'',
+            value10:[],
+            value11:'',
+            value12:'',
             options: [{
               value: '0',
               label: '正常'
@@ -230,32 +347,41 @@
             //面型
             options0: [{
               value: 0,
-              label: '宽面型'
+              label: '短面型'
             },{
               value: 1,
-              label: '正常面型'
+              label: '基本均等'
             },{
               value: 2,
-              label: '高面型'
+              label: '长面型'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
             //对称
             options1: [{
               value: 0,
-              label: '对称'
+              label: '基本对称'
             },{
               value: 1,
               label: '不对称'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
             //下面高
             options2: [{
               value: 0,
               label: '长'
             },{
+              value: 2,
+              label: '正常'
+            },{
               value: 1,
               label: '短'
             },{
-              value: 2,
-              label: '正常'
+              value: 10 || '10',
+              label: '-'
             }],
             //唇齿位
             options3: [{
@@ -263,70 +389,99 @@
               label: '正常'
             },{
               value: 1,
-              label: '不闭合'
+              label: '唇闭合不全'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
-            //颏位
+            //正貌-颏位
             options4: [{
               value: 0,
-              label: '正常'
+              label: '基本居中'
             },{
               value: 1,
-              label: '不正常'
+              label: '偏左'
+            },{
+              value: 2,
+              label: '偏右'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
             //微笑
             options5: [{
               value: 0,
-              label: '正常微笑'
+              label: '正常'
             },{
               value: '1',
-              label: '微笑露龈'
+              label: '露龈笑'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
-            //脸型
+            //侧面型
             options6: [{
               value: 0,
               label: '凹面型'
             },{
+              value: 2,
+              label: '直面型'
+            },{
               value: 1,
               label: '凸面型'
             },{
-              value: 2,
-              label: '正常'
+              value: 10 || '10',
+              label: '-'
             }],
             //鼻唇角
             options7: [{
-              value: 0,
-              label: '鼻唇角小'
-            },{
               value: 1,
-              label: '鼻唇角大'
+              label: '大'
             },{
               value: 2,
-              label: '鼻唇角正常'
+              label: '正常'
+            },{
+              value: 0,
+              label: '小'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
+
             //颏唇沟
             options8: [{
               value: 0,
-              label: '颏唇沟浅'
+              label: '浅'
             },{
               value: 1,
-              label: '颏唇沟正常'
+              label: '正常'
+            },{
+              value: 2,
+              label: '深'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
+            //下颌角
             options9: [{
+              value: 2,
+              label: '大'
+            },{
               value: 0,
               label: '正常'
             },{
               value: 1,
-              label: '下颌角变大'
+              label: '小'
             },{
-              value: 2,
-              label: '下颌角变小'
+              value: 10 || '10',
+              label: '-'
             }],
             options10: [{
-              value: 0,
+              value: 0 || '',
               label: '无'
             },{
               value: 1,
-              label: '须肌紧张'
+              label: '颏肌紧张'
             },{
               value: 2,
               label: '口周肌肉紧张'
@@ -336,13 +491,35 @@
             },{
               value: 4,
               label: '无明显异常'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
             options11: [{
               value: 0,
               label: '正常'
             },{
               value: 1,
-              label: '异常'
+              label: '前'
+            },{
+              value: 2,
+              label: '后'
+            },{
+              value: 10 || '10',
+              label: '-'
+            }],
+            options12: [{
+              value: 1 || '1',
+              label: '前'
+            },{
+              value: 0 || '0',
+              label: '正常'
+            },{
+              value: 2 || '2',
+              label: '后'
+            },{
+              value: 10 || '10',
+              label: '-'
             }],
             
         }
@@ -350,11 +527,11 @@
       created() {
         
         this.faceimg = this.face.img
-        console.log(this.faceimg,'sss')
+        console.log(this.face,'sssss')
         
-        this.srcList.push(this.faceimg[0]?.url)
-        this.srcList0.push(this.faceimg[1]?.url)
-        this.srcList1.push(this.faceimg[2]?.url)
+        this.srcList.push(this.faceimg.find(image => image.type === 'front').url)
+        this.srcList0.push(this.faceimg.find(image => image.type === 'profile').url)
+        this.srcList1.push(this.faceimg.find(image => image.type === 'smile').url)
         this.facelist = this.face.list
         this.value0 = this.face.list.results[0]
         this.value1 = this.face.list.results[1]
@@ -364,7 +541,14 @@
         this.value5 = this.face.list.results[5]
         this.value6 = this.face.list.results[6]
         this.value7 = this.face.list.results[7]
-        this.value8 = this.face.list.results[8]
+        this.value12 = this.face.list.results[8]
+        this.value8 = this.face.list.results[9]
+        this.value11 = this.face.list.results[10]
+        this.value9 = this.face.list.results[11]
+        // if(this.face.list.results[12] !== ""){
+        //   this.value10.push(this.face.list.results[12])
+        // }
+        
        },
       methods: {
 
@@ -388,6 +572,39 @@
         padding: 20px 0;
         height: 100vh;
     }
+    .front{
+      >div{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5%;
+        >div{
+          width: 60%;
+        }
+      }
+    }
+    .check{
+      margin-left: 2%;
+      width: 2% !important
+    }
+    .placeleft{
+      width: 35% !important ;
+      text-align: left;
+    }
+    .placeright{
+      display: flex;
+      justify-content: flex-end;
+    }
+    .flank{
+      >div{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5%;
+        >div{
+          width: 60%;
+        }
+      }
+    }
+    
     .imglist{
       width: 30%;
       display: flex;
@@ -401,10 +618,10 @@
         padding-top: 30px;
     }
     .inform{
-      width: 58%;
+      width: 59%;
       margin-left: 2%;
       .informList{
-        width: 90%;
+        width: 100%;
         margin-left: 2%;
         display: flex;
         flex-wrap: wrap;
@@ -413,8 +630,8 @@
         text{
           text-align: left;
         }
-        div{
-          width: 48%;
+        >div{
+          width: 46%;
           margin-top: 10px;
         }
       }

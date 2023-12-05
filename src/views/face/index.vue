@@ -68,12 +68,17 @@
       <div v-if="procedure==1" style="">
         <FaceAnalyze :face="face"></FaceAnalyze>
       </div>
+      <div v-if="procedure==2" style="">
+        <FaceReport :face="face"></FaceReport>
+      </div>
       
       <div class="next">
         <div @click="lasttype" class="nextsty">上一步</div>
-        <div class="nextstynull" v-if="imagelist==''">
+        <div class="nextstynull" v-if="imagelist.length<3">
           下一步
         </div>
+        <div class="nextsty" v-else-if="procedure=='1'">生成报告</div>
+        <!-- <div @click="nexttype" class="nextsty" v-else-if="procedure=='1'">生成报告</div> -->
         <div @click="nexttype" class="nextsty" v-else>下一步</div>
       </div>
       <el-loading v-if="loading" :text="loadingText" :spinner="loadingSpinner" >
@@ -85,6 +90,7 @@
   
   <script>
   import FaceAnalyze from './faceAnalyze'
+  import FaceReport from './faceReport'
   import axios from 'axios'
     export default {
       name: 'face',
@@ -106,14 +112,23 @@
             loading: false,
             loadingText: '加载中...', // 加载动画的文本提示
             loadingSpinner: 'el-icon-loading', // 加载动画的图标
+            
         }
       },
       components:{
-        FaceAnalyze
+        FaceAnalyze,
+        FaceReport
       },
       methods: {
         nexttype(){
+          if(this.procedure == 1){
+            this.procedure++
+            return
+          }
           this.loading = true; // 显示加载动画
+          this.imagelist.find(image => image.type === 'front').url = this.frontimg;
+          this.imagelist.find(image => image.type === 'profile').url = this.flankimg;
+          this.imagelist.find(image => image.type === 'smile').url = this.smileimg;
           console.log(this.imagelist,'下一步')
           axios.post('/api/face', this.imagelist)
           .then(response => {
@@ -166,6 +181,7 @@
 
         })
       },
+      //正脸
         upimgfron(event){
           console.log(event,'event');
           const files = event.target.files;
@@ -196,11 +212,6 @@
                   this.imagelist.push({type:'front',url:response.data.url})
                 }
               })
-
-              // this.open('没有检测到人脸，是否继续').then(()=>{
-              //   this.frontimg = response.data.url
-              // this.imagelist.push(response.data.url)
-              // })
             }else if(response.data.type=='profile'){
               this.$confirm('检测到的是侧脸，是否使用', '提示', {
                 confirmButtonText: '确定',
@@ -216,11 +227,21 @@
                   this.imagelist.push({type:'front',url:response.data.url})
                 }
               })
-
-              // this.open('检测到的是正脸，是否使用').then(()=>{
-              //   this.frontimg = response.data.url
-              //   this.imagelist.push(response.data.url)
-              // })
+            }else if(response.data.type=='smile'){
+              this.$confirm('检测到的是微笑脸，是否使用', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.frontimg = response.data.url
+                this.frontimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'front');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'front',url:response.data.url})
+                }
+              })
             }
             else {
               this.frontimg = response.data.url
@@ -235,6 +256,7 @@
             }
           })
         },
+        //侧脸
         upflankimg(event){
           console.log(event,'event');
           const files = event.target.files;
@@ -266,10 +288,6 @@
                 }
 
               })
-              // this.open('没有检测到人脸，是否继续').then(()=>{
-              //   this.flankimg = response.data.url
-              // this.imagelist.push(response.data.url)
-              // })
             }else if(response.data.type=='front'){
               this.$confirm('检测到的是正脸，是否使用', '提示', {
                 confirmButtonText: '确定',
@@ -277,7 +295,7 @@
                 type: 'warning'
               }).then(()=>{
                 this.flankimg = response.data.url
-                his.flankimgbig[0] = response.data.url
+                this.flankimgbig[0] = response.data.url
                 let todata = this.imagelist.find(image => image.type === 'profile');
                 if(todata){
                   todata.url = response.data.url
@@ -286,11 +304,23 @@
                 }
 
               })
+            }
+            else if(response.data.type=='smile'){
+              this.$confirm('检测到的是微笑脸，是否使用', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.flankimg = response.data.url
+                this.flankimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'profile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'profile',url:response.data.url})
+                }
 
-              // this.open('检测到的是正脸，是否使用').then(()=>{
-              //   this.flankimg = response.data.url
-              // this.imagelist.push(response.data.url)
-              // })
+              })
             }
             else {
               this.flankimg = response.data.url
@@ -337,11 +367,6 @@
                 }
 
               })
-
-              // this.open('没有检测到人脸，是否继续').then(()=>{
-              //   this.smileimg = response.data.url
-              //   this.imagelist.push(response.data.url)
-              // })
             }else if(response.data.type=='profile'){
               this.$confirm('检测到的是侧脸，是否使用', '提示', {
                 confirmButtonText: '确定',
@@ -358,11 +383,22 @@
                 }
 
               })
+            }else if(response.data.type=='front'){
+              this.$confirm('检测到的是正脸，是否使用', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+              }).then(()=>{
+                this.smileimg = response.data.url
+                this.smileimgbig[0] = response.data.url
+                let todata = this.imagelist.find(image => image.type === 'smile');
+                if(todata){
+                  todata.url = response.data.url
+                }else{
+                  this.imagelist.push({type:'smile',url:response.data.url})
+                }
 
-              // this.open('检测到的是正脸，是否使用').then(()=>{
-              //   this.smileimg = response.data.url
-              //   this.imagelist.push(response.data.url)
-              // })
+              })
             }else {
               this.smileimg = response.data.url
               this.smileimgbig[0] = response.data.url
@@ -376,6 +412,7 @@
             }
           })
         },
+        //批量上传
         handleFileChange(event) {
           const files = event.target.files;
           console.log(files); // 打印文件列表
@@ -401,18 +438,26 @@
             console.log(response,'处理上传成功的回调');
             this.imagelist = response.data
             this.face.img = this.imagelist
-            if(this.imagelist[1]){
-              this.frontimg.push(this.imagelist[1]?.url)
+            console.log(this.frontimg,this.flankimg,this.smileimg,'this.frontimg')
+
+
+            let tabfrontimg = this.imagelist.find(image => image.type === 'front');
+            let tabflankimg = this.imagelist.find(image => image.type === "profile");
+            let tabsmileimg = this.imagelist.find(image => image.type === "smile");
+            if(tabfrontimg){
+              this.frontimg = tabfrontimg.url
+              this.frontimgbig[0] = tabfrontimg.url
             }
-             if(this.imagelist[0]){
-              this.flankimg.push(this.imagelist[0]?.url)
+            if(tabflankimg){
+              this.flankimg= tabflankimg.url
+              this.flankimgbig[0] = tabflankimg.url
             }
-             if(this.imagelist[2]){
-              this.smileimg.push(this.imagelist[2]?.url)
-            }
-            
-            
-            
+            if(tabsmileimg){
+              this.smileimg=tabsmileimg.url
+              this.smileimgbig[0] = tabsmileimg.url
+            }     
+            console.log(this.frontimg,this.flankimg,this.smileimg,'this.frontimg')
+
           })
           .catch(error => {
             // 处理上传失败的回调
@@ -501,7 +546,7 @@
       display: flex;
         position: relative;
         left: 45%;
-        bottom: -30%;
+        bottom: -45%;
     }
     .nextsty{
       width: 8%;

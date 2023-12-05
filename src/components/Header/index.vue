@@ -4,7 +4,7 @@
     <div v-if="state == 1" class="tabs">
       <div>AI自测工具</div>
       <div>产品管理</div>
-      <div>系统管理</div>
+      <div>系统理</div>
     </div>
 
     <div class="info">
@@ -13,7 +13,7 @@
       </el-icon>
       <el-dropdown class="item">
         <span class="el-dropdown-link">
-          测试111
+          <span style="font-size: 14px;">  测试111</span>
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -78,7 +78,7 @@ const goToHome = () => {
   .info {
     display: flex;
     align-items: center;
-    font-size: 25px;
+    // font-size: 16px;
     font-family: Microsoft YaHei;
     font-weight: 400;
     color: #030303;
@@ -88,7 +88,7 @@ const goToHome = () => {
       margin: 0 10px;
 
       .el-dropdown-link {
-        font-size: 25px;
+        // font-size: 25px;
         font-family: Microsoft YaHei;
         font-weight: 400;
         color: #030303;
