@@ -565,7 +565,7 @@
         margin: 0 auto;
         // border: 1px solid #030303;
         padding: 20px 0;
-        height: 100vh;
+        // height: 100vh;
     }
     .front{
       >div{

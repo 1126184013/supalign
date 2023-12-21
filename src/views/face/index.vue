@@ -515,9 +515,9 @@ export default {
 }
 
 .body {
-  margin: 0 26%;
   width: 96%;
   margin: 0 auto;
+  overflow-x: hidden;
   // border: 1px solid #030303;
   padding: 20px 0;
 
@@ -591,7 +591,7 @@ export default {
   position: relative;
   left: 45%;
   top: 5%;
-
+  margin-top: 200px;
 }
 
 .nextsty {
