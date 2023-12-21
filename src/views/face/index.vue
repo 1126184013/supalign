@@ -1,5 +1,5 @@
 <template>
-  <Header :page="'face'"/>
+  <Header :page="'face'" />
   <div class="body">
     <div class="head">
       <text :class="procedure >= 0 ? 'headcolor' : ''">1、上传面像图片 > </text>
@@ -25,7 +25,7 @@
         <div class="uoload">
           <div class="faceimg">
             <input type="file" ref="fileupimgfron" multiple @change="upimgfron" style="display: none">
-            <img src="../../assets/face2/face1.png" alt="" style="width: 100%;height: 100%;" v-if="frontimg.length < 1"
+            <img src="../../assets/face2/face1.png" alt="" style="width: 173px; height: 187px" v-if="frontimg.length < 1"
               @click="openupimgfron">
             <div v-else>
               <el-image style="width: 173px; height: 187px" :src="frontimg" :preview-src-list="frontimgbig">
@@ -37,7 +37,7 @@
           </div>
           <div class="faceimg">
             <input type="file" ref="flankimg" multiple @change="upflankimg" style="display: none">
-            <img src="../../assets/face2/face2.png" alt="" style="width: 100%;height: 100%;" v-if="flankimg.length < 1"
+            <img src="../../assets/face2/face2.png" alt="" style="width: 173px; height: 187px" v-if="flankimg.length < 1"
               @click="openflankimg">
             <div v-else>
               <el-image style="width: 173px; height: 187px" :src="flankimg" :preview-src-list="flankimgbig">
@@ -49,7 +49,7 @@
           </div>
           <div class="faceimg">
             <input type="file" ref="smileimg" multiple @change="upsmileimg" style="display: none">
-            <img src="../../assets/face2/face3.png" alt="" style="width: 100%;height: 100%;" v-if="smileimg.length < 1"
+            <img src="../../assets/face2/face3.png" alt="" style="width: 173px; height: 187px" v-if="smileimg.length < 1"
               @click="opensmileimg">
             <div v-else>
               <el-image style="width: 173px; height: 187px" :src="smileimg" :preview-src-list="smileimgbig">
@@ -92,6 +92,7 @@
 import FaceAnalyze from './faceAnalyze'
 import FaceReport from './faceReport'
 import Header from "../../components/Header/index.vue";
+import { ElLoading } from 'element-plus'
 import axios from 'axios'
 export default {
   name: 'face',
@@ -424,6 +425,10 @@ export default {
     },
     //批量上传
     handleFileChange(event) {
+      // 加载动画
+      // ElLoading.service()
+      const loadingInstance = ElLoading.service()
+
       const files = event.target.files;
       console.log(files); // 打印文件列表
 
@@ -468,6 +473,8 @@ export default {
           }
           console.log(this.frontimg, this.flankimg, this.smileimg, 'this.frontimg')
 
+          // 关闭加载动画
+          loadingInstance.close()
         })
         .catch(error => {
           // 处理上传失败的回调
@@ -552,7 +559,7 @@ export default {
 }
 
 .imgdel {
-  width: 150px;
+  width: 173px;
   background-color: #1d1d1d63;
   color: #FFFFFF;
   position: relative;
@@ -583,7 +590,7 @@ export default {
   display: flex;
   position: relative;
   left: 45%;
-  top: 300px;
+  top: 5%;
 
 }
 
