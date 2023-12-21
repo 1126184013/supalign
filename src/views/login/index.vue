@@ -3,8 +3,8 @@
     <div class="page">
       <div class="left">
         <div class="lefttext">
-          专注0-12岁<br/>
-           中国儿童颜面生长发育平衡管理
+          专注0-12岁<br />
+          中国儿童颜面生长发育平衡管理
         </div>
         <!-- <div class="text">
           <span>Welcome!</span>
@@ -23,7 +23,6 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script setup>
@@ -59,13 +58,16 @@ const handleLogin = async () => {
 </script>
 
 <style lang="scss" scoped>
-.box{
+.box {
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
+  background: url(../../assets/bgc.png) right no-repeat;
+  background-size: auto 100%;
 }
+
 .page {
   min-width: 55%;
   height: 70%;
@@ -75,15 +77,17 @@ const handleLogin = async () => {
 
   .left {
     position: relative;
-    width:50%;
+    width: 50%;
     height: 100%;
     background-image: url(../../assets/login.png);
     background-size: 100% 100%;
-    .lefttext{
+
+    .lefttext {
       margin: 30px;
       font-size: 20px;
       font-size: 500;
     }
+
     .login {
       width: 100%;
       height: 100%;
@@ -108,9 +112,11 @@ const handleLogin = async () => {
   }
 
   .right {
-    width:50%;
+    width: 50%;
     height: 100%;
     position: relative;
+    background-color: #fff;
+
     .logo {
       width: 60%;
       margin-left: 7%;
@@ -118,6 +124,7 @@ const handleLogin = async () => {
     }
 
     .form {
+      margin-top: 10%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -140,7 +147,7 @@ const handleLogin = async () => {
         width: 80%;
         height: 40px;
         margin: 5% 0;
-        border: 1px solid #bfbfbf;
+        border: 1px solid #7BA9B9;
         border-radius: 8px;
         font-size: 20px;
         font-family: Source Han Sans SC;
@@ -148,6 +155,43 @@ const handleLogin = async () => {
         // color: #bfbfbf;
         // line-height: 48px;
         padding: 0 20px;
+
+      }
+
+      .input:focus {
+        outline: 2px solid #7ba9b9
+      }
+
+      .input::-webkit-input-placeholder {
+        /* WebKit browsers */
+        font-size: 20px;
+        font-weight: 400;
+        color: #bfbfbf;
+        line-height: 40px;
+      }
+
+      .input:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        font-size: 20px;
+        font-weight: 400;
+        color: #bfbfbf;
+        line-height: 40px;
+      }
+
+      .input::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        font-size: 20px;
+        font-weight: 400;
+        color: #bfbfbf;
+        line-height: 40px;
+      }
+
+      .input:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        font-size: 20px;
+        font-weight: 400;
+        color: #bfbfbf;
+        line-height: 40px;
       }
 
       .btn {

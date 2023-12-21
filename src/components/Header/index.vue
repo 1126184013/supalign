@@ -1,11 +1,6 @@
 <template>
   <div class="header">
     <img class="logo" :src="logo" @click="goToHome" />
-    <div v-if="state == 1" class="tabs">
-      <div>AI自测工具</div>
-      <div>产品管理</div>
-      <div>系统理</div>
-    </div>
 
     <div class="info">
       <el-icon class="item">
@@ -46,11 +41,11 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import logo from "@/assets/logo.png";
 
-const props = defineProps(['state'])
 const router = useRouter()
 
 const circleUrl = ref('')
-const outLogin = async () => {
+const outLogin = async ()=>{
+  console.log('statecode')
   router.push({ path: "/login" });
 }
 const goToHome = () => {
@@ -60,7 +55,7 @@ const goToHome = () => {
 
 <style lang="scss" scoped>
 .header {
-  // width: 100vw;
+  width: auto;
   padding: 30px;
   display: flex;
   justify-content: space-between;
@@ -69,10 +64,6 @@ const goToHome = () => {
   .logo {
     width: 427px;
     height: 40px;
-  }
-
-  .tabs {
-    display: flex;
   }
 
   .info {

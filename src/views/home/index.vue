@@ -1,33 +1,7 @@
 <template>
   <div class="page">
-    <header>
-      <img class="logo" :src="logo" />
-      <div class="info">
-        <el-icon class="item">
-          <BellFilled />
-        </el-icon>
-        <el-dropdown class="item">
-          <span class="el-dropdown-link">
-            测试111
-            <el-icon class="el-icon--right">
-              <arrow-down />
-            </el-icon>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item disabled>暂无其他数据</el-dropdown-item>
-              <!-- <el-dropdown-item>Action 2</el-dropdown-item>
-              <el-dropdown-item>Action 3</el-dropdown-item>
-              <el-dropdown-item disabled>Action 4</el-dropdown-item>
-              <el-dropdown-item divided>Action 5</el-dropdown-item> -->
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-        <span class="item">测试账号11</span>
-        <el-avatar class="item" :size="50" :src="circleUrl" />
-        <span style="font-size: 14px;" @click="outLogin">注销</span>
-      </div>
-    </header>
+    <Header />
+
     <body>
       <div v-if="statecode == 0">
         <img class="homeImg" :src="home" />
@@ -63,7 +37,7 @@
         </div>
       </div>
       <div v-if="statecode == 1">
-        <Face @tabs="tabstate"/>
+        <Face @tabs="tabstate" />
       </div>
     </body>
 
@@ -116,6 +90,7 @@ import { useRoute, useRouter } from "vue-router";
 import skull from "@/assets/home/skull.png";
 import video from "@/assets/home/video.png";
 import Face from "@/views/face/index.vue";
+import Header from "../../components/Header/index.vue";
 const statecode = ref(0)
 const router = useRouter();
 onMounted(() => {
@@ -123,43 +98,47 @@ onMounted(() => {
   document.body.style.overflowX = "hidden";
   document.body.style.overflowY = "scroll";
 });
-const tabstate = async ()=>{
+const tabstate = async () => {
   if (statecode.value == 1) {
     statecode.value = 0
-  }else if(statecode.value == 0){
+  } else if (statecode.value == 0) {
     statecode.value = 1
   }
-  
+
   console.log(statecode)
 }
-const outLogin = async ()=>{
+const outLogin = async () => {
   console.log('statecode')
   router.push({ path: "/login" });
 }
-const surface = async ()=>{
+const surface = async () => {
   router.push({ path: "/face" });
 }
-const headside = async ()=>{
+const headside = async () => {
   router.push({ path: "/headside" });
 }
 </script>
 
 <style lang="scss" scoped>
-.select{
-  color:#3D859E;
+.select {
+  color: #3D859E;
 }
+
 .page {
   width: 100vw;
   height: 100vh;
+
   header {
     padding: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .logo {
       width: 427px;
       height: 40px;
     }
+
     .info {
       display: flex;
       align-items: center;
@@ -168,8 +147,10 @@ const headside = async ()=>{
       font-weight: 400;
       color: #030303;
       line-height: 50px;
+
       .item {
         margin: 0 10px;
+
         .el-dropdown-link {
           font-size: 18px;
           font-family: Microsoft YaHei;
@@ -180,43 +161,52 @@ const headside = async ()=>{
       }
     }
   }
+
   .homeImg {
     width: 100vw;
   }
+
   .main {
     width: 100vw;
+
     .content {
       margin: 30px 18%;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
-      .anallist{
+
+      .anallist {
         border: 1px solid #000;
         width: 48%;
-        padding:15px 0 ;
+        padding: 15px 0;
         margin-top: 15px;
         display: flex;
         justify-content: center;
         font-size: 28px;
-        .listimg{
+
+        .listimg {
           display: flex;
           width: 63%;
           // justify-content: space-around;
           align-items: center;
-          >div{
+
+          >div {
             margin-left: 10px;
           }
-          
+
         }
-        img{
+
+        img {
           width: 80px;
           height: 80px;
         }
       }
+
       .title {
         display: flex;
         flex-direction: column;
         align-items: center;
+
         span {
           font-size: 36px;
           font-family: Microsoft YaHei;
@@ -224,6 +214,7 @@ const headside = async ()=>{
           color: #222222;
           line-height: 46px;
         }
+
         .underline {
           margin-top: 10px;
           width: 98px;
@@ -231,15 +222,18 @@ const headside = async ()=>{
           background: #76a0b1;
         }
       }
+
       .options {
         margin-top: 30px;
         display: flex;
         flex-wrap: wrap;
-        .optiontext{
+
+        .optiontext {
           font-size: 20px;
           padding: 28px 15px;
           font-weight: bold;
         }
+
         .optionsImg1 {
           background-image: url(../../assets/home/facial.png);
           background-size: 100% 100%;
@@ -247,6 +241,7 @@ const headside = async ()=>{
           width: 36vw;
           margin: 10px 10px 10px 0;
         }
+
         .optionsImg2 {
           background-image: url(../../assets/home/dental.png);
           background-size: 100% 100%;
@@ -254,6 +249,7 @@ const headside = async ()=>{
           width: 25vw;
           margin: 10px 0 10px 10px;
         }
+
         .optionsImg3 {
           background-image: url(../../assets/home/skull.png);
           background-size: 100% 100%;
@@ -261,6 +257,7 @@ const headside = async ()=>{
           width: 25vw;
           margin: 0 10px 0 0;
         }
+
         .optionsImg4 {
           background-image: url(../../assets/home/video.png);
           background-size: 100% 100%;
@@ -271,10 +268,12 @@ const headside = async ()=>{
       }
     }
   }
+
   footer {
     background-color: #76a0b1;
     width: 100vw;
     height: 540px;
+
     .bottom {
       margin: 0 15%;
       padding: 40px;
@@ -284,6 +283,7 @@ const headside = async ()=>{
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
       :deep(.el-row) {
         margin-bottom: 40px;
       }
