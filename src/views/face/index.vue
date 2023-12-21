@@ -548,6 +548,15 @@ export default {
   width: 100%;
   padding-bottom: 15px;
   border-bottom: 8px solid #dddddd;
+  position: relative;
+}
+
+.next {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 200px;
 }
 
 .headcolor {
@@ -586,14 +595,6 @@ export default {
   display: none;
 }
 
-.next {
-  display: flex;
-  position: relative;
-  left: 45%;
-  top: 5%;
-  margin-top: 200px;
-}
-
 .nextsty {
   width: 200px;
   height: 30px;
@@ -602,7 +603,7 @@ export default {
   color: #FFFFFF;
   border-radius: 5px;
   text-align: center;
-  margin-left: 1%;
+  margin: 0 1%;
   line-height: 30px;
 }
 
