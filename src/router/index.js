@@ -42,7 +42,7 @@ const router = createRouter({
     // 重定向
     {
       path: '/',
-      redirect: '/login',
+      redirect: '/home',
     },
     // 首页
     {
