@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" :class="page == 'face' ? 'bgc' : ''">
     <img class="logo" :src="logo" @click="goToHome" />
 
     <div class="info">
@@ -30,22 +30,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SkuForm'
-}
-</script>
-
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import logo from "@/assets/logo.png";
 
+const props = defineProps(['page'])
 const router = useRouter()
 
 const circleUrl = ref('')
-const outLogin = async ()=>{
-  console.log('statecode')
+const outLogin = async () => {
   router.push({ path: "/login" });
 }
 const goToHome = () => {
@@ -87,5 +81,9 @@ const goToHome = () => {
       }
     }
   }
+}
+
+.bgc {
+  background-color: #f2f2f2;
 }
 </style>

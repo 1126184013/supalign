@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Header :page="'face'"/>
   <div class="body">
     <div class="head">
       <text :class="procedure >= 0 ? 'headcolor' : ''">1、上传面像图片 > </text>
@@ -588,22 +588,26 @@ export default {
 }
 
 .nextsty {
-  width: 8%;
+  width: 200px;
+  height: 30px;
   padding: 5px;
   background-color: #7BA9B9;
   color: #FFFFFF;
   border-radius: 5px;
   text-align: center;
   margin-left: 1%;
+  line-height: 30px;
 }
 
 .nextstynull {
-  width: 8%;
+  width: 200px;
+  height: 30px;
   padding: 5px;
   background-color: #828283;
   color: #FFFFFF;
   border-radius: 5px;
   text-align: center;
   margin-left: 1%;
+  line-height: 30px;
 }
 </style>
