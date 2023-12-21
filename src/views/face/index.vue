@@ -1,9 +1,9 @@
 <template>
     <div class="body">
       <div class="head">
-        <text>1、上传面像图片 > </text>
-        <text>2、分析结果 > </text>
-        <text>3、生成生成报告</text>
+        <text :class="procedure>=0?'headcolor':''">1、上传面像图片 > </text>
+        <text :class="procedure>=1?'headcolor':''">2、分析结果 > </text>
+        <text :class="procedure>=2?'headcolor':''">3、生成生成报告</text>
         <!-- <el-steps :active="active" simple space="1">
             <el-step title="步骤 1" ></el-step>
             <el-step title="步骤 2" ></el-step>
@@ -12,75 +12,79 @@
 
         <!-- <el-button style="margin-top: 12px;" @click="next">下一步</el-button> -->
       </div>
-      <div class="analyze" v-if="procedure==0">
-        <div><text style="color: red;">*</text>面像分析：
-          <input type="file" ref="fileInput" multiple @change="handleFileChange" style="display: none">
-          <el-button size="small" type="primary" @click="openFileInput" v-loading.fullscreen.lock="fullscreenLoading">批量上传</el-button>
+      <div style="padding: 30px 0;">
+            <div class="analyze" v-if="procedure==0">
+              <div>
+                <input type="file" ref="fileInput" multiple @change="handleFileChange" style="display: none">
+                <el-button class="custom-button" size="small" type="primary" @click="openFileInput" v-loading.fullscreen.lock="fullscreenLoading">批量上传</el-button>
 
-          <!-- <text>(上传规则)</text> -->
-        </div>
-        <div class="uoload">
-            <div class="faceimg">
-              <input type="file" ref="fileupimgfron" multiple @change="upimgfron" style="display: none">
-              <img src="../../assets/face/face1.png" alt="" style="width: 100%;height: 100%;" v-if="frontimg.length<1"  @click="openupimgfron">
-                  <div v-else >
-                    <el-image 
-                      style="width: 150px; height: 190px"
-                      :src="frontimg" 
-                      :preview-src-list="frontimgbig">
-                    </el-image>
-                    <div class="imgdel" @click="imgdel('frontimg')">删除</div>
+                <!-- <text>(上传规则)</text> -->
+              </div>
+              <div class="uoload">
+                  <div class="faceimg">
+                    <input type="file" ref="fileupimgfron" multiple @change="upimgfron" style="display: none">
+                    <img src="../../assets/face/face1.png" alt="" style="width: 100%;height: 100%;" v-if="frontimg.length<1"  @click="openupimgfron">
+                        <div v-else >
+                          <el-image 
+                            style="width: 150px; height: 190px"
+                            :src="frontimg" 
+                            :preview-src-list="frontimgbig">
+                          </el-image>
+                          <div class="imgdel" @click="imgdel('frontimg')">删除</div>
+                        </div>
+                    
+                    <!-- <img :src="imagelist[1]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
                   </div>
-              
-              <!-- <img :src="imagelist[1]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
-            </div>
-            <div class="faceimg">
-              <input type="file" ref="flankimg" multiple @change="upflankimg" style="display: none">
-              <img src="../../assets/face/face2.png" alt="" style="width: 100%;height: 100%;" v-if="flankimg.length<1"  @click="openflankimg">
-              <div v-else >
-                <el-image 
-                  style="width: 150px; height: 190px"
-                  :src="flankimg" 
-                  :preview-src-list="flankimgbig">
-                </el-image>
-                <div class="imgdel" @click="imgdel('flankimg')">删除</div>
-              </div>
-              
-              <!-- <img :src="imagelist[0]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
-            </div>
-            <div class="faceimg">
-              <input type="file" ref="smileimg" multiple @change="upsmileimg" style="display: none">
-              <img src="../../assets/face/face3.png" alt="" style="width: 100%;height: 100%;" v-if="smileimg.length<1" @click="opensmileimg">
-              <div v-else  >
-                <el-image 
-                  style="width: 150px; height: 190px"
-                  :src="smileimg" 
-                  :preview-src-list="smileimgbig">
-                </el-image>
-                <div class="imgdel" @click="imgdel('smileimg')">删除</div>
+                  <div class="faceimg">
+                    <input type="file" ref="flankimg" multiple @change="upflankimg" style="display: none">
+                    <img src="../../assets/face/face2.png" alt="" style="width: 100%;height: 100%;" v-if="flankimg.length<1"  @click="openflankimg">
+                    <div v-else >
+                      <el-image 
+                        style="width: 150px; height: 190px"
+                        :src="flankimg" 
+                        :preview-src-list="flankimgbig">
+                      </el-image>
+                      <div class="imgdel" @click="imgdel('flankimg')">删除</div>
+                    </div>
+                    
+                    <!-- <img :src="imagelist[0]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
+                  </div>
+                  <div class="faceimg">
+                    <input type="file" ref="smileimg" multiple @change="upsmileimg" style="display: none">
+                    <img src="../../assets/face/face3.png" alt="" style="width: 100%;height: 100%;" v-if="smileimg.length<1" @click="opensmileimg">
+                    <div v-else  >
+                      <el-image 
+                        style="width: 150px; height: 190px"
+                        :src="smileimg" 
+                        :preview-src-list="smileimgbig">
+                      </el-image>
+                      <div class="imgdel" @click="imgdel('smileimg')">删除</div>
 
+                    </div>
+                    
+                    <!-- <img :src="imagelist[2]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
+                  </div>
               </div>
-              
-              <!-- <img :src="imagelist[2]?.url" alt="" style="width: 100%;height: 100%;" v-else> -->
             </div>
-        </div>
+            <div v-if="procedure==1" style="">
+              <FaceAnalyze :face="face"></FaceAnalyze>
+            </div>
+            <div v-if="procedure==2" style="">
+              <FaceReport :face="face"></FaceReport>
+            </div>
       </div>
-      <div v-if="procedure==1" style="">
-        <FaceAnalyze :face="face"></FaceAnalyze>
-      </div>
-      <div v-if="procedure==2" style="">
-        <FaceReport :face="face"></FaceReport>
-      </div>
-      
+
       <div class="next">
         <div @click="lasttype" class="nextsty">上一步</div>
         <div class="nextstynull" v-if="imagelist.length<3">
-          下一步
+          开始分析
         </div>
-        <div class="nextsty" v-else-if="procedure=='1'">生成报告</div>
-        <!-- <div @click="nexttype" class="nextsty" v-else-if="procedure=='1'">生成报告</div> -->
-        <div @click="nexttype" class="nextsty" v-else>下一步</div>
+        <!-- <div class="nextsty" v-else-if="procedure=='1'">生成报告</div> -->
+        <div @click="nexttype" class="nextsty" v-else-if="procedure=='1'">生成报告</div>
+        <div @click="nexttype" class="nextsty" v-else-if="procedure=='2'">下载pdf</div>
+        <div @click="nexttype" class="nextsty" v-else>开始分析</div>
       </div>
+
       <el-loading v-if="loading" :text="loadingText" :spinner="loadingSpinner" >
         <i class="el-icon-phone"></i>
         <div class="loading">正在分析...</div>
@@ -100,6 +104,7 @@
             dialogImageUrl: '',
             dialogVisible: false,
             hideUpload:true,
+            clsrc:'',
             procedure:0,
             imagelist: [],
             face:{},
@@ -110,6 +115,7 @@
             flankimgbig:[],
             smileimgbig:[],
             loading: false,
+            activeNames:['1'],
             loadingText: '加载中...', // 加载动画的文本提示
             loadingSpinner: 'el-icon-loading', // 加载动画的图标
             
@@ -117,7 +123,8 @@
       },
       components:{
         FaceAnalyze,
-        FaceReport
+        FaceReport,
+        
       },
       methods: {
         nexttype(){
@@ -136,14 +143,17 @@
             console.log(response,'处理上传成功的回调');
             this.face.list = response.data
             this.face.img = this.imagelist
-            this.loading = false; // 隐藏加载动画
             this.procedure++
+            this.loading = false; // 隐藏加载动画 
           })
           .catch(error => {
             // 处理上传失败的回调
             this.loading = false; // 隐藏加载动画
           });
           
+        },
+        handleChange(val) {
+          console.log(val);
         },
         lasttype(){
           if(this.procedure>0){
@@ -181,6 +191,9 @@
 
         })
       },
+      
+
+
       //正脸
         upimgfron(event){
           console.log(event,'event');
@@ -465,8 +478,8 @@
         },
         openupimgfron(){
           this.$refs.fileupimgfron.click();
-
         },
+        
         opensmileimg(){
           this.$refs.smileimg.click();
 
@@ -484,12 +497,23 @@
   </script>
   
   <style lang="scss" scoped>
+  .custom-button {
+  background-color: #7BA9B9;
+}
+  .el-button {
+  background-color: #7BA9B9;
+}
+.custom-title{
+  color: red;  
+  font-size: 20px;
+}
+
     .body{
-        width: 90%;
+        width: 96%;
         margin: 0 auto;
         // border: 1px solid #030303;
         padding: 20px 0;
-        height: 60vh;
+        
     }
     .faceimg {
         width: 10%;
@@ -514,6 +538,9 @@
         width:100%;
         padding-bottom: 15px;
         border-bottom: 8px solid #dddddd;
+    }
+    .headcolor{
+      color:#7BA9B9
     }
     .analyze{
         padding-top: 30px;
@@ -546,12 +573,13 @@
       display: flex;
         position: relative;
         left: 45%;
-        bottom: -45%;
+        top: 5%;
+        
     }
     .nextsty{
       width: 8%;
         padding: 5px;
-        background-color: #003399;
+        background-color: #7BA9B9;
         color: #FFFFFF;
         border-radius: 5px;
         text-align: center;

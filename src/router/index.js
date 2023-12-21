@@ -12,6 +12,24 @@ const router = createRouter({
         hidden: true
       }
     },
+    //面像分析
+    {
+      path: '/face',
+      name: 'Face',
+      component: () => import('@/views/face/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    //头颅侧位分析
+    {
+      path: '/headside',
+      name: 'Headside',
+      component: () => import('@/views/headside/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
     // 404
     {
       path: '/404',
@@ -24,7 +42,7 @@ const router = createRouter({
     // 重定向
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/login',
     },
     // 首页
     {

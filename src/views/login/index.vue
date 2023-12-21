@@ -1,23 +1,29 @@
 <template>
-  <div class="page">
-    <div class="left">
-      <img class="login" :src="login" />
-      <div class="text">
-        <span>Welcome!</span>
-        <br />
-        <span class="text2">欢迎来到牙贝美塑AI检测系统</span>
+  <div class="box">
+    <div class="page">
+      <div class="left">
+        <div class="lefttext">
+          专注0-12岁<br/>
+           中国儿童颜面生长发育平衡管理
+        </div>
+        <!-- <div class="text">
+          <span>Welcome!</span>
+          <br />
+          <span class="text2">欢迎来到牙贝美塑AI检测系统</span>
+        </div> -->
       </div>
-    </div>
-    <div class="right">
-      <img class="logo" :src="logo" />
-      <div class="form">
-        <p>登录</p>
-        <input class="input" placeholder="请输入账号" type="text" v-model="loginForm.user" />
-        <input class="input" placeholder="请输入密码" type="password" v-model="loginForm.password" />
-        <button class="btn" @click="handleLogin">登录</button>
+      <div class="right">
+        <img class="logo" :src="logo" />
+        <div class="form">
+          <p>登录</p>
+          <input class="input" placeholder="请输入账号" type="text" v-model="loginForm.user" />
+          <input class="input" placeholder="请输入密码" type="password" v-model="loginForm.password" />
+          <div class="btn" @click="handleLogin">登录</div>
+        </div>
       </div>
     </div>
   </div>
+  
 </template>
 
 <script setup>
@@ -53,18 +59,34 @@ const handleLogin = async () => {
 </script>
 
 <style lang="scss" scoped>
+.box{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
 .page {
-  min-width: 100vw;
+  min-width: 55%;
+  height: 70%;
   display: flex;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.233);
 
   .left {
-    background-color: #fff;
     position: relative;
-
+    width:50%;
+    height: 100%;
+    background-image: url(../../assets/login.png);
+    background-size: 100% 100%;
+    .lefttext{
+      margin: 30px;
+      font-size: 20px;
+      font-size: 500;
+    }
     .login {
-      width: calc(100vh / 1080 * 960);
-      height: 100vh;
+      width: 100%;
+      height: 100%;
     }
 
     .text {
@@ -86,16 +108,13 @@ const handleLogin = async () => {
   }
 
   .right {
-    width: calc(100vw - (100vh / 1080 * 960));
-    height: 100vh;
+    width:50%;
+    height: 100%;
     position: relative;
-
     .logo {
-      // position: absolute;
-      // top: 12%;
-      // left: 68px;
-      margin-left: 25%;
-      padding-top: 5%;
+      width: 60%;
+      margin-left: 7%;
+      margin-top: 10%;
     }
 
     .form {
@@ -104,44 +123,45 @@ const handleLogin = async () => {
       align-items: center;
       justify-content: center;
       position: relative;
-      left: 50%;
-      top: 40%;
-      transform: translate(-50%, -50%);
+      // left: 50%;
+      // top: 40%;
+      // transform: translate(-50%, -50%);
 
       p {
-        margin-bottom: 30px;
-        font-size: 48px;
+        // margin-bottom: 30px;
+        font-size: 20px;
         font-family: Source Han Sans SC;
         font-weight: 400;
         color: #000000;
-        line-height: 61px;
+        // line-height: 61px;
       }
 
       .input {
-        width: 661px;
-        height: 89px;
-        margin: 30px 0;
+        width: 80%;
+        height: 40px;
+        margin: 5% 0;
         border: 1px solid #bfbfbf;
-        border-radius: 10px;
-        font-size: 40px;
+        border-radius: 8px;
+        font-size: 20px;
         font-family: Source Han Sans SC;
         font-weight: 400;
         // color: #bfbfbf;
-        line-height: 48px;
+        // line-height: 48px;
         padding: 0 20px;
       }
 
       .btn {
-        width: 300px;
-        height: 88px;
-        margin-top: 30px;
-        background: #003399;
+        width: 35%;
+        height: 20%;
+        margin-top: 10%;
+        background: #7BA9B9;
         border-radius: 44px;
-        font-size: 40px;
+        font-size: 20px;
         font-family: Source Han Sans SC;
         font-weight: 400;
         color: #ffffff;
-        line-height: 48px;
+        text-align: center;
+        padding: 5px 0;
       }
     }
   }

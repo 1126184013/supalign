@@ -2,9 +2,6 @@
   <div class="page">
     <header>
       <img class="logo" :src="logo" />
-        <div  @click="tabstate">AI自测工具</div>
-        <div @click="statecode = 2">产品管理</div>
-        <div @click="statecode = 3">系统管理</div>
       <div class="info">
         <el-icon class="item">
           <BellFilled />
@@ -41,17 +38,25 @@
               <div class="underline"></div>
             </div>
             <div class="options">
-              <div>
-                <img class="optionsImg1" :src="facial" />
+              <div @click="surface">
+                <div class="optionsImg1">
+                  <div class="optiontext">面像分析</div>
+                </div>
               </div>
               <div>
-                <img class="optionsImg2" :src="dental" />
+                <div class="optionsImg2">
+                  <div class="optiontext">牙列分析</div>
+                </div>
+              </div>
+              <div @click="headside">
+                <div class="optionsImg3">
+                  <div class="optiontext">头颅侧位分析</div>
+                </div>
               </div>
               <div>
-                <img class="optionsImg3" :src="skull" />
-              </div>
-              <div>
-                <img class="optionsImg4" :src="video" />
+                <div class="optionsImg4">
+                  <div class="optiontext">视频分析</div>
+                </div>
               </div>
             </div>
           </div>
@@ -131,6 +136,12 @@ const outLogin = async ()=>{
   console.log('statecode')
   router.push({ path: "/login" });
 }
+const surface = async ()=>{
+  router.push({ path: "/face" });
+}
+const headside = async ()=>{
+  router.push({ path: "/headside" });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -177,8 +188,31 @@ const outLogin = async ()=>{
     .content {
       margin: 30px 18%;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      .anallist{
+        border: 1px solid #000;
+        width: 48%;
+        padding:15px 0 ;
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        font-size: 28px;
+        .listimg{
+          display: flex;
+          width: 63%;
+          // justify-content: space-around;
+          align-items: center;
+          >div{
+            margin-left: 10px;
+          }
+          
+        }
+        img{
+          width: 80px;
+          height: 80px;
+        }
+      }
       .title {
         display: flex;
         flex-direction: column;
@@ -201,19 +235,36 @@ const outLogin = async ()=>{
         margin-top: 30px;
         display: flex;
         flex-wrap: wrap;
+        .optiontext{
+          font-size: 20px;
+          padding: 28px 15px;
+          font-weight: bold;
+        }
         .optionsImg1 {
+          background-image: url(../../assets/home/facial.png);
+          background-size: 100% 100%;
+          height: 250px;
           width: 36vw;
           margin: 10px 10px 10px 0;
         }
         .optionsImg2 {
+          background-image: url(../../assets/home/dental.png);
+          background-size: 100% 100%;
+          height: 250px;
           width: 25vw;
           margin: 10px 0 10px 10px;
         }
         .optionsImg3 {
+          background-image: url(../../assets/home/skull.png);
+          background-size: 100% 100%;
+          height: 250px;
           width: 25vw;
           margin: 0 10px 0 0;
         }
         .optionsImg4 {
+          background-image: url(../../assets/home/video.png);
+          background-size: 100% 100%;
+          height: 250px;
           width: 36vw;
           margin: 0 0 0 10px;
         }

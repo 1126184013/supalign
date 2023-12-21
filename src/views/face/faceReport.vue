@@ -9,7 +9,7 @@
               <div>
                 <!-- <img :src="faceimg[1].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
-                  style="width: 160px; height: 210px"
+                  style="width: 160px; "
                   :src="faceimg.find(image => image.type === 'front').url" 
                   :preview-src-list="srcList">
                 </el-image>
@@ -17,7 +17,7 @@
               <div>
                 <!-- <img :src="faceimg[0].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
-                  style="width: 160px; height: 210px"
+                  style="width: 160px; "
                   :src="faceimg.find(image => image.type === 'profile').url" 
                   :preview-src-list="srcList0">
                 </el-image>
@@ -25,7 +25,7 @@
               <div>
                 <!-- <img :src="faceimg[2].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
-                  style="width: 160px; height: 210px"
+                  style="width: 160px; "
                   :src="faceimg.find(image => image.type === 'smile').url" 
                   :preview-src-list="srcList1">
                 </el-image>
@@ -40,7 +40,6 @@
                 <el-table
                     :data="tableData"
                     stripe
-                    
                     style="width: 100%">
                     <el-table-column
                     label="正貌"
@@ -156,6 +155,9 @@ import { Text } from 'vue'
   </script>
   
 <style lang="scss" scoped>
+.pdfupdata{
+  
+}
 .fonthead{
     font-size: 18px;
     font-weight: 500;
@@ -176,7 +178,7 @@ td{
         margin: 0 auto;
         // border: 1px solid #030303;
         padding: 20px 0;
-        height: 100vh;
+        
     }
 .imglist{
       width: 100%;

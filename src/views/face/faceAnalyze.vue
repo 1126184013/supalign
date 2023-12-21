@@ -1,18 +1,13 @@
 <template>
     <div class="body">
-      <!-- <div class="head">
-        <text>1、上传面像图片 > </text>
-        <text>2、分析结果 > </text>
-        <text>3、生成生成报告</text>
-      </div> -->
       <div class="analyze">
-        <div style="border-bottom: 1px solid #E9ECF1;padding-bottom: 15px;"><text style="color: red;">*</text>面像分析：</div>
+        <div style="padding-bottom: 15px;">面像分析：</div>
         <div style="padding-top: 30px;display: flex;justify-content: space-between;">
             <div class="imglist">
               <div>
                 <!-- <img :src="faceimg[1].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
-                  style="width: 120px; height: 130px"
+                  style="width: 130px; "
                   :src="faceimg.find(image => image.type === 'front').url" 
                   :preview-src-list="srcList">
                 </el-image>
@@ -21,7 +16,7 @@
               <div>
                 <!-- <img :src="faceimg[0].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
-                  style="width: 120px; height: 130px"
+                  style="width: 130px;"
                   :src="faceimg.find(image => image.type === 'profile').url" 
                   :preview-src-list="srcList0">
                 </el-image>
@@ -30,7 +25,7 @@
               <div>
                 <!-- <img :src="faceimg[2].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
-                  style="width: 120px; height: 130px"
+                  style="width: 130px;"
                   :src="faceimg.find(image => image.type === 'smile').url" 
                   :preview-src-list="srcList1">
                 </el-image>
@@ -413,7 +408,7 @@
               value: 0,
               label: '正常'
             },{
-              value: '1',
+              value: 1,
               label: '露龈笑'
             },{
               value: 10 || '10',
@@ -473,11 +468,11 @@
               value: 1,
               label: '小'
             },{
-              value: 10 || '10',
+              value: 10,
               label: '-'
             }],
             options10: [{
-              value: 0 || '',
+              value: 0 || '0' || '',
               label: '无'
             },{
               value: 1,
@@ -496,26 +491,26 @@
               label: '-'
             }],
             options11: [{
-              value: 0,
+              value: 1,
               label: '正常'
             },{
-              value: 1,
+              value: 2,
               label: '前'
             },{
-              value: 2,
+              value: 0,
               label: '后'
             },{
               value: 10 || '10',
               label: '-'
             }],
             options12: [{
-              value: 1 || '1',
+              value: 0,
               label: '前'
             },{
-              value: 0 || '0',
+              value: 1,
               label: '正常'
             },{
-              value: 2 || '2',
+              value: 2,
               label: '后'
             },{
               value: 10 || '10',
@@ -533,18 +528,18 @@
         this.srcList0.push(this.faceimg.find(image => image.type === 'profile').url)
         this.srcList1.push(this.faceimg.find(image => image.type === 'smile').url)
         this.facelist = this.face.list
-        this.value0 = this.face.list.results[0]
-        this.value1 = this.face.list.results[1]
-        this.value2 = this.face.list.results[2]
-        this.value3 = this.face.list.results[3]
-        this.value4 = this.face.list.results[4]
-        this.value5 = this.face.list.results[5]
-        this.value6 = this.face.list.results[6]
-        this.value7 = this.face.list.results[7]
-        this.value12 = this.face.list.results[8]
-        this.value8 = this.face.list.results[9]
-        this.value11 = this.face.list.results[10]
-        this.value9 = this.face.list.results[11]
+        this.value0 = parseInt(this.face.list.results[0])
+        this.value1 = parseInt(this.face.list.results[1])
+        this.value2 = parseInt(this.face.list.results[2])
+        this.value3 = parseInt(this.face.list.results[3])
+        this.value4 = parseInt(this.face.list.results[4])
+        this.value5 = parseInt(this.face.list.results[5])
+        this.value6 = parseInt(this.face.list.results[6])
+        this.value7 = parseInt(this.face.list.results[7])
+        this.value12 = parseInt(this.face.list.results[8])
+        this.value8 = parseInt(this.face.list.results[9])
+        this.value11 = parseInt(this.face.list.results[10])
+        this.value9 = parseInt(this.face.list.results[11])
         // if(this.face.list.results[12] !== ""){
         //   this.value10.push(this.face.list.results[12])
         // }
@@ -606,7 +601,7 @@
     }
     
     .imglist{
-      width: 30%;
+      width: 40%;
       display: flex;
       div{
         margin-left: 5%;
@@ -618,7 +613,7 @@
         padding-top: 30px;
     }
     .inform{
-      width: 59%;
+      width: 58%;
       margin-left: 2%;
       .informList{
         width: 100%;
