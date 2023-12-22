@@ -71,7 +71,7 @@
     </div>
 
     <div class="next">
-      <div @click="lasttype" class="nextsty">上一步</div>
+      <div @click="lasttype" class="nextsty" v-if="procedure != 0">上一步</div>
       <div class="nextstynull" v-if="imagelist.length < 3">
         开始分析
       </div>
@@ -81,10 +81,10 @@
       <div @click="nexttype" class="nextsty" v-else>开始分析</div>
     </div>
 
-    <el-loading v-if="loading" :text="loadingText" :spinner="loadingSpinner">
+    <!-- <el-loading v-if="loading" :text="loadingText" :spinner="loadingSpinner">
       <i class="el-icon-phone"></i>
       <div class="loading">正在分析...</div>
-    </el-loading>
+    </el-loading> -->
   </div>
 </template>
   
@@ -92,7 +92,7 @@
 import FaceAnalyze from './faceAnalyze'
 import FaceReport from './faceReport'
 import Header from "../../components/Header/index.vue";
-import { ElLoading } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 import axios from 'axios'
 export default {
   name: 'face',
@@ -126,11 +126,19 @@ export default {
   },
   methods: {
     nexttype() {
+      let text = '';
       if (this.procedure == 1) {
         this.procedure++
+        text = '正在生成中，请稍等...'
         return
+      } else if (this.procedure == 2) {
+        text = '正在下载中，请稍等...'
+      } else {
+        text = '正在分析中，请稍等...'
       }
-      this.loading = true; // 显示加载动画
+      // this.loading = true; // 显示加载动画
+      const loadingInstance = ElLoading.service({ text })
+
       this.imagelist.find(image => image.type === 'front').url = this.frontimg;
       this.imagelist.find(image => image.type === 'profile').url = this.flankimg;
       this.imagelist.find(image => image.type === 'smile').url = this.smileimg;
@@ -141,12 +149,15 @@ export default {
           console.log(response, '处理上传成功的回调');
           this.face.list = response.data
           this.face.img = this.imagelist
-          this.procedure++
-          this.loading = false; // 隐藏加载动画 
+          this.procedure == '2' ? this.procedure = '2' : this.procedure++
+          // this.loading = false; // 隐藏加载动画 
+          loadingInstance.close()
         })
         .catch(error => {
           // 处理上传失败的回调
-          this.loading = false; // 隐藏加载动画
+          // this.loading = false; // 隐藏加载动画
+          loadingInstance.close()
+          ElMessage.error(error)
         });
 
     },
@@ -426,8 +437,9 @@ export default {
     //批量上传
     handleFileChange(event) {
       // 加载动画
-      // ElLoading.service()
-      const loadingInstance = ElLoading.service()
+      const loadingInstance = ElLoading.service({
+        text: '正在上传...',
+      })
 
       const files = event.target.files;
       console.log(files); // 打印文件列表
@@ -478,6 +490,8 @@ export default {
         })
         .catch(error => {
           // 处理上传失败的回调
+          loadingInstance.close()
+          ElMessage.error(error)
         });
     },
     openupimgfron() {
