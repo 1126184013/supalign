@@ -2,7 +2,7 @@
   <Header :page="'face'" />
   <div class="body">
     <div class="head">
-      <text :class="procedure >= 0 ? 'headcolor' : ''">1、上传面像图片 > </text>
+      <text :class="procedure >= 0 ? 'headcolor' : ''" @click="changeCrumbs">1、上传面像图片 > </text>
       <text :class="procedure >= 1 ? 'headcolor' : ''">2、分析结果 > </text>
       <text :class="procedure >= 2 ? 'headcolor' : ''">3、生成生成报告</text>
       <!-- <el-steps :active="active" simple space="1">
@@ -15,12 +15,11 @@
     </div>
     <div style="padding: 30px 0;">
       <div class="analyze" v-if="procedure == 0">
-        <div>
+        <div class="top">
           <input type="file" ref="fileInput" multiple @change="handleFileChange" style="display: none">
-          <el-button class="custom-button" size="small" type="primary" @click="openFileInput"
+          <el-button class="custom-button" size="Large" type="primary" @click="openFileInput"
             v-loading.fullscreen.lock="fullscreenLoading">批量上传</el-button>
-
-          <!-- <text>(上传规则)</text> -->
+          <div @click="ruleShow = true" class="rule">*上传规则</div>
         </div>
         <div class="uoload">
           <div class="faceimg">
@@ -77,6 +76,33 @@
       <div @click="reserve" class="nextsty" v-if="procedure == 2">保存</div>
     </div>
   </div>
+
+  <el-dialog v-model="ruleShow" width="80%" class="dialog">
+    <template #header>
+      <div class="my_header">
+        面像照上传规则
+      </div>
+    </template>
+    <div class="text">
+      <h4>正面像照片要求</h4>
+      <text>1、人像居于正中</text><br />
+      <text>2、患者面部端正，目视镜头</text><br />
+      <text>3、取景范围上方要适当留白，下方可至锁骨水平</text><br />
+      <text>4、两侧耳廓显露的大小基本一致</text><br />
+      <text>5、正面像自然闭唇，微笑像自然微笑</text><br />
+      <text>6、相机处于患者鼻尖水平，以鼻子对焦</text><br />
+      <h4>侧面像照片要求</h4>
+      <text>1、患者面部要端正，目视前方，不能仰头或低头</text><br />
+      <text>2、以右侧侧貌拍照，需要清晰看到一侧眼睛、鼻尖、嘴唇和颜部轮廓，不要显示对侧结构</text><br />
+      <text>3、取景范围上方要适当留白，下方可至锁骨水平，前方有适当留白，后方范围无要求</text><br />
+      <text>4、侧面像自然闭唇</text><br />
+      <text>5、耳屏前方乙状切迹为构图中心点，以耳屏前方对焦</text><br />
+      <div class="last">
+        <text>声明：本网站照片及视频资料都已获患者本人授权使用，任何媒体、网站或个人未经我公司书面授权均不得擅自进行下载、转载或以其他方式使用，违者将依法追究责任。</text>
+      </div>
+    </div>
+
+  </el-dialog>
 </template>
   
 <script>
@@ -107,7 +133,8 @@ export default {
       activeNames: ['1'],
       loadingText: '加载中...', // 加载动画的文本提示
       loadingSpinner: 'el-icon-loading', // 加载动画的图标
-      loadingInstance: '' // 加载动画实例
+      loadingInstance: '', // 加载动画实例
+      ruleShow: false,
     }
   },
   components: {
@@ -117,14 +144,11 @@ export default {
   },
 
   created() {
-     window.addEventListener("popstate",this.monitorBackForward,false)
-     
+    window.addEventListener("popstate", this.monitorBackForward, false)
+
   },
 
   methods: {
-    monitorBackForward() {
-      this.loadingInstance.close()
-    },
 
     // 开始分析
     nexttype() {
@@ -147,7 +171,7 @@ export default {
           this.face.img = this.imagelist
           this.procedure++
           // this.loading = false; // 隐藏加载动画 
-          loadingInstance.close()
+          this.loadingInstance.close()
         })
         .catch(error => {
           // 处理上传失败的回调
@@ -541,6 +565,10 @@ export default {
     openFileInput() {
       this.$refs.fileInput.click();
     },
+    
+    monitorBackForward() {
+      this.loadingInstance.close()
+    },
   },
 }
 
@@ -608,6 +636,22 @@ export default {
 
 .analyze {
   padding-top: 30px;
+
+  .top {
+    display: flex;
+    align-items: center;
+
+    .rule {
+      margin-left: 20px;
+      color: #828283;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .rule:hover {
+      color: #000;
+    }
+  }
 }
 
 .imgdel {
@@ -648,6 +692,7 @@ export default {
   text-align: center;
   margin: 0 1%;
   line-height: 30px;
+  cursor: pointer;
 }
 
 .nextstynull {
@@ -660,5 +705,35 @@ export default {
   text-align: center;
   margin-left: 1%;
   line-height: 30px;
+}
+
+.dialog {
+  .my_header {
+    background-color: #ff5e2b;
+    padding: 20px 10px;
+    color: #fff;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 32px;
+
+    .last {
+      margin: 30px 0 20px 0;
+    }
+  }
+
+  :global(.el-dialog__header) {
+    padding: 0;
+    margin-right: 0;
+  }
+
+  :global(.el-dialog__body) {
+    padding-top: 10px;
+  }
+
+  :global(.el-dialog__headerbtn .el-dialog__close) {
+    color: #fff;
+  }
 }
 </style>

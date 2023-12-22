@@ -73,7 +73,7 @@ const handleLogin = async () => {
   height: 70%;
   display: flex;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.233);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.233);
 
   .left {
     position: relative;
