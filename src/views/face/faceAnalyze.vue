@@ -204,7 +204,7 @@
               </div>
             </div>
             <div style="display: flex;justify-content: flex-start;width: 66%; ">
-              <div style="text-align: left;width: 160px;">
+              <div style="text-align: left;width: 180px; min-width: 113px;">
                 <text>口周肌肉分析：</text>
               </div>
               <div class="placeright" style="width: 100%;">
@@ -523,6 +523,7 @@ export default {
 
 .placeleft {
   width: 35% !important;
+  min-width: 113px;
   text-align: left;
 }
 

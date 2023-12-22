@@ -71,20 +71,11 @@
     </div>
 
     <div class="next">
-      <div @click="lasttype" class="nextsty" v-if="procedure != 0">上一步</div>
-      <div class="nextstynull" v-if="imagelist.length < 3">
-        开始分析
-      </div>
-      <!-- <div class="nextsty" v-else-if="procedure=='1'">生成报告</div> -->
-      <div @click="nexttype" class="nextsty" v-else-if="procedure == '1'">生成报告</div>
-      <div @click="nexttype" class="nextsty" v-else-if="procedure == '2'">下载pdf</div>
-      <div @click="nexttype" class="nextsty" v-else>开始分析</div>
+      <div @click="nexttype" class="nextsty" v-if="procedure == 0">开始分析</div>
+      <div @click="report" class="nextsty" v-else-if="procedure == '1'">生成报告</div>
+      <div @click="downloadPDF" class="nextsty" v-else-if="procedure == '2'">下载pdf</div>
+      <div @click="reserve" class="nextsty" v-if="procedure == 2">保存</div>
     </div>
-
-    <!-- <el-loading v-if="loading" :text="loadingText" :spinner="loadingSpinner">
-      <i class="el-icon-phone"></i>
-      <div class="loading">正在分析...</div>
-    </el-loading> -->
   </div>
 </template>
   
@@ -116,7 +107,7 @@ export default {
       activeNames: ['1'],
       loadingText: '加载中...', // 加载动画的文本提示
       loadingSpinner: 'el-icon-loading', // 加载动画的图标
-
+      loadingInstance: '' // 加载动画实例
     }
   },
   components: {
@@ -124,20 +115,25 @@ export default {
     FaceReport,
     Header
   },
+
+  created() {
+     window.addEventListener("popstate",this.monitorBackForward,false)
+     
+  },
+
   methods: {
+    monitorBackForward() {
+      this.loadingInstance.close()
+    },
+
+    // 开始分析
     nexttype() {
-      let text = '';
-      if (this.procedure == 1) {
-        this.procedure++
-        text = '正在生成中，请稍等...'
+      if (this.procedure == 0 && this.imagelist.length < 3) {
+        ElMessage.error('请先上传图片')
         return
-      } else if (this.procedure == 2) {
-        text = '正在下载中，请稍等...'
-      } else {
-        text = '正在分析中，请稍等...'
       }
       // this.loading = true; // 显示加载动画
-      const loadingInstance = ElLoading.service({ text })
+      this.loadingInstance = ElLoading.service({ text: '正在分析中，请稍等...' })
 
       this.imagelist.find(image => image.type === 'front').url = this.frontimg;
       this.imagelist.find(image => image.type === 'profile').url = this.flankimg;
@@ -149,29 +145,67 @@ export default {
           console.log(response, '处理上传成功的回调');
           this.face.list = response.data
           this.face.img = this.imagelist
-          this.procedure == '2' ? this.procedure = '2' : this.procedure++
+          this.procedure++
           // this.loading = false; // 隐藏加载动画 
           loadingInstance.close()
         })
         .catch(error => {
           // 处理上传失败的回调
           // this.loading = false; // 隐藏加载动画
-          loadingInstance.close()
+          this.loadingInstance.close()
           ElMessage.error(error)
         });
 
     },
-    handleChange(val) {
-      console.log(val);
+
+    // 生成报告
+    report() {
+      this.loadingInstance = ElLoading.service({ text: '正在生成中，请稍等...' })
+      setTimeout(() => {
+        this.procedure++
+        this.loadingInstance.close()
+      }, 2000)
     },
+
+    // 下载pdf
+    downloadPDF() {
+      this.loadingInstance = ElLoading.service({ text: '正在下载中，请稍等...' })
+      setTimeout(() => {
+        this.loadingInstance.close()
+        // ElMessage.success('下载完成')
+      }, 2000)
+    },
+
+    // 保存
+    reserve() {
+      this.loadingInstance = ElLoading.service({ text: '正在保存中，请稍等...' })
+      setTimeout(() => {
+        this.loadingInstance.close()
+        // ElMessage.success('下载完成')
+      }, 2000)
+    },
+
+    // 返回上一步
     lasttype() {
       if (this.procedure > 0) {
         this.procedure--
       } else {
         this.$emit('tabs');
       }
-
     },
+
+    // 返回上一步
+    lasttype() {
+      if (this.procedure > 0) {
+        this.procedure--
+      } else {
+        this.$emit('tabs');
+      }
+    },
+    handleChange(val) {
+      console.log(val);
+    },
+
     imgdel(type) {
       this[type] = []
       this[type + `big`] = []
@@ -200,8 +234,6 @@ export default {
 
       })
     },
-
-
 
     //正脸
     upimgfron(event) {
@@ -437,8 +469,8 @@ export default {
     //批量上传
     handleFileChange(event) {
       // 加载动画
-      const loadingInstance = ElLoading.service({
-        text: '正在上传...',
+      this.loadingInstance = ElLoading.service({
+        text: '正在上传图片中...',
       })
 
       const files = event.target.files;
@@ -486,11 +518,11 @@ export default {
           console.log(this.frontimg, this.flankimg, this.smileimg, 'this.frontimg')
 
           // 关闭加载动画
-          loadingInstance.close()
+          this.loadingInstance.close()
         })
         .catch(error => {
           // 处理上传失败的回调
-          loadingInstance.close()
+          this.loadingInstance.close()
           ElMessage.error(error)
         });
     },
@@ -509,7 +541,7 @@ export default {
     openFileInput() {
       this.$refs.fileInput.click();
     },
-  }
+  },
 }
 
 </script>
@@ -534,7 +566,6 @@ export default {
   overflow-x: hidden;
   // border: 1px solid #030303;
   padding: 20px 0;
-
 }
 
 .faceimg {
@@ -567,9 +598,7 @@ export default {
 
 .next {
   display: flex;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  justify-content: center;
   margin-top: 200px;
 }
 
