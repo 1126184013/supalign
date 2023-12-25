@@ -3,11 +3,11 @@
       <div class="headlist">
         <div class="tool">
           <div>
-            <div class="toolicon">
+            <div class="toolicon" @click="imgedig">
               <img src="../../assets/bj.png" alt=""  style="width: 25px;">
               <text>编辑</text>
             </div>
-            <div class="toolicon">
+            <div class="toolicon" @click="isPointLineMode = !isPointLineMode">
               <img src="../../assets/tj.png" alt=""  style="width: 25px;">
               <text>添加</text>
             </div>
@@ -112,10 +112,15 @@ import { Text } from 'vue'
       data() {
         return {
           imageSrc: '',
+          isDragging:false, // 是否正在拖动
+          pointRadius: 10, // 标点半径
+          pointsindex:null, // 当前正在拖动的点在points中的索引
+          currentDraggingPoint: null, // 当前正在拖动的点
           points: [], // 存储标点坐标的数组
           scale: 1, // 当前的缩放比例
           canvasWidth:500,
           canvasHeight:600,
+          isPointLineMode:false, // 是否处于标点连线模式
           tabdaproj:['SNA','A_N_perp','SNB','Pog_N_perp','ANB','FMA','SN_MP','S_Go_N_Me','S_N','Go_Me','FH_NPo','Na_S_Ar','S_Ar_Go','Ar_Go_Me','Ar_Go_N','Na_Go_Me',
             'Sum_of_Angles','PtV_U6','ANS_Xi_Pm','Dc_Xi_Pm','U1_SN','U1_NA','L1_MP','L1_FH','L1_NB','U1_L1','UL_EP','LL_EP'],
           tableData: [
@@ -295,26 +300,32 @@ import { Text } from 'vue'
       },
       components:{ Text },
       created() {
+        console.log(this.editstart,'编辑')
         let that = this
         this.imageSrc = this.editstart.img
-        console.log(this.imageSrc,'编辑')
+        this.scale = (this.canvasHeight / this.editstart.list.height);
+        
         this.tabdaproj.map((item,index)=>{
-          // that.tableData.push({})
           that.tableData[index].itemName = item
-          that.tableData[index].measure = this.editstart.list.result[index]
-          console.log(that.tableData,'下标数据')
+          that.tableData[index].measure = Number(this.editstart.list.result[index]).toFixed(1)
+          
 
         })
       },
       mounted() {
+        let that = this
+        this.editstart.list.landmarks.map((item,index)=>{
+          that.points.push({x:item[0],y:item[1]})
+        })
+        console.log(this.points,'标点坐标')
         this.drawCanvas()
       },
       computed: {
         canvasWidth() {
-          return 500 * this.scale; // 根据缩放比例调整canvas宽度
+          return this.editstart.list.width * this.scale; // 根据缩放比例调整canvas宽度
         },
         canvasHeight() {
-          return 600 * this.scale; // 根据缩放比例调整canvas高度
+          return this.editstart.list.height * this.scale; // 根据缩放比例调整canvas高度
         },
       },
       methods: {
@@ -332,14 +343,17 @@ import { Text } from 'vue'
           image.src = this.imageSrc;
         },
     addPoint(event) {
-      const canvas = this.$refs.myCanvas;
-      const rect = canvas.getBoundingClientRect();
+      if(this.isPointLineMode){
+        const canvas = this.$refs.myCanvas;
+        const rect = canvas.getBoundingClientRect();
 
-      const x = (event.clientX - rect.left) / this.scale; // 根据缩放比例计算实际坐标
-      const y = (event.clientY - rect.top) / this.scale; // 根据缩放比例计算实际坐标
+        const x = (event.clientX - rect.left) / this.scale; // 根据缩放比例计算实际坐标
+        const y = (event.clientY - rect.top) / this.scale; // 根据缩放比例计算实际坐标
 
-      this.points.push({ x, y });
-      this.drawPoints();
+        this.points.push({ x, y });
+        this.drawPoints();
+      }
+      
     },
     drawPoints() {
       const canvas = this.$refs.myCanvas;
@@ -366,6 +380,54 @@ import { Text } from 'vue'
       };
 
       image.src = this.imageSrc;
+    },
+    //拖拽
+    startDrag(event) {
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+      console.log(event.clientX,110.373046875*this.scale,'拖拽1');
+      console.log(event.clientY/this.scale,'拖拽1');
+      // 遍历已有的标点数组，判断鼠标是否在某个标点附近
+      for (let i = 0; i < this.points.length; i++) {
+        const point = this.points[i];
+        const distance = Math.sqrt((mouseX/this.scale - point.x ) ** 2 + (mouseY/this.scale - point.y ) ** 2);
+
+        // 如果鼠标在标点附近，将该标点设为当前拖拽对象
+        
+        if (distance <= this.pointRadius) {
+          console.log(distance,this.pointRadius,'拖拽');
+          this.currentDraggingPoint = point;
+          this.pointsindex = i;
+          break;
+        }
+      }
+
+      // 如果存在当前拖拽对象，将其设为正在拖拽状态
+      if (this.currentDraggingPoint) {
+        this.isDragging = true;
+      }
+    },
+    dragPoint(event) {
+      if (this.isDragging && this.currentDraggingPoint) {
+        // 根据鼠标位置计算出标点应该移动到的新位置
+        const newPointX = event.clientX;
+        const newPointY = event.clientY;
+
+        // 将当前拖拽对象的坐标设置为新位置
+        this.points[this.pointsindex].x = newPointX/this.scale;
+        this.points[this.pointsindex].y = newPointY/this.scale;
+
+        // 重新绘制所有标点
+        this.drawPoints();
+      }
+    },
+    endDrag(){
+      this.isDragging = false;
+      this.currentDraggingPoint = null
+
+    },
+    imgedig(){
+      this.isPointLineMode = false
     },
     delet(){
       this.points.pop();
