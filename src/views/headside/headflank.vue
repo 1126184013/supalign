@@ -260,7 +260,7 @@ import { Text } from 'vue'
         this.tabdaproj.map((item,index)=>{
           // that.tableData.push({})
           that.tableData[index].itemName = item
-          that.tableData[index].measure = this.face.cllist.result[index]
+          that.tableData[index].measure =Number(this.face.cllist.result[index]).toFixed(1)
           // console.log(that.tableData,'下标数据')
 
         })
