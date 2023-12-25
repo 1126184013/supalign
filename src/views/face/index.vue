@@ -2,9 +2,9 @@
   <Header :page="'face'" />
   <div class="body">
     <div class="head">
-      <text :class="procedure >= 0 ? 'headcolor' : ''" @click="changeCrumbs">1、上传面像图片 > </text>
-      <text :class="procedure >= 1 ? 'headcolor' : ''">2、分析结果 > </text>
-      <text :class="procedure >= 2 ? 'headcolor' : ''">3、生成生成报告</text>
+      <text :class="procedureIndex >= 0 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(0)">1、上传面像图片 </text>
+      <text :class="procedureIndex >= 1 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(1)">> 2、分析结果 </text>
+      <text :class="procedureIndex >= 2 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(2)">> 3、生成报告</text>
       <!-- <el-steps :active="active" simple space="1">
             <el-step title="步骤 1" ></el-step>
             <el-step title="步骤 2" ></el-step>
@@ -17,9 +17,9 @@
       <div class="analyze" v-if="procedure == 0">
         <div class="top">
           <input type="file" ref="fileInput" multiple @change="handleFileChange" style="display: none">
-          <el-button class="custom-button" size="Large" type="primary" @click="openFileInput"
-            v-loading.fullscreen.lock="fullscreenLoading">批量上传</el-button>
-          <div @click="ruleShow = true" class="rule">*上传规则</div>
+          <el-button class="custom-button iam-loading" size="large" type="primary" @click="openFileInput">批量上传</el-button>
+          <!-- v-loading.fullscreen.lock="fullscreenLoading" -->
+          <div @click="ruleShow = true" class="rule">( <text>上传规则</text> )</div>
         </div>
         <div class="uoload">
           <div class="faceimg">
@@ -27,7 +27,7 @@
             <img src="../../assets/face2/face1.png" alt="" style="width: 173px; height: 187px" v-if="frontimg.length < 1"
               @click="openupimgfron">
             <div v-else>
-              <el-image style="width: 173px; height: 187px" :src="frontimg" :preview-src-list="frontimgbig">
+              <el-image style="width: 173px; height: 187px" fit="cover" :src="frontimg" :preview-src-list="frontimgbig">
               </el-image>
               <div class="imgdel" @click="imgdel('frontimg')">删除</div>
             </div>
@@ -36,10 +36,10 @@
           </div>
           <div class="faceimg">
             <input type="file" ref="flankimg" multiple @change="upflankimg" style="display: none">
-            <img src="../../assets/face2/face2.png" alt="" style="width: 173px; height: 187px" v-if="flankimg.length < 1"
+            <img src="../../assets/face2/face2.png" alt="" style="width: 173px; height: 187px;" v-if="flankimg.length < 1"
               @click="openflankimg">
             <div v-else>
-              <el-image style="width: 173px; height: 187px" :src="flankimg" :preview-src-list="flankimgbig">
+              <el-image style="width: 173px; height: 187px" fit="cover" :src="flankimg" :preview-src-list="flankimgbig">
               </el-image>
               <div class="imgdel" @click="imgdel('flankimg')">删除</div>
             </div>
@@ -51,7 +51,7 @@
             <img src="../../assets/face2/face3.png" alt="" style="width: 173px; height: 187px" v-if="smileimg.length < 1"
               @click="opensmileimg">
             <div v-else>
-              <el-image style="width: 173px; height: 187px" :src="smileimg" :preview-src-list="smileimgbig">
+              <el-image style="width: 173px; height: 187px" fit="cover" :src="smileimg" :preview-src-list="smileimgbig">
               </el-image>
               <div class="imgdel" @click="imgdel('smileimg')">删除</div>
 
@@ -72,7 +72,7 @@
     <div class="next">
       <div @click="nexttype" class="nextsty" v-if="procedure == 0">开始分析</div>
       <div @click="report" class="nextsty" v-else-if="procedure == '1'">生成报告</div>
-      <div @click="downloadPDF" class="nextsty" v-else-if="procedure == '2'">下载pdf</div>
+      <div @click="downloadPDF" class="nextsty" v-else-if="procedure == '2'">下载PDF</div>
       <div @click="reserve" class="nextsty" v-if="procedure == 2">保存</div>
     </div>
   </div>
@@ -109,8 +109,10 @@
 import FaceAnalyze from './faceAnalyze'
 import FaceReport from './faceReport'
 import Header from "../../components/Header/index.vue";
+import htmlToPdf from "@/utils/htmlToPdf";
 import { ElLoading, ElMessage } from 'element-plus'
 import axios from 'axios'
+// import svg from ;
 export default {
   name: 'face',
   data() {
@@ -121,6 +123,7 @@ export default {
       hideUpload: true,
       clsrc: '',
       procedure: 0,
+      procedureIndex: 0,
       imagelist: [],
       face: {},
       frontimg: [],
@@ -149,6 +152,11 @@ export default {
   },
 
   methods: {
+    changeCrumbs(index) {
+      if (this.procedure == index) return
+      else if (index > this.procedureIndex) return
+      else this.procedure = index
+    },
 
     // 开始分析
     nexttype() {
@@ -157,7 +165,11 @@ export default {
         return
       }
       // this.loading = true; // 显示加载动画
-      this.loadingInstance = ElLoading.service({ text: '正在分析中，请稍等...' })
+      this.loadingInstance = ElLoading.service({
+        lock: true,
+        customClass: 'iam-loading',
+        text: '正在分析中，请稍候...',
+      })
 
       this.imagelist.find(image => image.type === 'front').url = this.frontimg;
       this.imagelist.find(image => image.type === 'profile').url = this.flankimg;
@@ -167,9 +179,37 @@ export default {
         .then(response => {
           // 处理上传成功的回调
           console.log(response, '处理上传成功的回调');
-          this.face.list = response.data
+          this.face.list = response.data.results.map((item, index) => {
+            if (index == 0) return { type: 0, name: '正面型', value: item, checked: false }
+            else if (index == 1) return { type: 0, name: '对称性', value: item, checked: false }
+            else if (index == 2) return { type: 0, name: '下面高', value: item, checked: false }
+            else if (index == 3) return { type: 0, name: '唇齿位', value: item, checked: false }
+            else if (index == 4) return { type: 0, name: '颏位', value: item, checked: false }
+            else if (index == 5) return { type: 0, name: '微笑', value: item, checked: false }
+            else if (index == 6) return { type: 1, name: '侧面型', value: item, checked: false }
+            else if (index == 7) return { type: 1, name: '鼻唇角/鼻唇角', value: item, checked: false }
+            else if (index == 8) return { type: 1, name: '唇位', value: item, checked: false }
+            else if (index == 9) return { type: 1, name: '颏唇沟', value: item, checked: false }
+            else if (index == 10) return { type: 1, name: '颏位', value: item, checked: false }
+            else if (index == 11) return { type: 1, name: '下颌角', value: item, checked: false }
+
+            // # 0、面型 0 宽面型 1 正常面型 2 高面型
+            // # 1、对称 0 对称 1不对称
+            // # 2、下面高 0 长 1 短 2正常
+            // # 3、唇齿位 0 正常 1 不闭合
+            // # 4、颏位 0 正常 1 不正常
+            // # 5 微笑 0 正常微笑 1 微笑露龈
+            // # 6 脸型 0 奥面型 1 凸面型 2 正常
+            // # 7 鼻唇角 0 鼻唇角小 1 鼻唇角大 2 鼻唇角正常
+            // # 8 唇位 0 前 1 正常 2 后
+            // # 9 颏唇沟 0 颏唇沟浅 1 颏唇沟正常
+            // # 10 侧面 颏位 0 后 1 正常 2 前
+            // # 11 下颌角 0 正常 1 下颌角变小 2下颌角变大
+            // return { value: item, checked: false}
+          })
           this.face.img = this.imagelist
-          this.procedure++
+          this.procedure = 1
+          this.procedureIndex = 1
           // this.loading = false; // 隐藏加载动画 
           this.loadingInstance.close()
         })
@@ -184,16 +224,26 @@ export default {
 
     // 生成报告
     report() {
-      this.loadingInstance = ElLoading.service({ text: '正在生成中，请稍等...' })
+      this.loadingInstance = ElLoading.service({
+        lock: true,
+        customClass: '',
+        text: '正在生成中，请稍等...'
+      })
       setTimeout(() => {
-        this.procedure++
+        this.procedure = 2
+        this.procedureIndex = 2
         this.loadingInstance.close()
       }, 2000)
     },
 
     // 下载pdf
     downloadPDF() {
-      this.loadingInstance = ElLoading.service({ text: '正在下载中，请稍等...' })
+      this.loadingInstance = ElLoading.service({
+        lock: true,
+        customClass: '',
+        text: '正在下载中，请稍等...'
+      })
+      htmlToPdf.getPdf('文件标题', "#pdfDom");
       setTimeout(() => {
         this.loadingInstance.close()
         // ElMessage.success('下载完成')
@@ -202,7 +252,11 @@ export default {
 
     // 保存
     reserve() {
-      this.loadingInstance = ElLoading.service({ text: '正在保存中，请稍等...' })
+      this.loadingInstance = ElLoading.service({
+        lock: true,
+        customClass: '',
+        text: '正在保存中，请稍等...'
+      })
       setTimeout(() => {
         this.loadingInstance.close()
         // ElMessage.success('下载完成')
@@ -494,6 +548,8 @@ export default {
     handleFileChange(event) {
       // 加载动画
       this.loadingInstance = ElLoading.service({
+        lock: true,
+        // customClass: 'iam-loading',
         text: '正在上传图片中...',
       })
 
@@ -565,9 +621,9 @@ export default {
     openFileInput() {
       this.$refs.fileInput.click();
     },
-    
+
     monitorBackForward() {
-      this.loadingInstance.close()
+      if (this.loadingInstance) this.loadingInstance.close()
     },
   },
 }
@@ -594,6 +650,7 @@ export default {
   overflow-x: hidden;
   // border: 1px solid #030303;
   padding: 20px 0;
+  user-select: none;
 }
 
 .faceimg {
@@ -631,7 +688,14 @@ export default {
 }
 
 .headcolor {
-  color: #7BA9B9
+  color: #7BA9B9;
+  cursor: pointer;
+}
+
+.no_drop {
+  color: #000;
+  // cursor:no-drop;
+  // pointer-events: none;
 }
 
 .analyze {
@@ -643,13 +707,17 @@ export default {
 
     .rule {
       margin-left: 20px;
-      color: #828283;
+      color: #7BA9B9;
       font-size: 15px;
       cursor: pointer;
+
+      text {
+        text-decoration: underline;
+      }
     }
 
     .rule:hover {
-      color: #000;
+      color: #666;
     }
   }
 }

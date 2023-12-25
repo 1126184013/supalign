@@ -5,17 +5,20 @@
       <div style="padding-top: 30px;display: flex;justify-content: space-between;">
         <div class="imglist">
           <div class="img_item">
-            <el-image class="img" :src="faceimg.find(image => image.type === 'front').url" :preview-src-list="srcList">
+            <el-image style="width: 240px; height: 256px" fit="cover"
+              :src="faceimg.find(image => image.type === 'front').url" :preview-src-list="srcList">
             </el-image>
             <div class="text">正面照</div>
           </div>
           <div class="img_item">
-            <el-image class="img" :src="faceimg.find(image => image.type === 'profile').url" :preview-src-list="srcList0">
+            <el-image style="width: 240px; height: 256px" fit="cover"
+              :src="faceimg.find(image => image.type === 'profile').url" :preview-src-list="srcList0">
             </el-image>
             <div class="text">侧面照</div>
           </div>
           <div class="img_item">
-            <el-image class="img" :src="faceimg.find(image => image.type === 'smile').url" :preview-src-list="srcList1">
+            <el-image style="width: 240px; height: 256px" fit="cover"
+              :src="faceimg.find(image => image.type === 'smile').url" :preview-src-list="srcList1">
             </el-image>
             <div class="text">微笑照</div>
           </div>
@@ -30,12 +33,12 @@
                   <text>正貌-正面型：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value0" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[0].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options0" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[0].checked ? isChecked : checked" @click="face.list[0].checked = !face.list[0].checked" />
                   </div>
                 </div>
               </div>
@@ -44,12 +47,12 @@
                   <text>正貌-下面高：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value2" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[2].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked2">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[2].checked ? isChecked : checked" @click="face.list[2].checked = !face.list[2].checked" />
                   </div>
                 </div>
               </div>
@@ -58,12 +61,12 @@
                   <text>正貌-对称性：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value1" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[1].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked0">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[1].checked ? isChecked : checked" @click="face.list[1].checked = !face.list[1].checked" />
                   </div>
                 </div>
               </div>
@@ -72,12 +75,12 @@
                   <text>正貌-颏位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value4" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[4].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked4">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[4].checked ? isChecked : checked" @click="face.list[4].checked = !face.list[4].checked" />
                   </div>
                 </div>
               </div>
@@ -86,44 +89,44 @@
                   <text>正貌-唇齿位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value3" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[3].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked3">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[3].checked ? isChecked : checked" @click="face.list[3].checked = !face.list[3].checked" />
                   </div>
                 </div>
 
               </div>
-
               <div>
                 <div class="placeleft">
                   <text>正貌-微笑：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value5" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[5].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked5">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[5].checked ? isChecked : checked" @click="face.list[5].checked = !face.list[5].checked" />
                   </div>
                 </div>
               </div>
             </div>
+
             <div class="flank" style="margin-left: 1%;">
               <div>
                 <div class="placeleft">
                   <text>侧貌-侧面型：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value6" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[6].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options6" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked6">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[6].checked ? isChecked : checked" @click="face.list[6].checked = !face.list[6].checked" />
                   </div>
                 </div>
               </div>
@@ -132,12 +135,12 @@
                   <text>侧貌-唇位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value12" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[8].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options12" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked12">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[8].checked ? isChecked : checked" @click="face.list[8].checked = !face.list[8].checked" />
                   </div>
                 </div>
               </div>
@@ -146,12 +149,12 @@
                   <text>侧貌-颏位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value11" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[10].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options11" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked11">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[10].checked ? isChecked : checked" @click="face.list[10].checked = !face.list[10].checked" />
                   </div>
                 </div>
               </div>
@@ -160,49 +163,47 @@
                   <text>侧貌-鼻唇角：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value7" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[7].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options7" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked7">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[7].checked ? isChecked : checked" @click="face.list[7].checked = !face.list[7].checked" />
                   </div>
                 </div>
 
               </div>
-
-
               <div>
                 <div class="placeleft">
                   <text>侧貌-颏唇沟：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value8" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[9].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options8" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked8">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[9].checked ? isChecked : checked" @click="face.list[9].checked = !face.list[9].checked" />
                   </div>
                 </div>
               </div>
-
               <div>
                 <div class="placeleft">
                   <text>侧貌-下颌角：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="value9" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[11].value" placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options9" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <el-checkbox v-model="checked9">?</el-checkbox>
+                    <img class="is_checked" :src="face.list[11].checked ? isChecked : checked" @click="face.list[11].checked = !face.list[11].checked" />
                   </div>
                 </div>
 
               </div>
             </div>
+
             <div style="display: flex;justify-content: flex-start;width: 66%; ">
               <div style="text-align: left;width: 180px; min-width: 113px;">
                 <text>口周肌肉分析：</text>
@@ -213,18 +214,14 @@
                   </el-option>
                 </el-select>
                 <div class="check">
-                  <el-checkbox v-model="checked10">?</el-checkbox>
+                  <img class="is_checked" :src="checked10 ? isChecked : checked" @click="checked10 = !checked10" />
                 </div>
               </div>
-
             </div>
-
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
   
@@ -452,7 +449,6 @@ export default {
         value: 10 || '10',
         label: '-'
       }],
-
     }
   },
   created() {
@@ -464,18 +460,18 @@ export default {
     this.srcList0.push(this.faceimg.find(image => image.type === 'profile').url)
     this.srcList1.push(this.faceimg.find(image => image.type === 'smile').url)
     this.facelist = this.face.list
-    this.value0 = parseInt(this.face.list.results[0])
-    this.value1 = parseInt(this.face.list.results[1])
-    this.value2 = parseInt(this.face.list.results[2])
-    this.value3 = parseInt(this.face.list.results[3])
-    this.value4 = parseInt(this.face.list.results[4])
-    this.value5 = parseInt(this.face.list.results[5])
-    this.value6 = parseInt(this.face.list.results[6])
-    this.value7 = parseInt(this.face.list.results[7])
-    this.value12 = parseInt(this.face.list.results[8])
-    this.value8 = parseInt(this.face.list.results[9])
-    this.value11 = parseInt(this.face.list.results[10])
-    this.value9 = parseInt(this.face.list.results[11])
+    // this.value0 = parseInt(this.face.list[0].value)
+    // this.value1 = parseInt(this.face.list[1].value)
+    // this.value2 = parseInt(this.face.list[2].value)
+    // this.value3 = parseInt(this.face.list[3].value)
+    // this.value4 = parseInt(this.face.list[4].value)
+    // this.value5 = parseInt(this.face.list[5].value)
+    // this.value6 = parseInt(this.face.list[6].value)
+    // this.value7 = parseInt(this.face.list[7].value)
+    // this.value8 = parseInt(this.face.list[9].value)
+    // this.value9 = parseInt(this.face.list[11].value)
+    // this.value11 = parseInt(this.face.list[10].value)
+    // this.value12 = parseInt(this.face.list[8].value)
     // if(this.face.list.results[12] !== ""){
     //   this.value10.push(this.face.list.results[12])
     // }
@@ -494,7 +490,11 @@ export default {
   }
 }
 </script>
-  
+ 
+<script setup>
+import checked from "@/assets/checked.png";
+import isChecked from "@/assets/isChecked.png";
+</script>
 <style lang="scss" scoped>
 .body {
   width: 100%;
@@ -518,7 +518,14 @@ export default {
 
 .check {
   margin-left: 2%;
-  width: 2% !important
+  width: 2% !important;
+  cursor: pointer;
+}
+
+.is_checked {
+  width: 22px;    
+  height: 22px;
+  margin-left: 6px;
 }
 
 .placeleft {
@@ -530,6 +537,7 @@ export default {
 .placeright {
   display: flex;
   // justify-content: flex-end;
+  align-items: center;
 }
 
 .flank {
@@ -550,17 +558,12 @@ export default {
   justify-content: space-between;
 
   .img_item {
-    width: 13vw;
-    height: 13vw;
+    width: 240px;
+    height: 256px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .img {
-      width: 100%;
-      height: 100%;
-    }
 
     .text {
       position: absolute;

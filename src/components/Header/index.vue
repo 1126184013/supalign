@@ -6,9 +6,9 @@
       <el-icon class="item">
         <BellFilled />
       </el-icon>
-      <el-dropdown class="item">
+      <el-dropdown class="item m-l-r">
         <span class="el-dropdown-link">
-          <span style="font-size: 14px;">  测试111</span>
+          <span style="font-size: 25px;"> 测试111</span>
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -25,7 +25,7 @@
       </el-dropdown>
       <span class="item">测试账号11</span>
       <el-avatar class="item" :size="50" :src="circleUrl" />
-      <div style="font-size: 14px;" @click="outLogin">注销</div>
+      <div style="font-size: 25px;" @click="outLogin">注销</div>
     </div>
   </div>
 </template>
@@ -58,12 +58,13 @@ const goToHome = () => {
   .logo {
     width: 427px;
     height: 40px;
+    margin-left: 60px;
   }
 
   .info {
     display: flex;
     align-items: center;
-    // font-size: 16px;
+    font-size: 25px;
     font-family: Microsoft YaHei;
     font-weight: 400;
     color: #030303;
@@ -73,12 +74,17 @@ const goToHome = () => {
       margin: 0 10px;
 
       .el-dropdown-link {
-        // font-size: 25px;
-        font-family: Microsoft YaHei;
+        font-size: 25px;
         font-weight: 400;
         color: #030303;
         line-height: 50px;
+        display: flex;
+        align-items: center;
       }
+    }
+
+    .m-l-r {
+      margin: 0 30px 0 20px;
     }
   }
 }

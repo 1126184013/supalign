@@ -1,0 +1,27 @@
+.iam-loading {
+  .el-loading-spinner {
+    background-image: url('../../assets/369369.gif') !important;
+    background-repeat: no-repeat;
+    background-size: 180px 180px;
+    height: 200px;
+    width: 100%;
+    background-position: center;
+    top: 40%;
+    position: absolute;
+    text-align: center;
+  }
+
+  .el-loading-spinner .circular {
+    /*隐藏 默认的 loading 动画*/
+    display: none !important;
+  }
+
+  .el-loading-spinner .el-loading-text {
+    margin-top: 200px !important;
+  }
+
+  .el-icon-loading:before {
+    /*隐藏 默认的 loading 动画*/
+    display: none !important;
+  }
+}

@@ -7,15 +7,18 @@
 
       <div class="imglist">
         <div class="img_item">
-          <el-image class="img" :src="faceimg.find(image => image.type === 'front').url" :preview-src-list="srcList">
+          <el-image style="width: 240px; height: 256px" fit="cover"
+            :src="faceimg.find(image => image.type === 'front').url" :preview-src-list="srcList">
           </el-image>
         </div>
         <div class="img_item">
-          <el-image class="img" :src="faceimg.find(image => image.type === 'profile').url" :preview-src-list="srcList0">
+          <el-image style="width: 240px; height: 256px" fit="cover"
+            :src="faceimg.find(image => image.type === 'profile').url" :preview-src-list="srcList0">
           </el-image>
         </div>
         <div class="img_item">
-          <el-image class="img" :src="faceimg.find(image => image.type === 'smile').url" :preview-src-list="srcList1">
+          <el-image style="width: 240px; height: 256px" fit="cover"
+            :src="faceimg.find(image => image.type === 'smile').url" :preview-src-list="srcList1">
           </el-image>
         </div>
       </div>
@@ -39,6 +42,16 @@
           <el-table-column prop="flankintro">
           </el-table-column>
         </el-table>
+        <!-- <el-table :data="list" style="width: 100%">
+          <el-table-column label="正貌" width="180">
+            <el-table-column prop="name" label="潜在问题" width="120"></el-table-column>
+            <el-table-column prop="value" label="临床表现" width="120"></el-table-column>
+          </el-table-column>
+          <el-table-column label="侧貌" width="180">
+            <el-table-column prop="name" label="潜在问题" width="120"></el-table-column>
+            <el-table-column prop="value" label="临床表现" width="120"></el-table-column>
+          </el-table-column>
+        </el-table> -->
       </div>
     </div>
   </div>
@@ -77,12 +90,15 @@ export default {
         flankname: '颜位',
         flankvalue: '正常',
         flankintro: '通过软组织鼻根点和眶点分别做FH平面垂线，两者形成“颌面区”，即JPF (jaw profile field)区，理想的额位应该在JPF区内',
-      },]
+      },],
+      list: []
     }
   },
   created() {
     console.log(this.face, 'ssssss')
     this.faceimg = this.face.img
+    this.list = this.face.list
+    console.log('list>>>', this.list);
     this.srcList.push(this.faceimg.find(image => image.type === 'front').url)
     this.srcList0.push(this.faceimg.find(image => image.type === 'profile').url)
     this.srcList1.push(this.faceimg.find(image => image.type === 'smile').url)
@@ -145,16 +161,11 @@ td {
   justify-content: space-between;
 
   .img_item {
-    width: 13vw;
-    height: 13vw;
+    width: 240px;
+    height: 256px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .img {
-      width: 100%;
-      height: 100%;
-    }
   }
 }
 
