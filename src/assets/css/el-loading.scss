@@ -1,12 +1,12 @@
 .iam-loading {
   .el-loading-spinner {
-    background-image: url('../../assets/369369.gif') !important;
+    background-image: url('../../assets/369369.gif');
     background-repeat: no-repeat;
-    background-size: 180px 180px;
-    height: 200px;
+    background-size: 250px 250px;
+    height: 300px;
     width: 100%;
     background-position: center;
-    top: 40%;
+    top: 35%;
     position: absolute;
     text-align: center;
   }
@@ -17,11 +17,54 @@
   }
 
   .el-loading-spinner .el-loading-text {
-    margin-top: 200px !important;
+    margin-top: 250px !important;
+    width: 250px;
+    height: 80px;
+    background-color: #fff;
+    line-height: 80px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    font-size: 18px;
   }
 
   .el-icon-loading:before {
     /*隐藏 默认的 loading 动画*/
     display: none !important;
   }
+}
+
+.iam-loading_2 {
+  .el-loading-spinner {
+    width: 250px;
+    height: 250px;
+    background-color: #fff;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .el-loading-spinner .circular {
+    /*隐藏 默认的 loading 动画*/
+    // display: none !important;
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .el-loading-spinner .el-loading-text {
+    margin-top: 50px !important;
+    color: #333;
+    font-size: 18px;
+  }
+
+  // .el-icon-loading:before {
+  //   /*隐藏 默认的 loading 动画*/
+  //   display: none !important;
+  // }
 }

@@ -8,7 +8,7 @@
       </el-icon>
       <el-dropdown class="item m-l-r">
         <span class="el-dropdown-link">
-          <span style="font-size: 25px;"> 测试111</span>
+          <span style="font-size: 22px;"> 测试111</span>
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -25,7 +25,7 @@
       </el-dropdown>
       <span class="item">测试账号11</span>
       <el-avatar class="item" :size="50" :src="circleUrl" />
-      <div style="font-size: 25px;" @click="outLogin">注销</div>
+      <div style="font-size: 22px;" @click="outLogin">注销</div>
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@ const goToHome = () => {
 <style lang="scss" scoped>
 .header {
   width: auto;
-  padding: 30px;
+  padding: 30px 38px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,13 +58,13 @@ const goToHome = () => {
   .logo {
     width: 427px;
     height: 40px;
-    margin-left: 60px;
+    // margin-left: 60px;
   }
 
   .info {
     display: flex;
     align-items: center;
-    font-size: 25px;
+    font-size: 22px;
     font-family: Microsoft YaHei;
     font-weight: 400;
     color: #030303;
@@ -74,7 +74,7 @@ const goToHome = () => {
       margin: 0 10px;
 
       .el-dropdown-link {
-        font-size: 25px;
+        font-size: 22px;
         font-weight: 400;
         color: #030303;
         line-height: 50px;

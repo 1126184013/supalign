@@ -17,7 +17,7 @@
       <div class="analyze" v-if="procedure == 0">
         <div class="top">
           <input type="file" ref="fileInput" multiple @change="handleFileChange" style="display: none">
-          <el-button class="custom-button iam-loading" size="large" type="primary" @click="openFileInput">批量上传</el-button>
+          <el-button class="custom-button" size="large" type="primary" @click="openFileInput">批量上传</el-button>
           <!-- v-loading.fullscreen.lock="fullscreenLoading" -->
           <div @click="ruleShow = true" class="rule">( <text>上传规则</text> )</div>
         </div>
@@ -167,6 +167,7 @@ export default {
       // this.loading = true; // 显示加载动画
       this.loadingInstance = ElLoading.service({
         lock: true,
+        background: 'rgba(0, 0, 0, 0.7)',
         customClass: 'iam-loading',
         text: '正在分析中，请稍候...',
       })
@@ -226,7 +227,8 @@ export default {
     report() {
       this.loadingInstance = ElLoading.service({
         lock: true,
-        customClass: '',
+        background: 'rgba(0, 0, 0, 0.7)',
+        customClass: 'iam-loading_2',
         text: '正在生成中，请稍等...'
       })
       setTimeout(() => {
@@ -240,7 +242,8 @@ export default {
     downloadPDF() {
       this.loadingInstance = ElLoading.service({
         lock: true,
-        customClass: '',
+        background: 'rgba(0, 0, 0, 0.7)',
+        customClass: 'iam-loading_2',
         text: '正在下载中，请稍等...'
       })
       htmlToPdf.getPdf('文件标题', "#pdfDom");
@@ -254,7 +257,8 @@ export default {
     reserve() {
       this.loadingInstance = ElLoading.service({
         lock: true,
-        customClass: '',
+        background: 'rgba(0, 0, 0, 0.7)',
+        customClass: 'iam-loading_2',
         text: '正在保存中，请稍等...'
       })
       setTimeout(() => {
@@ -549,7 +553,8 @@ export default {
       // 加载动画
       this.loadingInstance = ElLoading.service({
         lock: true,
-        // customClass: 'iam-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+        customClass: 'iam-loading_2',
         text: '正在上传图片中...',
       })
 
@@ -633,6 +638,8 @@ export default {
 <style lang="scss" scoped>
 .custom-button {
   background-color: #7BA9B9;
+  border: 1px solid #7BA9B9;
+  font-size: 18px;
 }
 
 .el-button {
@@ -651,6 +658,7 @@ export default {
   // border: 1px solid #030303;
   padding: 20px 0;
   user-select: none;
+  font-size: 20px;
 }
 
 .faceimg {
@@ -708,7 +716,7 @@ export default {
     .rule {
       margin-left: 20px;
       color: #7BA9B9;
-      font-size: 15px;
+      font-size: 16px;
       cursor: pointer;
 
       text {
@@ -752,14 +760,15 @@ export default {
 
 .nextsty {
   width: 200px;
-  height: 30px;
+  height: 40px;
   padding: 5px;
   background-color: #7BA9B9;
   color: #FFFFFF;
   border-radius: 5px;
   text-align: center;
   margin: 0 1%;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 40px;
   cursor: pointer;
 }
 

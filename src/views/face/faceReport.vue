@@ -25,7 +25,7 @@
     </div>
     <div>
       <div class="headtitle mt">
-        <text class="fonthead">诊断分析</text>
+        <text class="fonthead">诊断分析结果</text>
       </div>
       <div class="pdfupdata">
         <el-table :data="tableData" stripe style="width: 100%">
@@ -126,7 +126,11 @@ export default {
 </script>
   
 <style lang="scss" scoped>
-.pdfupdata {}
+.pdfupdata {
+  :deep(.el-table__inner-wrapper) {
+    font-size: 16px;
+  }
+}
 
 .fonthead {
   font-size: 18px;

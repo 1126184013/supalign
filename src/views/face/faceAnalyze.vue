@@ -38,7 +38,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[0].checked ? isChecked : checked" @click="face.list[0].checked = !face.list[0].checked" />
+                    <img class="is_checked" :src="face.list[0].checked ? isChecked : checked"
+                      @click="face.list[0].checked = !face.list[0].checked" />
                   </div>
                 </div>
               </div>
@@ -52,7 +53,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[2].checked ? isChecked : checked" @click="face.list[2].checked = !face.list[2].checked" />
+                    <img class="is_checked" :src="face.list[2].checked ? isChecked : checked"
+                      @click="face.list[2].checked = !face.list[2].checked" />
                   </div>
                 </div>
               </div>
@@ -66,7 +68,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[1].checked ? isChecked : checked" @click="face.list[1].checked = !face.list[1].checked" />
+                    <img class="is_checked" :src="face.list[1].checked ? isChecked : checked"
+                      @click="face.list[1].checked = !face.list[1].checked" />
                   </div>
                 </div>
               </div>
@@ -80,7 +83,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[4].checked ? isChecked : checked" @click="face.list[4].checked = !face.list[4].checked" />
+                    <img class="is_checked" :src="face.list[4].checked ? isChecked : checked"
+                      @click="face.list[4].checked = !face.list[4].checked" />
                   </div>
                 </div>
               </div>
@@ -94,7 +98,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[3].checked ? isChecked : checked" @click="face.list[3].checked = !face.list[3].checked" />
+                    <img class="is_checked" :src="face.list[3].checked ? isChecked : checked"
+                      @click="face.list[3].checked = !face.list[3].checked" />
                   </div>
                 </div>
 
@@ -109,7 +114,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[5].checked ? isChecked : checked" @click="face.list[5].checked = !face.list[5].checked" />
+                    <img class="is_checked" :src="face.list[5].checked ? isChecked : checked"
+                      @click="face.list[5].checked = !face.list[5].checked" />
                   </div>
                 </div>
               </div>
@@ -126,7 +132,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[6].checked ? isChecked : checked" @click="face.list[6].checked = !face.list[6].checked" />
+                    <img class="is_checked" :src="face.list[6].checked ? isChecked : checked"
+                      @click="face.list[6].checked = !face.list[6].checked" />
                   </div>
                 </div>
               </div>
@@ -140,7 +147,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[8].checked ? isChecked : checked" @click="face.list[8].checked = !face.list[8].checked" />
+                    <img class="is_checked" :src="face.list[8].checked ? isChecked : checked"
+                      @click="face.list[8].checked = !face.list[8].checked" />
                   </div>
                 </div>
               </div>
@@ -154,7 +162,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[10].checked ? isChecked : checked" @click="face.list[10].checked = !face.list[10].checked" />
+                    <img class="is_checked" :src="face.list[10].checked ? isChecked : checked"
+                      @click="face.list[10].checked = !face.list[10].checked" />
                   </div>
                 </div>
               </div>
@@ -168,7 +177,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[7].checked ? isChecked : checked" @click="face.list[7].checked = !face.list[7].checked" />
+                    <img class="is_checked" :src="face.list[7].checked ? isChecked : checked"
+                      @click="face.list[7].checked = !face.list[7].checked" />
                   </div>
                 </div>
 
@@ -183,7 +193,8 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[9].checked ? isChecked : checked" @click="face.list[9].checked = !face.list[9].checked" />
+                    <img class="is_checked" :src="face.list[9].checked ? isChecked : checked"
+                      @click="face.list[9].checked = !face.list[9].checked" />
                   </div>
                 </div>
               </div>
@@ -197,15 +208,16 @@
                     </el-option>
                   </el-select>
                   <div class="check">
-                    <img class="is_checked" :src="face.list[11].checked ? isChecked : checked" @click="face.list[11].checked = !face.list[11].checked" />
+                    <img class="is_checked" :src="face.list[11].checked ? isChecked : checked"
+                      @click="face.list[11].checked = !face.list[11].checked" />
                   </div>
                 </div>
 
               </div>
             </div>
 
-            <div style="display: flex;justify-content: flex-start;width: 66%; ">
-              <div style="text-align: left;width: 180px; min-width: 113px;">
+            <div style="display: flex;justify-content: flex-start;width: 66%; margin-top: 20px;">
+              <div style="text-align: left;width: 180px; min-width: 145px;">
                 <text>口周肌肉分析：</text>
               </div>
               <div class="placeright" style="width: 100%;">
@@ -523,14 +535,14 @@ import isChecked from "@/assets/isChecked.png";
 }
 
 .is_checked {
-  width: 22px;    
+  width: 22px;
   height: 22px;
   margin-left: 6px;
 }
 
 .placeleft {
   width: 35% !important;
-  min-width: 113px;
+  min-width: 145px;
   text-align: left;
 }
 
@@ -538,6 +550,10 @@ import isChecked from "@/assets/isChecked.png";
   display: flex;
   // justify-content: flex-end;
   align-items: center;
+
+  :deep(.el-input__inner) {
+    font-size: 18px;
+  }
 }
 
 .flank {
@@ -609,5 +625,4 @@ import isChecked from "@/assets/isChecked.png";
   position: relative;
   left: 45%;
   bottom: -30%;
-}
-</style>
+}</style>
