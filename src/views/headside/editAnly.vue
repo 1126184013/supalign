@@ -49,7 +49,7 @@
             <div>校准</div>
           </div>
         </div>
-        <div class="tool" style="width: 30%;border: none;">
+        <div class="tool" style="width: 35%;border: none;">
           <div class="modelimg" style="width: 22%;">
             <img src="../../assets/lk.png" alt="" style="width: 43px;">
             <div>轮廓重置</div>
@@ -67,8 +67,10 @@
         </div>
       </div>
       <div class="container">
-        <div style="width:50%">
+        <div style="width:50%;position: relative;">
           <canvas ref="myCanvas" @click="addPoint" @mousedown="startDrag" @mousemove="dragPoint" @mouseup="endDrag" :width="canvasWidth" :height="canvasHeight"></canvas>
+          <div @click="nameedit" class="namesty" >{{ this.pointname }}</div>
+          
         </div>
         <div style="width:49.8%">
           <el-table
@@ -105,15 +107,20 @@
   
   <script>
   import axios from 'axios'
-import { Text } from 'vue'
+ import { Text } from 'vue'
     export default {
       name: 'faceReport',
       props: ['editstart'],
       data() {
         return {
           imageSrc: '',
+          nameshow:false,
           isDragging:false, // 是否正在拖动
           pointRadius: 10, // 标点半径
+          pointname:"",
+          names:'',
+          celepoints:[],//选中标点
+          editradggstate:false,//是否是编辑状态
           pointsindex:null, // 当前正在拖动的点在points中的索引
           currentDraggingPoint: null, // 当前正在拖动的点
           points: [], // 存储标点坐标的数组
@@ -303,7 +310,7 @@ import { Text } from 'vue'
         console.log(this.editstart,'编辑')
         let that = this
         this.imageSrc = this.editstart.img
-        this.scale = (this.canvasHeight / this.editstart.list.height);
+        this.scale = (this.canvasWidth / this.editstart.list.width);
         
         this.tabdaproj.map((item,index)=>{
           that.tableData[index].itemName = item
@@ -343,14 +350,29 @@ import { Text } from 'vue'
           image.src = this.imageSrc;
         },
     addPoint(event) {
-      if(this.isPointLineMode){
+      
         const canvas = this.$refs.myCanvas;
         const rect = canvas.getBoundingClientRect();
 
         const x = (event.clientX - rect.left) / this.scale; // 根据缩放比例计算实际坐标
         const y = (event.clientY - rect.top) / this.scale; // 根据缩放比例计算实际坐标
-
-        this.points.push({ x, y });
+        // 遍历已有的标点数组，判断鼠标是否在某个标点附近
+        for (let i = 0; i < this.points.length; i++) {
+          const point = this.points[i];
+          const distance = Math.sqrt((x - point.x ) ** 2 + (y - point.y ) ** 2);
+          this.celepoints.push({ x, y});
+          if (distance <= this.pointRadius) {
+            this.pointName(i)
+            break;
+          }
+        }
+        
+      if(this.isPointLineMode){
+        this.names = prompt('请输入名称：')
+        if(this.names === null){
+          return
+        }
+        this.points.push({ x, y , name: this.names});
         this.drawPoints();
       }
       
@@ -383,19 +405,22 @@ import { Text } from 'vue'
     },
     //拖拽
     startDrag(event) {
-      const mouseX = event.clientX;
-      const mouseY = event.clientY;
-      console.log(event.clientX,110.373046875*this.scale,'拖拽1');
-      console.log(event.clientY/this.scale,'拖拽1');
+      const canvas = this.$refs.myCanvas;
+      const rect = canvas.getBoundingClientRect();
+
+      const mouseX = (event.clientX - rect.left)/ this.scale;
+      const mouseY = (event.clientY - rect.top)/ this.scale;
+
       // 遍历已有的标点数组，判断鼠标是否在某个标点附近
       for (let i = 0; i < this.points.length; i++) {
         const point = this.points[i];
-        const distance = Math.sqrt((mouseX/this.scale - point.x ) ** 2 + (mouseY/this.scale - point.y ) ** 2);
+        const distance = Math.sqrt((mouseX - point.x ) ** 2 + (mouseY - point.y ) ** 2);
 
         // 如果鼠标在标点附近，将该标点设为当前拖拽对象
         
         if (distance <= this.pointRadius) {
-          console.log(distance,this.pointRadius,'拖拽');
+          this.pointName(i)
+          
           this.currentDraggingPoint = point;
           this.pointsindex = i;
           break;
@@ -403,19 +428,62 @@ import { Text } from 'vue'
       }
 
       // 如果存在当前拖拽对象，将其设为正在拖拽状态
-      if (this.currentDraggingPoint) {
+      if (this.currentDraggingPoint && this.editradggstate) {
         this.isDragging = true;
+      }
+    },
+    pointName(e){
+      console.log(e)
+      if(e == 0){
+        this.pointname = "Sella"
+      }else if(e == 1){
+        this.pointname =this.points[this.pointsindex].name?this.points[this.pointsindex].name: "Nasion"
+      }else if(e == 2){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"Orbitale"
+      }else if(e == 3){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"Porion"
+      }else if(e == 4){ 
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"Dc"
+      }else if(e == 5){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"Ep"
+      }else if(e == 6){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"Pogonion"
+      }else if(e == 7){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"LowerIncisor"
+      }else if(e == 9){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"Gonion"
+      }else if(e == 13){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"LowerLip"
+      }else if(e == 17){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"UpperIncisor"
+      }else if(e == 18){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"Articulare"
+      }else if(e == 25){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:""
+      }else if(e == 27){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"PtV"
+      }else if(e == 36){
+        this.pointname = this.points[this.pointsindex].name?this.points[this.pointsindex].name:"U6"
+      }else{
+        console.log(this.points[e],"1")
+        if(this.points[e].name){
+        console.log(this.points[e].name,"2")
+          this.pointname = this.points[e].name
+        }
       }
     },
     dragPoint(event) {
       if (this.isDragging && this.currentDraggingPoint) {
         // 根据鼠标位置计算出标点应该移动到的新位置
-        const newPointX = event.clientX;
-        const newPointY = event.clientY;
+        const canvas = this.$refs.myCanvas;
+       const rect = canvas.getBoundingClientRect();
+
+        const newPointX = (event.clientX - rect.left)/ this.scale;
+        const newPointY = (event.clientY - rect.top)/ this.scale;
 
         // 将当前拖拽对象的坐标设置为新位置
-        this.points[this.pointsindex].x = newPointX/this.scale;
-        this.points[this.pointsindex].y = newPointY/this.scale;
+        this.points[this.pointsindex].x = newPointX;
+        this.points[this.pointsindex].y = newPointY;
 
         // 重新绘制所有标点
         this.drawPoints();
@@ -426,7 +494,16 @@ import { Text } from 'vue'
       this.currentDraggingPoint = null
 
     },
+    nameedit(){
+      this.names = prompt('请输入名称：')
+        if(this.names === null){
+          return
+        }
+      this.points[this.pointsindex].name = this.names
+      this.pointName(this.pointsindex)
+    },
     imgedig(){
+      this.editradggstate = !this.editradggstate
       this.isPointLineMode = false
     },
     delet(){
@@ -456,6 +533,15 @@ import { Text } from 'vue'
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+.namesty{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  padding: 2px;
+  background-color: rgba(89, 89, 89, 0.74);
+  color: #FFFFFF;
 }
 .headlist{
   width: 100%;
