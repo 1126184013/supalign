@@ -14,7 +14,13 @@
           </div>
           <div class="modelimg">
             <img src="../../assets/zxt.png" alt="" style="width: 43px;">
-            <div>点线模式</div>
+            <div class="selesty" >
+              <select v-model="canvasstart"  @change="handstart" style="background-color: #76A0B1;border: none;color: #fff;">
+                <option style="background-color: #ffff;color: black; border: none;" value="1">点线模式</option>
+                <option style="background-color: #ffff;color: black; border: none;" value="2">辅助点隐藏</option>
+                <option style="background-color: #ffff;color: black; border: none;" value="3">轮廓隐藏</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="tool">
@@ -70,7 +76,6 @@
         <div style="width:50%;position: relative;">
           <canvas ref="myCanvas" @click="addPoint" @mousedown="startDrag" @mousemove="dragPoint" @mouseup="endDrag" :width="canvasWidth" :height="canvasHeight"></canvas>
           <div @click="nameedit" class="namesty" >{{ this.pointname }}</div>
-          
         </div>
         <div style="width:49.8%">
           <el-table
@@ -113,12 +118,25 @@
       props: ['editstart'],
       data() {
         return {
+          
           imageSrc: '',
           nameshow:false,
           isDragging:false, // 是否正在拖动
+          lines:[], // 存储标点连线
           pointRadius: 10, // 标点半径
+          canvasstart:1, // 切换模式
           pointname:"",
           names:'',
+          options:[{
+            value: 1,
+            label: '点线模式'
+          },{
+            value: 2,
+            label: '辅助点隐藏'
+          },{
+            value: 3,
+            label: '轮廓线模式'
+          },],
           celepoints:[],//选中标点
           editradggstate:false,//是否是编辑状态
           pointsindex:null, // 当前正在拖动的点在points中的索引
@@ -318,6 +336,7 @@
           
 
         })
+
       },
       mounted() {
         let that = this
@@ -344,7 +363,10 @@
           image.onload = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // 绘制图片时指定宽度和高度为 canvas 的宽度和高度
+            
             this.drawPoints(); // 绘制标点
+
+            
           };
 
           image.src = this.imageSrc;
@@ -384,25 +406,46 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const image = new Image();
+      // this.lines = [{x:110.373046875,y:420.5859375},{x:801.2265625,y:1208.7109375},{x:985.181640625,y:1174.609375},]
+      this.lines = [this.points[22],this.points[28],this.points[26],this.points[34]]
       image.onload = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // 绘制图片时指定宽度和高度为 canvas 的宽度和高度
-        //颜色
+        //标点颜色
         ctx.fillStyle = 'red';
+        // 线条颜色
+        ctx.strokeStyle = "#0505F9";
+        // 线条粗细
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+
+        for(let i = 0; i < this.lines.length-1; i++){
+          ctx.moveTo(this.lines[i].x*this.scale, this.lines[i].y*this.scale);
+          ctx.lineTo(this.lines[i+1].x*this.scale, this.lines[i+1].y*this.scale);
+
+        }
+        if(this.canvasstart == 1||this.canvasstart == 2){
+          ctx.stroke(); // 绘制线条
+        }
+        
         this.points.forEach(point => {
           const x = point.x * this.scale; // 根据缩放比例计算实际坐标
           const y = point.y * this.scale; // 根据缩放比例计算实际坐标
-
           ctx.beginPath();
+          
           //标点大小
           ctx.arc(x, y, 3, 0, Math.PI * 2);
-          ctx.fill();
+          if(this.canvasstart == 1||this.canvasstart == 3){
+            ctx.fill();
+          }
+          
           ctx.closePath();
         });
       };
 
       image.src = this.imageSrc;
     },
+
     //拖拽
     startDrag(event) {
       const canvas = this.$refs.myCanvas;
@@ -506,6 +549,9 @@
       this.editradggstate = !this.editradggstate
       this.isPointLineMode = false
     },
+    handstart(){
+      this.drawPoints()
+    },
     delet(){
       this.points.pop();
       this.drawCanvas();
@@ -528,6 +574,11 @@
   </script>
   
 <style lang="scss" scoped>
+
+.selesty{
+  border: none; /* 去掉边框 */
+  background-color: #76A0B1; /* 修改背景颜色 */
+}
 .bodyed{
   width: 100vw;
   height: 100%;
