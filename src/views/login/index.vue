@@ -1,27 +1,30 @@
 <template>
-  <div class="box">
-    <div class="page">
-      <div class="left">
-        <div class="lefttext">
-          专注0-12岁<br />
-          中国儿童颜面生长发育平衡管理
+  <div class="page">
+    <img :src="logo" class="logo">
+    <div class="box">
+      <div class="form">
+        <div class="small">
+          <img :src="small1" class="small1">
+          <img :src="small2" class="small2">
         </div>
-        <!-- <div class="text">
-          <span>Welcome!</span>
-          <br />
-          <span class="text2">欢迎来到牙贝美塑AI检测系统</span>
-        </div> -->
-      </div>
-      <div class="right">
-        <img class="logo" :src="logo" />
-        <div class="form">
-          <p>登录</p>
-          <input class="input" placeholder="请输入账号" type="text" v-model="loginForm.user" />
-          <input class="input" placeholder="请输入密码" type="password" v-model="loginForm.password" />
-          <div class="btn" @click="handleLogin">登录</div>
+        <div class="content">
+          <div class="title">欢迎登录</div>
+          <el-tabs v-model="activeName" class="demo-tabs" :stretch="true">
+            <el-tab-pane label="密码登录" name="first">
+              <el-input class="input" size="large" type="text" v-model="user" placeholder="请输入账户名" :prefix-icon="User" />
+              <el-input class="input" size="large" type="password" show-password v-model="password" placeholder="请输入密码"
+                :prefix-icon="Lock" />
+              <div class="options">
+                <el-checkbox class="checkbox" v-model="checked" label="记住密码" />
+                <div class="text">忘记密码</div>
+              </div>
+              <div class="btn" @click="handleLogin">登录</div>
+            </el-tab-pane>
+          </el-tabs>
         </div>
       </div>
     </div>
+    <img :src="people" class="people">
   </div>
 </template>
 
@@ -29,23 +32,28 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
-import login from "@/assets/login.png";
-import logo from "@/assets/logo.png";
+import { User, Lock } from '@element-plus/icons-vue'
+import logo from "@/assets/home_2/logo.png";
+import people from "@/assets/login/people.png";
+import small1 from "@/assets/login/small_1.png";
+import small2 from "@/assets/login/small_2.png";
+import DevicePixelRatio from '@/utils/DevicePixelRatio.js';
 
 const route = useRoute();
 const router = useRouter();
-const loginForm = ref({ user: "admin", password: "111111" });
+let activeName = ref('first');
+let user = ref('admin');
+let password = ref('111111');
+let checked = ref(false);
 
 onMounted(() => {
-  // 隐藏窗口滚动条
-  if (route.path === "/login") {
-    document.body.style.overflow = "hidden";
-  }
+  document.getElementsByTagName('body')[0].style.zoom = 'normal';
+  console.log(document.getElementsByTagName('body')[0].style.zoom);
 });
 
 const handleLogin = async () => {
-  const { user, password } = loginForm.value;
-  if (user === "admin" && password === "111111") {
+  if (user.value == "admin" && password.value == "111111") {
+    new DevicePixelRatio().init();
     router.push({ path: "/home" });
   } else {
     // 登录失败
@@ -58,156 +66,164 @@ const handleLogin = async () => {
 </script>
 
 <style lang="scss" scoped>
-.box {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: url(../../assets/bgc.png) right no-repeat;
-  background-size: auto 100%;
-}
-
 .page {
-  min-width: 55%;
-  height: 70%;
-  display: flex;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.233);
+  width: auto;
+  height: 100vh;
+  min-width: 1110px;
+  min-height: 680px;
+  background: url('@/assets/login/bgc.png') no-repeat;
+  background-size: 100% 100%;
+  position: relative;
 
-  .left {
-    position: relative;
-    width: 50%;
-    height: 100%;
-    background-image: url(../../assets/login.png);
-    background-size: 100% 100%;
+  .logo {
+    position: absolute;
+    left: 4%;
+    top: 11%;
+    width: 15%;
+    height: auto;
+  }
 
-    .lefttext {
-      margin: 30px;
-      font-size: 20px;
-      font-size: 500;
-    }
+  .box {
+    width: 91%;
+    height: 48%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(123, 169, 185, 0.6);
 
-    .login {
-      width: 100%;
-      height: 100%;
-    }
-
-    .text {
+    .form {
+      width: 36%;
+      height: 150%;
       position: absolute;
-      top: 110px;
-      left: 68px;
-      font-size: 87px;
-      font-family: Microsoft YaHei;
-      font-weight: 400;
-      color: #000000;
-      line-height: 47%;
-    }
+      background-color: #fff;
+      right: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 10px;
+      padding-bottom: 2%;
 
-    .text2 {
-      font-size: 52px;
-      position: relative;
-      top: 39px;
+      .small {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        position: absolute;
+        // border: 1px solid #000;
+        top: 50%;
+        left: -110%;
+        transform: translateY(-50%);
+
+        .small1 {
+          width: 80%;
+          height: auto;
+        }
+
+        .small2 {
+          width: 15%;
+          height: auto;
+          margin-top: 15%;
+        }
+      }
+
+      .content {
+        margin: 15%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .title {
+          font-size: 37px;
+          font-weight: 550;
+          letter-spacing: 0.2em;
+          // margin-bottom: 20px;
+        }
+
+        .demo-tabs {
+          width: 100%;
+          margin-top: 8%;
+
+          :deep(.el-tabs__item.is-active) {
+            color: rgba(123, 169, 185, 1);
+          }
+
+          :deep(.el-tabs__item) {
+            font-size: 18px;
+          }
+
+          :deep(.el-tabs__active-bar) {
+            width: 50% !important;
+            height: 3px;
+            transform: translateX(50%) !important;
+            background-color: rgba(123, 169, 185, 1);
+          }
+
+          :deep(.el-tabs__nav-wrap::after) {
+            background-color: #fff;
+          }
+
+          :deep(.el-tabs__content) {
+            width: 100%;
+          }
+
+          .input {
+            margin-top: 9%;
+
+            :deep(.el-input__wrapper.is-focus) {
+              box-shadow: 0 0 0 1px rgba(123, 169, 185, 1);
+            }
+          }
+
+          .options {
+            display: flex;
+            margin-top: 9%;
+            justify-content: space-between;
+            align-items: center;
+
+            .checkbox {
+              :deep(.el-checkbox__input.is-checked+.el-checkbox__label) {
+                color: rgba(123, 169, 185, 1) !important;
+              }
+
+              :deep(.el-checkbox__input.is-checked) {
+                --el-checkbox-checked-input-border-color: #7BA9B9;
+                --el-checkbox-checked-bg-color: #7BA9B9;
+              }
+
+              :deep(.el-checkbox__input:hover) {
+                --el-checkbox-input-border-color-hover: #7BA9B9;
+              }
+            }
+
+            .text {
+              font-size: 14px;
+              color: #7BA9B9;
+            }
+          }
+
+          .btn {
+            width: 100%;
+            background: #7BA9B9;
+            color: #fff;
+            margin: 9% 0;
+            border-radius: 5px;
+            font-size: 20px;
+            line-height: 40px;
+            text-align: center;
+            font-weight: 600;
+          }
+        }
+      }
     }
   }
 
-  .right {
-    width: 50%;
-    height: 100%;
-    position: relative;
-    background-color: #fff;
-
-    .logo {
-      width: 60%;
-      margin-left: 7%;
-      margin-top: 10%;
-    }
-
-    .form {
-      margin-top: 10%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      // left: 50%;
-      // top: 40%;
-      // transform: translate(-50%, -50%);
-
-      p {
-        // margin-bottom: 30px;
-        font-size: 20px;
-        font-family: Source Han Sans SC;
-        font-weight: 400;
-        color: #000000;
-        // line-height: 61px;
-      }
-
-      .input {
-        width: 80%;
-        height: 40px;
-        margin: 5% 0;
-        border: 1px solid #7BA9B9;
-        border-radius: 8px;
-        font-size: 20px;
-        font-family: Source Han Sans SC;
-        font-weight: 400;
-        // color: #bfbfbf;
-        // line-height: 48px;
-        padding: 0 20px;
-
-      }
-
-      .input:focus {
-        outline: 2px solid #7ba9b9
-      }
-
-      .input::-webkit-input-placeholder {
-        /* WebKit browsers */
-        font-size: 20px;
-        font-weight: 400;
-        color: #bfbfbf;
-        line-height: 40px;
-      }
-
-      .input:-moz-placeholder {
-        /* Mozilla Firefox 4 to 18 */
-        font-size: 20px;
-        font-weight: 400;
-        color: #bfbfbf;
-        line-height: 40px;
-      }
-
-      .input::-moz-placeholder {
-        /* Mozilla Firefox 19+ */
-        font-size: 20px;
-        font-weight: 400;
-        color: #bfbfbf;
-        line-height: 40px;
-      }
-
-      .input:-ms-input-placeholder {
-        /* Internet Explorer 10+ */
-        font-size: 20px;
-        font-weight: 400;
-        color: #bfbfbf;
-        line-height: 40px;
-      }
-
-      .btn {
-        width: 35%;
-        height: 20%;
-        margin-top: 10%;
-        background: #7BA9B9;
-        border-radius: 44px;
-        font-size: 20px;
-        font-family: Source Han Sans SC;
-        font-weight: 400;
-        color: #ffffff;
-        text-align: center;
-        padding: 5px 0;
-      }
-    }
+  .people {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 60%;
+    width: auto;
   }
 }
 </style>

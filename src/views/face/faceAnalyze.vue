@@ -2,7 +2,7 @@
   <div class="body">
     <div class="analyze">
       <div style="padding-bottom: 15px;">面像分析：</div>
-      <div style="padding-top: 30px;display: flex;justify-content: space-between;">
+      <div :class="clientWidth >= 1650 ? 'box' : ''">
         <div class="imglist">
           <div class="img_item">
             <el-image style="width: 240px; height: 256px" fit="cover"
@@ -24,7 +24,7 @@
           </div>
         </div>
 
-        <div class="inform">
+        <div class="inform" :class="clientWidth >= 1650 ? '' : 'm-t'">
           <div>面像分析结果（13项）</div>
           <div class="informList">
             <div class="front">
@@ -33,7 +33,7 @@
                   <text>正貌-正面型：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[0].value" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[0].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options0" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
@@ -48,7 +48,7 @@
                   <text>正貌-下面高：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[2].value" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[2].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
@@ -63,7 +63,7 @@
                   <text>正貌-对称性：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[1].value" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[1].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
@@ -78,7 +78,7 @@
                   <text>正貌-颏位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[4].value" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[4].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
@@ -93,7 +93,7 @@
                   <text>正貌-唇齿位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[3].value" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[3].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
@@ -109,7 +109,7 @@
                   <text>正貌-微笑：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[5].value" placeholder="请选择" style="width: 80%;">
+                  <el-select v-model="face.list[5].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
                     <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
@@ -127,8 +127,8 @@
                   <text>侧貌-侧面型：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[6].value" placeholder="请选择" style="width: 80%;">
-                    <el-option v-for="item in options6" :key="item.value" :label="item.label" :value="item.value">
+                  <el-select v-model="face.list[6].value" :teleported="false" placeholder="请选择" style="width: 80%;">
+                    <el-option v-for=" item  in  options6 " :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
@@ -142,8 +142,8 @@
                   <text>侧貌-唇位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[8].value" placeholder="请选择" style="width: 80%;">
-                    <el-option v-for="item in options12" :key="item.value" :label="item.label" :value="item.value">
+                  <el-select v-model="face.list[8].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
+                    <el-option v-for=" item  in  options12 " :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
@@ -157,8 +157,8 @@
                   <text>侧貌-颏位：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[10].value" placeholder="请选择" style="width: 80%;">
-                    <el-option v-for="item in options11" :key="item.value" :label="item.label" :value="item.value">
+                  <el-select v-model="face.list[10].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
+                    <el-option v-for=" item  in  options11 " :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
@@ -172,8 +172,8 @@
                   <text>侧貌-鼻唇角：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[7].value" placeholder="请选择" style="width: 80%;">
-                    <el-option v-for="item in options7" :key="item.value" :label="item.label" :value="item.value">
+                  <el-select v-model="face.list[7].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
+                    <el-option v-for=" item  in  options7 " :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
@@ -188,8 +188,8 @@
                   <text>侧貌-颏唇沟：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[9].value" placeholder="请选择" style="width: 80%;">
-                    <el-option v-for="item in options8" :key="item.value" :label="item.label" :value="item.value">
+                  <el-select v-model="face.list[9].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
+                    <el-option v-for=" item  in  options8 " :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
@@ -203,8 +203,8 @@
                   <text>侧貌-下颌角：</text>
                 </div>
                 <div class="placeright">
-                  <el-select v-model="face.list[11].value" placeholder="请选择" style="width: 80%;">
-                    <el-option v-for="item in options9" :key="item.value" :label="item.label" :value="item.value">
+                  <el-select v-model="face.list[11].value" :teleported="false"  placeholder="请选择" style="width: 80%;">
+                    <el-option v-for=" item  in  options9 " :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                   <div class="check">
@@ -221,8 +221,8 @@
                 <text>口周肌肉分析：</text>
               </div>
               <div class="placeright" style="width: 100%;">
-                <el-select v-model="value10" multiple placeholder="请选择" style="width: 100%;">
-                  <el-option v-for="item in options10" :key="item.value" :label="item.label" :value="item.value">
+                <el-select v-model="value10" multiple :teleported="false"  placeholder="请选择" style="width: 100%;">
+                  <el-option v-for=" item  in  options10 " :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
                 <div class="check">
@@ -247,7 +247,7 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       procedure: 0,
-
+      clientWidth: 0,
       srcList: [],
       srcList0: [],
       srcList1: [],
@@ -464,32 +464,22 @@ export default {
     }
   },
   created() {
-
     this.faceimg = this.face.img
-    console.log(this.face, 'sssss')
-
     this.srcList.push(this.faceimg.find(image => image.type === 'front').url)
     this.srcList0.push(this.faceimg.find(image => image.type === 'profile').url)
     this.srcList1.push(this.faceimg.find(image => image.type === 'smile').url)
     this.facelist = this.face.list
-    // this.value0 = parseInt(this.face.list[0].value)
-    // this.value1 = parseInt(this.face.list[1].value)
-    // this.value2 = parseInt(this.face.list[2].value)
-    // this.value3 = parseInt(this.face.list[3].value)
-    // this.value4 = parseInt(this.face.list[4].value)
-    // this.value5 = parseInt(this.face.list[5].value)
-    // this.value6 = parseInt(this.face.list[6].value)
-    // this.value7 = parseInt(this.face.list[7].value)
-    // this.value8 = parseInt(this.face.list[9].value)
-    // this.value9 = parseInt(this.face.list[11].value)
-    // this.value11 = parseInt(this.face.list[10].value)
-    // this.value12 = parseInt(this.face.list[8].value)
-    // if(this.face.list.results[12] !== ""){
-    //   this.value10.push(this.face.list.results[12])
-    // }
-
+    // this.clientWidth = window.innerWidth;
+    this.clientWidth = document.body.clientWidth;
+    console.log(this.clientWidth);
+  },
+  mounted() {
+    window.addEventListener('resize', this.handleResize);
   },
   methods: {
+    handleResize() {
+      this.clientWidth = document.body.clientWidth;
+    },
 
     handleRemove(file, fileList) {
       console.log(file, fileList);
@@ -514,9 +504,28 @@ import isChecked from "@/assets/isChecked.png";
   // border: 1px solid #030303;
   padding: 20px 0;
   // height: 100vh;
+  user-select: none;
+}
+
+.box {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .front {
+  >div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+
+    >div {
+      width: 60%;
+    }
+  }
+}
+
+.flank {
   >div {
     display: flex;
     // justify-content: space-between;
@@ -554,39 +563,23 @@ import isChecked from "@/assets/isChecked.png";
   :deep(.el-input__inner) {
     font-size: 18px;
   }
-}
 
-.flank {
-  >div {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5%;
-
-    >div {
-      width: 60%;
-    }
-  }
-}
-
-.imglist {
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-
-  .img_item {
-    width: 240px;
-    height: 256px;
+  :deep(.el-select) {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    .text {
-      position: absolute;
-      bottom: -40px;
+    :deep(.el-select-dropdown) {
+      position: absolute !important;
     }
   }
+
 }
+
+.m-t {
+  width: 60% !important;
+  margin-top: 80px;
+  margin-left: 0 !important;
+}
+
 
 .analyze {
   padding-top: 30px;
@@ -615,6 +608,27 @@ import isChecked from "@/assets/isChecked.png";
   }
 }
 
+.imglist {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+
+  .img_item {
+    width: 240px;
+    height: 256px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+
+    .text {
+      position: absolute;
+      bottom: -40px;
+    }
+  }
+}
+
 .next {
   width: 10%;
   padding: 5px;
@@ -625,4 +639,5 @@ import isChecked from "@/assets/isChecked.png";
   position: relative;
   left: 45%;
   bottom: -30%;
-}</style>
+}
+</style>

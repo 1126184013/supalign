@@ -221,7 +221,12 @@ export default {
         customClass: 'iam-loading_2',
         text: '正在生成中，请稍等...'
       })
-      axios.post('/api/description', this.res)
+      axios.post('/api/description', {
+        data: this.res,
+        image1: this.imagelist[0].url,
+        image2: this.imagelist[1].url,
+        image3: this.imagelist[2].url,
+      })
         .then(res => {
           res.data.result.forEach((item, index) => {
             this.face.list[index] = { ...this.face.list[index], status: item[0], significance: item[1] }
@@ -611,6 +616,7 @@ export default {
           // 处理上传成功的回调
           console.log(response, '处理上传成功的回调');
           this.imagelist = response.data
+          console.log('imgList>>>>', this.imagelist);
           this.face.img = this.imagelist
           console.log(this.frontimg, this.flankimg, this.smileimg, 'this.frontimg')
 

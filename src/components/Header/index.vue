@@ -1,12 +1,13 @@
 <template>
-  <div class="header" :class="page == 'face' ? 'bgc' : ''">
-    <img class="logo" :src="logo" @click="goToHome" />
+  <div class="header" :class="page == 'home' ? '' : 'bgc'">
+    <div class="box" :class="page == 'home' ? '' : 'width'">
+      <img class="logo" :src="logo" @click="goToHome" />
 
-    <div class="info">
-      <el-icon class="item">
-        <BellFilled />
-      </el-icon>
-      <el-dropdown class="item m-l-r">
+      <div class="info">
+        <el-icon :size="25">
+          <BellFilled />
+        </el-icon>
+        <!-- <el-dropdown class="item m-l-r">
         <span class="el-dropdown-link">
           <span style="font-size: 22px;"> 测试111</span>
           <el-icon class="el-icon--right">
@@ -16,17 +17,15 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item disabled>暂无其他数据</el-dropdown-item>
-            <!-- <el-dropdown-item>Action 2</el-dropdown-item>
-              <el-dropdown-item>Action 3</el-dropdown-item>
-              <el-dropdown-item disabled>Action 4</el-dropdown-item>
-              <el-dropdown-item divided>Action 5</el-dropdown-item> -->
           </el-dropdown-menu>
         </template>
-      </el-dropdown>
-      <span class="item">测试账号11</span>
-      <el-avatar class="item" :size="50" :src="circleUrl" />
-      <div style="font-size: 22px;" @click="outLogin">注销</div>
+      </el-dropdown> -->
+        <el-avatar class="avatar" :size="40" :src="circleUrl" />
+        <span class="name">测试账号11</span>
+        <div style="font-size: 18px;" @click="outLogin">注销</div>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -50,42 +49,57 @@ const goToHome = () => {
 <style lang="scss" scoped>
 .header {
   width: auto;
-  padding: 30px 38px;
+  padding: 30px 32px;
+  background-color: #fff;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
 
-  .logo {
-    width: 427px;
-    height: 40px;
-    // margin-left: 60px;
-  }
-
-  .info {
+  .box {
+    width: 1200px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    font-size: 22px;
-    font-family: Microsoft YaHei;
-    font-weight: 400;
-    color: #030303;
-    line-height: 50px;
 
-    .item {
-      margin: 0 10px;
+    .logo {
+      width: 427px;
+      height: 40px;
+      // margin-left: 30px;
+    }
 
-      .el-dropdown-link {
-        font-size: 22px;
-        font-weight: 400;
-        color: #030303;
-        line-height: 50px;
-        display: flex;
-        align-items: center;
+    .info {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-family: Microsoft YaHei;
+      font-weight: 400;
+      color: #030303;
+      line-height: 50px;
+
+      .avatar {
+        margin-left: 50px;
+      }
+
+      .name {
+        margin: 0 50px 0 10px;
+      }
+
+      .item {
+        margin: 0 10px;
+
+        .el-dropdown-link {
+          font-size: 18px;
+          font-weight: 400;
+          color: #030303;
+          line-height: 50px;
+          display: flex;
+          align-items: center;
+        }
       }
     }
+  }
 
-    .m-l-r {
-      margin: 0 30px 0 20px;
-    }
+  .width {
+    width: 1891px;
   }
 }
 

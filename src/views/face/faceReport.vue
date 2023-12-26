@@ -88,6 +88,9 @@ export default {
     console.log(this.face, 'ssssss')
     this.faceimg = this.face.img
     this.face.list.forEach((item, index) => {
+      if (item.checked) {
+        item.status = `${item.status} ?`
+      }
       if (index < 6) this.list.push(item)
       else if (index >= 6) {
         this.list[index - 6]['flankname'] = item.name
