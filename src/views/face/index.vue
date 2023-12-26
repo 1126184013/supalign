@@ -73,6 +73,9 @@
       <div @click="nexttype" class="nextsty" v-if="procedure == 0">开始分析</div>
       <div @click="report" class="nextsty" v-else-if="procedure == '1'">生成报告</div>
       <div @click="downloadPDF" class="nextsty" v-else-if="procedure == '2'">下载PDF</div>
+      <!-- <div class="nextsty" v-else-if="procedure == '2'">
+        <a :href="pdf_url" download="方案报告.pdf">下载PDF</a>
+      </div> -->
       <div @click="reserve" class="nextsty" v-if="procedure == 2">保存</div>
     </div>
   </div>
@@ -109,10 +112,8 @@
 import FaceAnalyze from './faceAnalyze'
 import FaceReport from './faceReport'
 import Header from "../../components/Header/index.vue";
-import htmlToPdf from "@/utils/htmlToPdf";
 import { ElLoading, ElMessage } from 'element-plus'
 import axios from 'axios'
-// import svg from ;
 export default {
   name: 'face',
   data() {
@@ -138,6 +139,8 @@ export default {
       loadingSpinner: 'el-icon-loading', // 加载动画的图标
       loadingInstance: '', // 加载动画实例
       ruleShow: false,
+      res: [],
+      pdf_url: '',
     }
   },
   components: {
@@ -148,7 +151,6 @@ export default {
 
   created() {
     window.addEventListener("popstate", this.monitorBackForward, false)
-
   },
 
   methods: {
@@ -176,10 +178,12 @@ export default {
       this.imagelist.find(image => image.type === 'profile').url = this.flankimg;
       this.imagelist.find(image => image.type === 'smile').url = this.smileimg;
       console.log(this.imagelist, '下一步')
+
       axios.post('/api/face', this.imagelist)
         .then(response => {
           // 处理上传成功的回调
           console.log(response, '处理上传成功的回调');
+          this.res = response.data.results;
           this.face.list = response.data.results.map((item, index) => {
             if (index == 0) return { type: 0, name: '正面型', value: item, checked: false }
             else if (index == 1) return { type: 0, name: '对称性', value: item, checked: false }
@@ -188,25 +192,11 @@ export default {
             else if (index == 4) return { type: 0, name: '颏位', value: item, checked: false }
             else if (index == 5) return { type: 0, name: '微笑', value: item, checked: false }
             else if (index == 6) return { type: 1, name: '侧面型', value: item, checked: false }
-            else if (index == 7) return { type: 1, name: '鼻唇角/鼻唇角', value: item, checked: false }
+            else if (index == 7) return { type: 1, name: '鼻唇角', value: item, checked: false }
             else if (index == 8) return { type: 1, name: '唇位', value: item, checked: false }
             else if (index == 9) return { type: 1, name: '颏唇沟', value: item, checked: false }
             else if (index == 10) return { type: 1, name: '颏位', value: item, checked: false }
             else if (index == 11) return { type: 1, name: '下颌角', value: item, checked: false }
-
-            // # 0、面型 0 宽面型 1 正常面型 2 高面型
-            // # 1、对称 0 对称 1不对称
-            // # 2、下面高 0 长 1 短 2正常
-            // # 3、唇齿位 0 正常 1 不闭合
-            // # 4、颏位 0 正常 1 不正常
-            // # 5 微笑 0 正常微笑 1 微笑露龈
-            // # 6 脸型 0 奥面型 1 凸面型 2 正常
-            // # 7 鼻唇角 0 鼻唇角小 1 鼻唇角大 2 鼻唇角正常
-            // # 8 唇位 0 前 1 正常 2 后
-            // # 9 颏唇沟 0 颏唇沟浅 1 颏唇沟正常
-            // # 10 侧面 颏位 0 后 1 正常 2 前
-            // # 11 下颌角 0 正常 1 下颌角变小 2下颌角变大
-            // return { value: item, checked: false}
           })
           this.face.img = this.imagelist
           this.procedure = 1
@@ -231,11 +221,18 @@ export default {
         customClass: 'iam-loading_2',
         text: '正在生成中，请稍等...'
       })
-      setTimeout(() => {
-        this.procedure = 2
-        this.procedureIndex = 2
-        this.loadingInstance.close()
-      }, 2000)
+      axios.post('/api/description', this.res)
+        .then(res => {
+          res.data.result.forEach((item, index) => {
+            this.face.list[index] = { ...this.face.list[index], status: item[0], significance: item[1] }
+          });
+          this.procedure = 2
+          this.procedureIndex = 2
+          this.loadingInstance.close()
+        }).catch(error => {
+          this.loadingInstance.close()
+          ElMessage.error(error)
+        })
     },
 
     // 下载pdf
@@ -246,11 +243,29 @@ export default {
         customClass: 'iam-loading_2',
         text: '正在下载中，请稍等...'
       })
-      htmlToPdf.getPdf('文件标题', "#pdfDom");
-      setTimeout(() => {
+      axios.post('/api/report', this.res).then(res => {
         this.loadingInstance.close()
-        // ElMessage.success('下载完成')
-      }, 2000)
+        this.openWindow(res.data.url, '方案报告');
+      }).catch(error => {
+        this.loadingInstance.close()
+        ElMessage.error(error)
+      })
+    },
+
+    // 打开pdf
+    openWindow(url, title) {
+      const newWindow = window.open('about:blank', title);
+      newWindow.document.title = title;
+      let iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.style.width = '100%';
+      iframe.style.height = '100vh';
+      iframe.style.margin = '0';
+      iframe.style.padding = '0';
+      iframe.style.overflow = 'hidden';
+      iframe.style.border = 'none';
+      newWindow.document.body.style.margin = '0';
+      newWindow.document.body.appendChild(iframe);
     },
 
     // 保存
@@ -261,10 +276,25 @@ export default {
         customClass: 'iam-loading_2',
         text: '正在保存中，请稍等...'
       })
-      setTimeout(() => {
+      axios.post('/api/save', this.res).then(res => {
+        if (res.data.code == 0) {
+          this.imagelist = []
+          this.face = {}
+          this.frontimg = []
+          this.flankimg = []
+          this.smileimg = []
+          this.frontimgbig = []
+          this.flankimgbig = []
+          this.smileimgbig = []
+          this.procedure = 0
+          this.procedureIndex = 0
+          this.loadingInstance.close()
+          ElMessage.success('保存成功')
+        }
+      }).catch(error => {
         this.loadingInstance.close()
-        // ElMessage.success('下载完成')
-      }, 2000)
+        ElMessage.error(error)
+      })
     },
 
     // 返回上一步

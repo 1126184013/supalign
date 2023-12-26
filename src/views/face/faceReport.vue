@@ -28,30 +28,20 @@
         <text class="fonthead">诊断分析结果</text>
       </div>
       <div class="pdfupdata">
-        <el-table :data="tableData" stripe style="width: 100%">
-          <el-table-column label="正貌" width="">
-            <el-table-column prop="facename" width="120"></el-table-column>
-            <el-table-column prop="facevalue" width="120"></el-table-column>
+        <el-table :data="list" stripe style="width: 100%">
+          <el-table-column label="正貌" width="120">
+            <el-table-column prop="name" width="120"></el-table-column>
+            <el-table-column prop="status" width="120"></el-table-column>
           </el-table-column>
-          <el-table-column prop="faceintro">
+          <el-table-column label="临床意义" prop="significance">
           </el-table-column>
-          <el-table-column label="侧貌" width="80">
-            <el-table-column prop="flankname" width="80"></el-table-column>
-            <el-table-column prop="flankvalue" width="80"></el-table-column>
+          <el-table-column label="侧貌" width="120">
+            <el-table-column prop="flankname" width="120"></el-table-column>
+            <el-table-column prop="flankstatus" width="120"></el-table-column>
           </el-table-column>
-          <el-table-column prop="flankintro">
+          <el-table-column label="临床意义" prop="significance1">
           </el-table-column>
         </el-table>
-        <!-- <el-table :data="list" style="width: 100%">
-          <el-table-column label="正貌" width="180">
-            <el-table-column prop="name" label="潜在问题" width="120"></el-table-column>
-            <el-table-column prop="value" label="临床表现" width="120"></el-table-column>
-          </el-table-column>
-          <el-table-column label="侧貌" width="180">
-            <el-table-column prop="name" label="潜在问题" width="120"></el-table-column>
-            <el-table-column prop="value" label="临床表现" width="120"></el-table-column>
-          </el-table-column>
-        </el-table> -->
       </div>
     </div>
   </div>
@@ -91,14 +81,20 @@ export default {
         flankvalue: '正常',
         flankintro: '通过软组织鼻根点和眶点分别做FH平面垂线，两者形成“颌面区”，即JPF (jaw profile field)区，理想的额位应该在JPF区内',
       },],
-      list: []
+      list: [],
     }
   },
   created() {
     console.log(this.face, 'ssssss')
     this.faceimg = this.face.img
-    this.list = this.face.list
-    console.log('list>>>', this.list);
+    this.face.list.forEach((item, index) => {
+      if (index < 6) this.list.push(item)
+      else if (index >= 6) {
+        this.list[index - 6]['flankname'] = item.name
+        this.list[index - 6]['flankstatus'] = item.status
+        this.list[index - 6]['significance1'] = item.significance
+      }
+    })
     this.srcList.push(this.faceimg.find(image => image.type === 'front').url)
     this.srcList0.push(this.faceimg.find(image => image.type === 'profile').url)
     this.srcList1.push(this.faceimg.find(image => image.type === 'smile').url)
@@ -170,6 +166,7 @@ td {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 10px;
   }
 }
 
