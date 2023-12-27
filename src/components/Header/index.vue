@@ -49,7 +49,7 @@ const goToHome = () => {
 <style lang="scss" scoped>
 .header {
   width: auto;
-  padding: 30px 32px;
+  padding: 20px 35px;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -61,8 +61,8 @@ const goToHome = () => {
     align-items: center;
 
     .logo {
-      width: 427px;
-      height: 40px;
+      width: 257px;
+      height: auto;
       // margin-left: 30px;
     }
 
