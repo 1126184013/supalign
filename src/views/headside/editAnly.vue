@@ -121,6 +121,7 @@
           
           imageSrc: '',
           nameshow:false,
+          isRotated: false, // 是否已经旋转
           isDragging:false, // 是否正在拖动
           lines:[], // 存储标点连线
           pointRadius: 10, // 标点半径
@@ -406,39 +407,36 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const image = new Image();
-      // this.lines = [{x:110.373046875,y:420.5859375},{x:801.2265625,y:1208.7109375},{x:985.181640625,y:1174.609375},]
-      this.lines = [this.points[22],this.points[28],this.points[26],this.points[34]]
+      this.lines = [this.points[2], this.points[3]]
       image.onload = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
-        ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // 绘制图片时指定宽度和高度为 canvas 的宽度和高度
-        //标点颜色
-        ctx.fillStyle = 'red';
-        // 线条颜色
-        ctx.strokeStyle = "#0505F9";
-        // 线条粗细
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-
-        for(let i = 0; i < this.lines.length-1; i++){
-          ctx.moveTo(this.lines[i].x*this.scale, this.lines[i].y*this.scale);
-          ctx.lineTo(this.lines[i+1].x*this.scale, this.lines[i+1].y*this.scale);
-
-        }
-        if(this.canvasstart == 1||this.canvasstart == 2){
-          ctx.stroke(); // 绘制线条
-        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(this.lines[0].x * this.scale, this.lines[0].y * this.scale);
+        for (let i = 1; i < this.lines.length; i++) {
+          const currentPoint = this.lines[i];
+          const previousPoint = this.lines[i - 1];
+          const midPointX = (previousPoint.x + currentPoint.x) / 2 * this.scale;
+          const midPointY = (previousPoint.y + currentPoint.y) / 2 * this.scale;
+
+          ctx.quadraticCurveTo(previousPoint.x * this.scale, previousPoint.y * this.scale, midPointX, midPointY);
+        }
+        ctx.lineTo(this.lines[this.lines.length - 1].x * this.scale, this.lines[this.lines.length - 1].y * this.scale);
+        
+        if (this.canvasstart == 1 || this.canvasstart == 2) {
+            ctx.stroke();
+            
+          }
         this.points.forEach(point => {
-          const x = point.x * this.scale; // 根据缩放比例计算实际坐标
-          const y = point.y * this.scale; // 根据缩放比例计算实际坐标
+          const x = point.x * this.scale;
+          const y = point.y * this.scale;
           ctx.beginPath();
-          
-          //标点大小
           ctx.arc(x, y, 3, 0, Math.PI * 2);
-          if(this.canvasstart == 1||this.canvasstart == 3){
+          if (this.canvasstart == 1 || this.canvasstart == 3) {
             ctx.fill();
           }
-          
           ctx.closePath();
         });
       };
@@ -565,11 +563,25 @@
       this.drawCanvas();
     },
     brate(){
-      this.scale = 1;
-      this.drawCanvas();
-    }
+        
+      const canvas = this.$refs.myCanvas;
+      const ctx = canvas.getContext('2d');
+      const angleInDegrees = 180 - (Math.atan2(this.points[3].y * this.scale - this.points[2].y * this.scale, this.points[3].x * this.scale - this.points[2].x * this.scale) * (180 / Math.PI)); // 旋转角度
+      console.log(angleInDegrees,'角度')
+      if (this.isRotated) {
+        // 恢复画布
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // 恢复变换矩阵
+        this.isRotated = false; // 修改状态变量
+      } else {
+        ctx.translate(canvas.width / 2, canvas.height / 2); // 将原点移动到画布中心
+        ctx.rotate((angleInDegrees * Math.PI) / 180); // 旋转角度
+        ctx.translate(-canvas.width / 2, -canvas.height / 2); // 将原点移动回左上角
+        this.isRotated = true; // 修改状态变量
+      }
+        this.drawCanvas();
       }
     }
+  }
     
   </script>
   
