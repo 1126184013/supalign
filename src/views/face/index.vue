@@ -113,6 +113,7 @@ import FaceAnalyze from './faceAnalyze'
 import FaceReport from './faceReport'
 import Header from "../../components/Header/index.vue";
 import { ElLoading, ElMessage } from 'element-plus'
+import { useRoute, useRouter } from "vue-router";
 import axios from 'axios'
 export default {
   name: 'face',
@@ -221,12 +222,7 @@ export default {
         customClass: 'iam-loading_2',
         text: '正在生成中，请稍等...'
       })
-      axios.post('/api/description', {
-        data: this.res,
-        image1: this.imagelist[0].url,
-        image2: this.imagelist[1].url,
-        image3: this.imagelist[2].url,
-      })
+      axios.post('/api/description', this.res)
         .then(res => {
           res.data.result.forEach((item, index) => {
             this.face.list[index] = { ...this.face.list[index], status: item[0], significance: item[1] }
@@ -248,7 +244,12 @@ export default {
         customClass: 'iam-loading_2',
         text: '正在下载中，请稍等...'
       })
-      axios.post('/api/report', this.res).then(res => {
+      axios.post('/api/report', {
+        data: this.res,
+        image1: this.imagelist[0].url,
+        image2: this.imagelist[1].url,
+        image3: this.imagelist[2].url,
+      }).then(res => {
         this.loadingInstance.close()
         this.openWindow(res.data.url, '方案报告');
       }).catch(error => {
@@ -283,17 +284,8 @@ export default {
       })
       axios.post('/api/save', this.res).then(res => {
         if (res.data.code == 0) {
-          this.imagelist = []
-          this.face = {}
-          this.frontimg = []
-          this.flankimg = []
-          this.smileimg = []
-          this.frontimgbig = []
-          this.flankimgbig = []
-          this.smileimgbig = []
-          this.procedure = 0
-          this.procedureIndex = 0
           this.loadingInstance.close()
+          this.$router.push('/home')
           ElMessage.success('保存成功')
         }
       }).catch(error => {

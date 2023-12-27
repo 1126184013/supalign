@@ -22,7 +22,7 @@
       </el-dropdown> -->
         <el-avatar class="avatar" :size="40" :src="circleUrl" />
         <span class="name">测试账号11</span>
-        <div style="font-size: 18px;" @click="outLogin">注销</div>
+        <div style="font-size: 18px; cursor: pointer;" @click="outLogin">注销</div>
       </div>
     </div>
 

@@ -9,7 +9,7 @@ import { onMounted } from "vue";
 import DevicePixelRatio from '@/utils/DevicePixelRatio.js';
 // 初始化设备像素比
 onMounted(() => {
-  new DevicePixelRatio().init();
+  // new DevicePixelRatio().init();
   // bodyScale();
 })
 

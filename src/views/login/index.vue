@@ -37,7 +37,6 @@ import logo from "@/assets/home_2/logo.png";
 import people from "@/assets/login/people.png";
 import small1 from "@/assets/login/small_1.png";
 import small2 from "@/assets/login/small_2.png";
-import DevicePixelRatio from '@/utils/DevicePixelRatio.js';
 
 const route = useRoute();
 const router = useRouter();
@@ -47,13 +46,11 @@ let password = ref('111111');
 let checked = ref(false);
 
 onMounted(() => {
-  document.getElementsByTagName('body')[0].style.zoom = 'normal';
-  console.log(document.getElementsByTagName('body')[0].style.zoom);
+
 });
 
 const handleLogin = async () => {
   if (user.value == "admin" && password.value == "111111") {
-    new DevicePixelRatio().init();
     router.push({ path: "/home" });
   } else {
     // 登录失败
@@ -199,6 +196,7 @@ const handleLogin = async () => {
             .text {
               font-size: 14px;
               color: #7BA9B9;
+              cursor: pointer;
             }
           }
 
@@ -212,6 +210,7 @@ const handleLogin = async () => {
             line-height: 40px;
             text-align: center;
             font-weight: 600;
+            cursor: pointer;
           }
         }
       }
