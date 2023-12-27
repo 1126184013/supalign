@@ -16,7 +16,7 @@
     <div style="padding: 30px 0;">
       <div class="analyze" v-if="procedure == 0">
         <div class="headtitle mt">
-          <text class="fonthead">*面向分析</text>
+          <text class="fonthead">*面像分析</text>
         </div>
         <div class="top">
           <input type="file" ref="fileInput" multiple @change="handleFileChange" style="display: none">
@@ -254,7 +254,8 @@ export default {
         image3: this.imagelist[1].url,
       }).then(res => {
         this.loadingInstance.close()
-        this.openWindow(res.data.url, '方案报告');
+        // this.openWindow(res.data.url, '方案报告');
+        window.open(res.data.url, '方案报告');
       }).catch(error => {
         this.loadingInstance.close()
         ElMessage.error('出现了点小问题，请重试')

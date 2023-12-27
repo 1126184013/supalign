@@ -44,9 +44,12 @@ let activeName = ref('first');
 let user = ref('admin');
 let password = ref('111111');
 let checked = ref(false);
+let width = ref(0);
+let height = ref(0);
 
 onMounted(() => {
-
+  width.value = document.body.clientWidth;
+  height.value = document.body.clientHeight;
 });
 
 const handleLogin = async () => {
@@ -66,8 +69,8 @@ const handleLogin = async () => {
 .page {
   width: auto;
   height: 100vh;
-  min-width: 1110px;
-  min-height: 680px;
+  min-width: 1520px;
+  min-height: 740px;
   background: url('@/assets/login/bgc.png') no-repeat;
   background-size: 100% 100%;
   position: relative;
@@ -90,9 +93,10 @@ const handleLogin = async () => {
     background-color: rgba(123, 169, 185, 0.6);
 
     .form {
-      width: 30%;
+      width: 31%;
+      // min-width: ;
       height: 130%;
-      // height: auto;
+      padding: 20px 0;
       position: absolute;
       background-color: #fff;
       right: 10%;
@@ -109,11 +113,11 @@ const handleLogin = async () => {
         position: absolute;
         // border: 1px solid #000;
         top: 50%;
-        left: -110%;
+        left: -120%;
         transform: translateY(-50%);
 
         .small1 {
-          width: 80%;
+          width: 100%;
           height: auto;
         }
 
@@ -130,7 +134,6 @@ const handleLogin = async () => {
         left: 50%;
         transform: translate(-50%, -50%);
         width: 70%;
-        height: auto;
         height: auto;
         display: flex;
         flex-direction: column;
