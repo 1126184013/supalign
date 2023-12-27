@@ -99,7 +99,7 @@ const goToHome = () => {
   }
 
   .width {
-    width: 1891px;
+    width: 100% !important;
   }
 }
 

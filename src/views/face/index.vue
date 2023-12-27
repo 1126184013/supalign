@@ -827,7 +827,7 @@ export default {
 
 .dialog {
   .my_header {
-    background-color: #ff5e2b;
+    background-color: #7BA9B9;
     padding: 20px 10px;
     color: #fff;
   }
@@ -852,6 +852,10 @@ export default {
 
   :global(.el-dialog__headerbtn .el-dialog__close) {
     color: #fff;
+  }
+
+  :global(.el-dialog__headerbtn:hover > .el-dialog__close) {
+    color: #000;
   }
 }
 </style>
