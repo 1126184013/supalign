@@ -15,6 +15,9 @@
     </div>
     <div style="padding: 30px 0;">
       <div class="analyze" v-if="procedure == 0">
+        <div class="headtitle mt">
+          <text class="fonthead">*面向分析</text>
+        </div>
         <div class="top">
           <input type="file" ref="fileInput" multiple @change="handleFileChange" style="display: none">
           <el-button class="custom-button" size="large" type="primary" @click="openFileInput">批量上传</el-button>
@@ -111,7 +114,7 @@
 <script>
 import FaceAnalyze from './faceAnalyze'
 import FaceReport from './faceReport'
-import Header from "../../components/Header/index.vue";
+import Header from "@/components/Header/index.vue";
 import { ElLoading, ElMessage } from 'element-plus'
 import { useRoute, useRouter } from "vue-router";
 import axios from 'axios'
@@ -247,14 +250,14 @@ export default {
       axios.post('/api/report', {
         data: this.res,
         image1: this.imagelist[0].url,
-        image2: this.imagelist[1].url,
-        image3: this.imagelist[2].url,
+        image2: this.imagelist[2].url,
+        image3: this.imagelist[1].url,
       }).then(res => {
         this.loadingInstance.close()
         this.openWindow(res.data.url, '方案报告');
       }).catch(error => {
         this.loadingInstance.close()
-        ElMessage.error(error)
+        ElMessage.error('出现了点小问题，请重试')
       })
     },
 
@@ -735,7 +738,16 @@ export default {
 }
 
 .analyze {
-  padding-top: 30px;
+  padding-top: 10px;
+
+  .headtitle {
+    margin-bottom: 30px;
+
+    .fonthead {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
 
   .top {
     display: flex;

@@ -2,7 +2,7 @@
   <div class="body">
     <div>
       <div class="headtitle">
-        <text class="fonthead">面向分析</text>
+        <text class="fonthead">面像分析</text>
       </div>
 
       <div class="imglist">

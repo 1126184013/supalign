@@ -90,15 +90,16 @@ const handleLogin = async () => {
     background-color: rgba(123, 169, 185, 0.6);
 
     .form {
-      width: 36%;
-      height: 150%;
+      width: 30%;
+      height: 130%;
+      // height: auto;
       position: absolute;
       background-color: #fff;
       right: 10%;
       top: 50%;
       transform: translateY(-50%);
       border-radius: 10px;
-      padding-bottom: 2%;
+      // padding-bottom: 2%;
 
       .small {
         width: 100%;
@@ -124,15 +125,20 @@ const handleLogin = async () => {
       }
 
       .content {
-        margin: 15%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        height: auto;
         height: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
 
         .title {
-          font-size: 37px;
-          font-weight: 550;
+          font-size: 32px;
+          font-weight: 500;
           letter-spacing: 0.2em;
           // margin-bottom: 20px;
         }
@@ -146,7 +152,7 @@ const handleLogin = async () => {
           }
 
           :deep(.el-tabs__item) {
-            font-size: 18px;
+            font-size: 17px;
           }
 
           :deep(.el-tabs__active-bar) {
@@ -179,6 +185,9 @@ const handleLogin = async () => {
             align-items: center;
 
             .checkbox {
+              :deep(.el-checkbox__label) {
+                font-size: 12px;
+              }
               :deep(.el-checkbox__input.is-checked+.el-checkbox__label) {
                 color: rgba(123, 169, 185, 1) !important;
               }
@@ -194,7 +203,7 @@ const handleLogin = async () => {
             }
 
             .text {
-              font-size: 14px;
+              font-size: 12px;
               color: #7BA9B9;
               cursor: pointer;
             }
@@ -206,11 +215,12 @@ const handleLogin = async () => {
             color: #fff;
             margin: 9% 0;
             border-radius: 5px;
-            font-size: 20px;
+            font-size: 18px;
             line-height: 40px;
             text-align: center;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
+            letter-spacing: 0.2em;
           }
         }
       }
