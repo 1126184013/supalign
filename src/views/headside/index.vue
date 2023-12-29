@@ -1,5 +1,6 @@
 <template>
     <div class="body">
+      <Header />
       <div class="head">
         <text :class="procedure>=0?'headcolor':''">1、上传头颅CT图片 > </text>
         <text :class="procedure>=1?'headcolor':''">2、分析结果 > </text>
@@ -39,6 +40,7 @@
   import axios from 'axios'
   import Headflank from './headflank'
   import HeadflankReport from './headflankReport'
+import Header from "../../components/Header/index.vue";
     import { Text } from 'vue'
     export default {
       name: 'faceReport',
@@ -54,7 +56,7 @@
         Text,
         Headflank,
         HeadflankReport,
-        loading:false
+        Header
      },
       created() {
         
@@ -119,6 +121,7 @@
         width:100%;
         padding-bottom: 15px;
         border-bottom: 8px solid #dddddd;
+        margin-top: 3%;
     }
 .headflankbody{
   padding: 5% 0;
