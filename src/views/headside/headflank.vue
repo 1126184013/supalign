@@ -12,7 +12,7 @@
           
         </div>
         <div class="rightlist" v-if="editshow == 0">
-          <div style="display: flex;">
+          <div style="display: flex;justify-content: space-between;">
             <text>头侧片分析结果</text>
             <el-button type="primary" @click="edit">编辑</el-button>
           </div>

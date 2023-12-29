@@ -25,7 +25,7 @@
         </div>
         <div class="tool">
           <div>
-            <div class="toolicon">
+            <div class="toolicon" @click="islengthstate = !islengthstate">
               <img src="../../assets/cd.png" alt=""  style="width: 25px;">
               <text>长度</text>
             </div>
@@ -73,15 +73,15 @@
         </div>
       </div>
       <div class="container">
-        <div style="width:50%;position: relative;">
+        <div style="width:70%;position: relative;">
           <canvas ref="myCanvas" @click="addPoint" @mousedown="startDrag" @mousemove="dragPoint" @mouseup="endDrag" :width="canvasWidth" :height="canvasHeight"></canvas>
           <div @click="nameedit" class="namesty" >{{ this.pointname }}</div>
         </div>
-        <div style="width:49.8%">
+        <div class="tablesty" v-if="nameeditstart == 1">
           <el-table
             :data="tableData"
             border
-            style="width: 100%">
+            style="width: 100%;">
             <el-table-column
               prop="itemName"
               label="分析项目"
@@ -106,6 +106,17 @@
             </el-table-column>
           </el-table>
         </div>
+        <div class="tablesty" v-if="nameeditstart == 2">
+          <div class="dropdown">
+            <div v-for="(item,idexs) in tabdaproj"  
+            @mouseover="setHover(idexs)"
+            @mouseleave="clearHover()"
+            @click="fillname(item)"
+            :style="{ backgroundColor: hoverIndex === idexs ? '#76A0B1' : '', color: hoverIndex === idexs ? 'white' : ''  }">
+              {{ item }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </template>
@@ -118,12 +129,16 @@
       props: ['editstart'],
       data() {
         return {
-          
+          hoverIndex: -1,
           imageSrc: '',
           nameshow:false,
+          isRotated: false, // 是否已经旋转
           isDragging:false, // 是否正在拖动
           lines:[], // 存储标点连线
           pointRadius: 10, // 标点半径
+          islengthstate:false, // 是否处于长度模式
+          islength:false, 
+          ctx: null,
           canvasstart:1, // 切换模式
           pointname:"",
           names:'',
@@ -143,8 +158,9 @@
           currentDraggingPoint: null, // 当前正在拖动的点
           points: [], // 存储标点坐标的数组
           scale: 1, // 当前的缩放比例
-          canvasWidth:500,
-          canvasHeight:600,
+          canvasWidth:850,
+          canvasHeight:'',
+          nameeditstart:1,
           isPointLineMode:false, // 是否处于标点连线模式
           tabdaproj:['SNA','A_N_perp','SNB','Pog_N_perp','ANB','FMA','SN_MP','S_Go_N_Me','S_N','Go_Me','FH_NPo','Na_S_Ar','S_Ar_Go','Ar_Go_Me','Ar_Go_N','Na_Go_Me',
             'Sum_of_Angles','PtV_U6','ANS_Xi_Pm','Dc_Xi_Pm','U1_SN','U1_NA','L1_MP','L1_FH','L1_NB','U1_L1','UL_EP','LL_EP'],
@@ -321,6 +337,12 @@
             },
 
           ],
+          canvas:null,
+          endPoint:null,
+          startPoint: null,
+          newposin:{},
+          heightinit:{},
+          heightend:{},
         }
       },
       components:{ Text },
@@ -344,6 +366,8 @@
           that.points.push({x:item[0],y:item[1]})
         })
         console.log(this.points,'标点坐标')
+        this.canvas = this.$refs.myCanvas;
+        this.ctx = this.canvas.getContext('2d');
         this.drawCanvas()
       },
       computed: {
@@ -406,39 +430,36 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const image = new Image();
-      // this.lines = [{x:110.373046875,y:420.5859375},{x:801.2265625,y:1208.7109375},{x:985.181640625,y:1174.609375},]
-      this.lines = [this.points[22],this.points[28],this.points[26],this.points[34]]
+      this.lines = [this.points[2], this.points[3]]//线的点
       image.onload = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
-        ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // 绘制图片时指定宽度和高度为 canvas 的宽度和高度
-        //标点颜色
-        ctx.fillStyle = 'red';
-        // 线条颜色
-        ctx.strokeStyle = "#0505F9";
-        // 线条粗细
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-
-        for(let i = 0; i < this.lines.length-1; i++){
-          ctx.moveTo(this.lines[i].x*this.scale, this.lines[i].y*this.scale);
-          ctx.lineTo(this.lines[i+1].x*this.scale, this.lines[i+1].y*this.scale);
-
-        }
-        if(this.canvasstart == 1||this.canvasstart == 2){
-          ctx.stroke(); // 绘制线条
-        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         
+        ctx.fillStyle = 'red';
+        ctx.beginPath();
+        ctx.moveTo(this.lines[0].x * this.scale, this.lines[0].y * this.scale);
+        for (let i = 1; i < this.lines.length; i++) {
+          const currentPoint = this.lines[i];
+          const previousPoint = this.lines[i - 1];
+          const midPointX = (previousPoint.x + currentPoint.x) / 2 * this.scale;
+          const midPointY = (previousPoint.y + currentPoint.y) / 2 * this.scale;
+
+          ctx.quadraticCurveTo(previousPoint.x * this.scale, previousPoint.y * this.scale, midPointX, midPointY);
+        }
+        ctx.lineTo(this.lines[this.lines.length - 1].x * this.scale, this.lines[this.lines.length - 1].y * this.scale);
+        
+        if (this.canvasstart == 1 || this.canvasstart == 2) {
+            ctx.stroke();
+            
+          }
         this.points.forEach(point => {
-          const x = point.x * this.scale; // 根据缩放比例计算实际坐标
-          const y = point.y * this.scale; // 根据缩放比例计算实际坐标
+          const x = point.x * this.scale;
+          const y = point.y * this.scale;
           ctx.beginPath();
-          
-          //标点大小
           ctx.arc(x, y, 3, 0, Math.PI * 2);
-          if(this.canvasstart == 1||this.canvasstart == 3){
+          if (this.canvasstart == 1 || this.canvasstart == 3) {
             ctx.fill();
           }
-          
           ctx.closePath();
         });
       };
@@ -474,6 +495,24 @@
       if (this.currentDraggingPoint && this.editradggstate) {
         this.isDragging = true;
       }
+      if(this.islengthstate){
+        this.heightinit = { x:mouseX, y:mouseY }
+        this.heightend = { x:mouseX, y:mouseY }
+        this.newposin = { x:mouseX, y:mouseY }
+        this.islength = true;
+
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.heightinit.x*this.scale, this.heightinit.y*this.scale);
+        this.ctx.lineTo(this.heightend.x+1*this.scale  , this.heightend.y+1*this.scale );
+        this.ctx.stroke();
+        // this.isDragging = true;
+        // this.currentDraggingPoint = this.newposin
+        this.drawPoints();
+
+      }
+      
+
+
     },
     pointName(e){
       console.log(e)
@@ -516,34 +555,55 @@
       }
     },
     dragPoint(event) {
+      // 根据鼠标位置计算出标点应该移动到的新位置
+      const canvas = this.$refs.myCanvas;
+      const rect = canvas.getBoundingClientRect();
+
+      const newPointX = (event.clientX - rect.left)/ this.scale;
+      const newPointY = (event.clientY - rect.top)/ this.scale;
+
       if (this.isDragging && this.currentDraggingPoint) {
-        // 根据鼠标位置计算出标点应该移动到的新位置
-        const canvas = this.$refs.myCanvas;
-       const rect = canvas.getBoundingClientRect();
-
-        const newPointX = (event.clientX - rect.left)/ this.scale;
-        const newPointY = (event.clientY - rect.top)/ this.scale;
-
         // 将当前拖拽对象的坐标设置为新位置
-        this.points[this.pointsindex].x = newPointX;
-        this.points[this.pointsindex].y = newPointY;
+        // this.points[this.pointsindex].x = newPointX;
+        // this.points[this.pointsindex].y = newPointY;
 
+        this.heightend.x = newPointX  * this.scale
+        this.heightend.y = newPointY * this.scale
+        console.log(this.heightend,"heightend")
         // 重新绘制所有标点
         this.drawPoints();
       }
+      if(this.islength){
+          this.newposin.x = newPointX * this.scale
+          this.newposin.y = newPointY  * this.scale
+          
+        
+      }
     },
-    endDrag(){
+    endDrag(event){
+      const canvas = this.$refs.myCanvas;
+      const rect = canvas.getBoundingClientRect();
+
+      const mouseX = (event.clientX - rect.left);
+      const mouseY = (event.clientY - rect.top);
+
       this.isDragging = false;
       this.currentDraggingPoint = null
-
+      this.islength = false
+      
+      if(this.islengthstate){
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.heightinit.x*this.scale, this.heightinit.y*this.scale);
+        this.ctx.lineTo(this.newposin.x  , this.newposin.y );
+        this.ctx.stroke();
+      }
+    },
+    clearCanvas() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     nameedit(){
-      this.names = prompt('请输入名称：')
-        if(this.names === null){
-          return
-        }
-      this.points[this.pointsindex].name = this.names
-      this.pointName(this.pointsindex)
+      this.nameeditstart = 2
+      
     },
     imgedig(){
       this.editradggstate = !this.editradggstate
@@ -565,16 +625,59 @@
       this.drawCanvas();
     },
     brate(){
-      this.scale = 1;
-      this.drawCanvas();
-    }
+        
+      const canvas = this.$refs.myCanvas;
+      const ctx = canvas.getContext('2d');
+      const angleInDegrees = 180 - (Math.atan2(this.points[3].y * this.scale - this.points[2].y * this.scale, this.points[3].x * this.scale - this.points[2].x * this.scale) * (180 / Math.PI)); // 旋转角度
+      console.log(angleInDegrees,'角度')
+      if (this.isRotated) {
+        // 恢复画布
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // 恢复变换矩阵
+        this.isRotated = false; // 修改状态变量
+      } else {
+        ctx.translate(canvas.width / 2, canvas.height / 2); // 将原点移动到画布中心
+        ctx.rotate((angleInDegrees * Math.PI) / 180); // 旋转角度
+        ctx.translate(-canvas.width / 2, -canvas.height / 2); // 将原点移动回左上角
+        this.isRotated = true; // 修改状态变量
       }
+        this.drawCanvas();
+    },
+    fillname(e){
+      console.log(e,'name')
+      this.points[this.pointsindex].name = e
+      this.pointname = this.points[this.pointsindex].name
+      this.nameeditstart = 1
+    },  
+    setHover(index) {
+      this.hoverIndex = index;
+    },
+    clearHover() {
+      this.hoverIndex = -1;
     }
+      
+  }
+}
     
   </script>
   
 <style lang="scss" scoped>
+.hover-bg :hover{
+  background-color: #76A0B1;
+}
+.tablesty{
+  width:30%;
+  cursor: default;
+}
+.dropdown{
+  width: 50%;
+  height: auto;
+  border: 1px solid #76A0B1;
+  text-align: center;
+}
 
+.dropdown div{
+  padding: 3px 0;
+}
 .selesty{
   border: none; /* 去掉边框 */
   background-color: #76A0B1; /* 修改背景颜色 */
@@ -584,6 +687,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  cursor: default;
+
 }
 .namesty{
   position: absolute;
@@ -629,6 +734,7 @@
   }
 }
 .container {
+  margin-top: 4%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
