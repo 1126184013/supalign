@@ -7,17 +7,17 @@
 
       <div class="imglist">
         <div class="img_item">
-          <el-image style="width: 240px; height: 256px" fit="cover"
+          <el-image style="width: 173px; height: 187px" fit="cover"
             :src="faceimg.find(image => image.type === 'front').url" :preview-src-list="srcList">
           </el-image>
         </div>
         <div class="img_item">
-          <el-image style="width: 240px; height: 256px" fit="cover"
+          <el-image style="width: 173px; height: 187px" fit="cover"
             :src="faceimg.find(image => image.type === 'profile').url" :preview-src-list="srcList0">
           </el-image>
         </div>
         <div class="img_item">
-          <el-image style="width: 240px; height: 256px" fit="cover"
+          <el-image style="width: 173px; height: 187px" fit="cover"
             :src="faceimg.find(image => image.type === 'smile').url" :preview-src-list="srcList1">
           </el-image>
         </div>
@@ -159,13 +159,13 @@ td {
 }
 
 .imglist {
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
 
   .img_item {
-    width: 240px;
-    height: 256px;
+    width: 173px;
+    height: 187px;
     display: flex;
     flex-direction: column;
     align-items: center;
