@@ -84,6 +84,16 @@ const router = createRouter({
         hidden: true
       }
     },
+    //分析结果
+    {
+      path: '/analyze',
+      name: 'Analyze',
+      component: () => import('@/views/analyze/index.vue'),
+      meta: {
+        title: '分析结果',
+        hidden: true
+      }
+    },
     { path: '/:pathMatch(.*)', redirect: '/404', hidden: true }
   ],
   scrollBehavior() {
