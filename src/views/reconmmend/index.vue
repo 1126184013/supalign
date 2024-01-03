@@ -2,7 +2,7 @@
     <div class="body">
       <Header />
       <div class="box">
-        <div class="sched">分析结果 > 推荐产品 > 生成建议 > 完成生成报告</div>
+        <div class="sched">分析结果 > <text style="color:#3D859E;">推荐产品 ></text>  生成建议 > 完成生成报告</div>
         <div class="product">
             <el-collapse v-model="activeNames" @change="handleChange">
                 <div class="reconname">塑型器产品推荐</div>
