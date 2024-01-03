@@ -140,7 +140,11 @@
           </div>
         </div>
       </div>
-      <div class="btn" @click="goToanalyze">下一步</div>
+      <div class="btn_box">
+        <div class="btn" @click="">保存</div>
+        <div class="btn" @click="goToanalyze">下一步</div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -317,7 +321,7 @@ export default {
       width: 100%;
       padding-bottom: 15px;
       position: relative;
-      font-size: 18px;
+      font-size: 20px;
       font-family: Microsoft YaHei;
       font-weight: 400;
 
@@ -364,18 +368,25 @@ export default {
       }
     }
 
-    .btn {
-      margin: 140px auto;
-      width: 400px;
-      height: 58px;
-      background: #7BA9B9;
-      border-radius: 6px;
-      font-size: 26px;
-      font-family: Source Han Sans SC;
-      font-weight: 400;
-      color: #FFFFFF;
-      line-height: 58px;
-      text-align: center;
+    .btn_box {
+      margin: 140px 0 20px;
+      display: flex;
+      justify-content: center;
+
+      .btn {
+        margin: 0 20px;
+        width: 400px;
+        height: 58px;
+        background: #7BA9B9;
+        border-radius: 6px;
+        font-size: 26px;
+        font-family: Source Han Sans SC;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 58px;
+        text-align: center;
+        cursor: pointer;
+      }
     }
   }
 

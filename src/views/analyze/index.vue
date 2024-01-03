@@ -224,7 +224,10 @@
           </div>
         </el-collapse-item>
       </el-collapse>
-      <div class="btn" @click="next">下一步</div>
+      <div class="btn_box">
+        <div class="btn" @click="">保存</div>
+        <div class="btn" @click="next">下一步</div>
+      </div>
     </div>
   </div>
 </template>
@@ -252,82 +255,186 @@ export default {
     return {
       procedure: 0,
       procedureIndex: 0,
-      activeNames: 1,
+      activeNames: ['1'],
       faceOptions: [
-        [
-          { value: 0, label: '平均型' },
-          { value: 1, label: '长面型' },
-          { value: 2, label: '短面型' }
-        ],
-        [
-          { value: 0, label: '对称' },
-          { value: 1, label: '不对称' }
-        ],
-        [
-          { value: 0, label: '面部三等分' },
-          { value: 2, label: '下面高长' },
-          { value: 1, label: '下面高短' }
-        ],
-        [
-          { value: 0, label: '正常唇齿位' },
-          { value: 1, label: '唇闭合不全' }
-        ],
-        [
-          { value: 0, label: '正常' },
-          { value: 1, label: '异常' }
-        ],
-        [
-          { value: 0, label: '正常微笑' },
-          { value: 1, label: '微笑露龈' }
-        ],
-        [
-          { value: 0, label: '直面型' },
-          { value: 1, label: '凸面型' },
-          { value: 2, label: '凹面型' }
-        ],
-        [
-          { value: 0, label: '正常' },
-          { value: 1, label: '异常' }
-        ],
-        [
-          { value: 0, label: '正常' },
-          { value: 1, label: '异常' }
-        ],
-        [
-          { value: 0, label: '正常' },
-          { value: 1, label: '异常' }
-        ],
-        [
-          { value: 0, label: '正常' },
-          { value: 1, label: '异常' }
-        ],
-        [
-          { value: 0, label: '下颌角变小' },
-          { value: 1, label: '下颌角变大' },
-          { value: 2, label: '正常' }
-        ],
-        [
-          { value: 0, label: '无' },
-          { value: 1, label: '颏肌紧张' },
-          { value: 3, label: ' 口周肌肉紧张' },
-          { value: 4, label: '  唇闭合不全' },
-          { value: 5, label: ' 无明显异常' }
-        ],
+        [{
+          value: 0,
+          label: '短面型'
+        }, {
+          value: 1,
+          label: '基本均等'
+        }, {
+          value: 2,
+          label: '长面型'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '凹面型'
+        }, {
+          value: 2,
+          label: '直面型'
+        }, {
+          value: 1,
+          label: '凸面型'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '长'
+        }, {
+          value: 2,
+          label: '正常'
+        }, {
+          value: 1,
+          label: '短'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '前'
+        }, {
+          value: 1,
+          label: '正常'
+        }, {
+          value: 2,
+          label: '后'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '基本对称'
+        }, {
+          value: 1,
+          label: '不对称'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 1,
+          label: '正常'
+        }, {
+          value: 2,
+          label: '前'
+        }, {
+          value: 0,
+          label: '后'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '基本居中'
+        }, {
+          value: 1,
+          label: '偏左'
+        }, {
+          value: 2,
+          label: '偏右'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 1,
+          label: '大'
+        }, {
+          value: 2,
+          label: '正常'
+        }, {
+          value: 0,
+          label: '小'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '正常'
+        }, {
+          value: 1,
+          label: '唇闭合不全'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '浅'
+        }, {
+          value: 1,
+          label: '正常'
+        }, {
+          value: 2,
+          label: '深'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 0,
+          label: '正常'
+        }, {
+          value: 1,
+          label: '露龈笑'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
+        [{
+          value: 2,
+          label: '大'
+        }, {
+          value: 0,
+          label: '正常'
+        }, {
+          value: 1,
+          label: '小'
+        }, {
+          value: 10,
+          label: '-'
+        }],
+        [{
+          value: 1,
+          label: '颏肌紧张'
+        }, {
+          value: 2,
+          label: '口周肌肉紧张'
+        }, {
+          value: 3,
+          label: '唇闭合不全'
+        }, {
+          value: 4,
+          label: '无明显异常'
+        }, {
+          value: 10 || '10',
+          label: '-'
+        }],
       ],
       faceMockList: [
         { name: '正貌-正面型', value: 0 },
-        { name: '正貌-对称性', value: 0 },
-        { name: '正貌-下面高', value: 0 },
-        { name: '正貌-唇齿位', value: 0 },
-        { name: '正貌-颏位', value: 0 },
-        { name: '正貌-微笑', value: 0 },
         { name: '侧貌-侧面型', value: 0 },
-        { name: '侧貌-鼻唇角', value: 0 },
+        { name: '正貌-下面高', value: 0 },
         { name: '侧貌-唇位', value: 0 },
-        { name: '侧貌-颏唇沟', value: 0 },
+        { name: '正貌-对称性', value: 0 },
         { name: '侧貌-颏位', value: 0 },
+        { name: '正貌-颏位', value: 0 },
+        { name: '侧貌-鼻唇角', value: 0 },
+        { name: '正貌-唇齿位', value: 0 },
+        { name: '侧貌-颏唇沟', value: 0 },
+        { name: '正貌-微笑', value: 0 },
         { name: '侧貌-下颌角', value: 0 },
-        { name: '口周肌肉分析', value: 0 },
+        { name: '口周肌肉分析', value: 10 },
       ],
       options: [
         [
@@ -742,7 +849,7 @@ export default {
     handleChange(val) {
       console.log(val)
     },
-    next(){
+    next() {
       this.$router.push('/reconmmend');
     },
     // 合并表头
@@ -785,7 +892,7 @@ export default {
       width: 100%;
       padding-bottom: 30px;
       position: relative;
-      font-size: 18px;
+      font-size: 20px;
       font-family: Microsoft YaHei;
       font-weight: 400;
 
@@ -836,18 +943,25 @@ export default {
       }
     }
 
-    .btn {
-      margin: 140px auto;
-      width: 400px;
-      height: 58px;
-      background: #7BA9B9;
-      border-radius: 6px;
-      font-size: 26px;
-      font-family: Source Han Sans SC;
-      font-weight: 400;
-      color: #FFFFFF;
-      line-height: 58px;
-      text-align: center;
+    .btn_box {
+      margin: 140px 0 20px;
+      display: flex;
+      justify-content: center;
+
+      .btn {
+        margin: 0 20px;
+        width: 400px;
+        height: 58px;
+        background: #7BA9B9;
+        border-radius: 6px;
+        font-size: 26px;
+        font-family: Source Han Sans SC;
+        font-weight: 400;
+        color: #FFFFFF;
+        line-height: 58px;
+        text-align: center;
+        cursor: pointer;
+      }
     }
   }
 
