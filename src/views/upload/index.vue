@@ -20,7 +20,7 @@
               <div class="upload_item" v-for="(item, index) in face">
                 <input type="file" :ref="`faceUploadFile${index}`" multiple @change="upload($event, 'face', index)"
                   style="display: none">
-                <div style="height: 400px;" v-if="faceList[index]">
+                <div style="height: 260px;" v-if="faceList[index]">
                   <el-image class="img" fit="cover" :src="faceList[index]" :preview-src-list="faceList"
                     :initial-index="index" />
                   <div class="imgdel" @click="imgdel(index)">删除</div>
@@ -49,7 +49,7 @@
               <div class="upload_item" v-for="(item, index) in intraoral">
                 <input type="file" :ref="`intraoraUploadFile${index}`" multiple @change="upload($event, 'dental', index)"
                   style="display: none">
-                <div style="height: 400px;" v-if="intraoralList[index]">
+                <div style="height: 260px;" v-if="intraoralList[index]">
                   <el-image class="img" fit="cover" :src="intraoralList[index]" :preview-src-list="intraoralList"
                     :initial-index="index" />
                   <div class="imgdel" @click="imgdel(index)">删除</div>
@@ -68,7 +68,7 @@
               <div class="upload_item">
                 <input type="file" ref="CTUploadFile" multiple @change="upload($event, 'dental', 6)"
                   style="display: none">
-                <div style="height: 400px;" v-if="CTList[0]">
+                <div style="height: 260px;" v-if="CTList[0]">
                   <el-image class="img" fit="cover" :src="CTList[0]" :preview-src-list="CTList" :initial-index="6" />
                   <div class="imgdel btm" @click="imgdel(6)">删除</div>
                 </div>
@@ -85,7 +85,7 @@
               <div class="upload_item">
                 <input type="file" ref="TDUploadFile" multiple @change="upload($event, 'dental', 7)"
                   style="display: none">
-                <div style="height: 400px;" v-if="TDList[0]">
+                <div style="height: 260px;" v-if="TDList[0]">
                   <el-image class="img" fit="cover" :src="TDList[0]" :preview-src-list="TDList" :initial-index="7" />
                   <div class="imgdel btm" @click="imgdel(7)">删除</div>
                 </div>
@@ -106,7 +106,7 @@
               <div class="upload_item">
                 <input type="file" ref="headSideUploadFile" multiple @change="upload($event, 'headSide')"
                   style="display: none">
-                <div style="height: 400px;" v-if="headSideList[0]">
+                <div style="height: 260px;" v-if="headSideList[0]">
                   <el-image class="img" fit="cover" :src="headSideList[0]" :preview-src-list="headSideList"
                     :initial-index="0" />
                   <div class="imgdel btm" @click="imgdel(7)">删除</div>
@@ -128,7 +128,7 @@
               <div class="upload_item m-r-100" v-for="(item, index) in video">
                 <input type="file" :ref="`videoUploadFile${index}`" multiple @change="upload($event, 'video', index)"
                   style="display: none">
-                <div style="height: 400px;" v-if="videoList[index]">
+                <div style="height: 260px;" v-if="videoList[index]">
                   <el-image class="img" fit="cover" :src="videoList[index]" :preview-src-list="videoList"
                     :initial-index="index" />
                   <div class="imgdel" @click="imgdel(index)">删除</div>
@@ -387,13 +387,13 @@ export default {
   }
 
   .upload {
-    width: 1440px;
+    width: 1020px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 
     .upload_item {
-      width: 400px;
+      width: 260px;
       margin-top: 30px;
       display: flex;
       flex-direction: column;
@@ -401,12 +401,12 @@ export default {
       position: relative;
 
       .img {
-        width: 400px;
-        height: 400px
+        width: 260px;
+        height: 260px
       }
 
       .imgdel {
-        width: 400px;
+        width: 260px;
         background-color: #1d1d1d63;
         color: #FFFFFF;
         position: absolute;
