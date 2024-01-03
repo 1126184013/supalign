@@ -224,7 +224,7 @@
           </div>
         </el-collapse-item>
       </el-collapse>
-      <div class="btn">下一步</div>
+      <div class="btn" @click="next">下一步</div>
     </div>
   </div>
 </template>
@@ -742,7 +742,9 @@ export default {
     handleChange(val) {
       console.log(val)
     },
-
+    next(){
+      this.$router.push('/reconmmend');
+    },
     // 合并表头
     headerCellStyle({ row, column, rowIndex, columnIndex }) {
       if (rowIndex === 1) {//第二行表头隐藏

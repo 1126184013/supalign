@@ -12,6 +12,42 @@ const router = createRouter({
         hidden: true
       }
     },
+    //面像分析
+    {
+      path: '/face',
+      name: 'Face',
+      component: () => import('@/views/face/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    // 推荐产品
+    {
+      path: '/reconmmend',
+      name: 'Reconmmend',
+      component: () => import('@/views/reconmmend/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    // 生成建议
+    {
+      path: '/suggest',
+      name: 'Suggest',
+      component: () => import('@/views/suggest/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    //头颅侧位分析
+    {
+      path: '/headside',
+      name: 'Headside',
+      component: () => import('@/views/headside/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
     // 404
     {
       path: '/404',
