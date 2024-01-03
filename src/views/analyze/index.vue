@@ -14,10 +14,11 @@
             <div class="pageLeft">
               <div class="title">口内照</div>
               <div class="imgList">
-                <div class="img_item" v-for="(item, index) in list">
-                  <div class="img_box" v-if="index < 3">
-                    <el-image class="img" fit="cover" :src="item" :preview-src-list="list" :initial-index="index" />
-                    <text style="margin-top: 20px;">正面照</text>
+                <div class="img_item" v-for="(item, index) in list.faceList">
+                  <div class="img_box">
+                    <el-image class="img" fit="cover" :src="item" :preview-src-list="list.faceList"
+                      :initial-index="index" />
+                    <text style="margin-top: 20px;">{{ list.faceName[index] }}</text>
                   </div>
                 </div>
               </div>
@@ -45,10 +46,11 @@
             <div class="pageLeft">
               <div class="title">口内照</div>
               <div class="imgList">
-                <div class="img_item" v-for="(item, index) in list">
-                  <div class="img_box" v-if="index < 6">
-                    <el-image class="img" fit="cover" :src="item" :preview-src-list="list" :initial-index="index" />
-                    <text style="margin-top: 20px;">正面照</text>
+                <div class="img_item" v-for="(item, index) in list.dentalList">
+                  <div class="img_box">
+                    <el-image class="img" fit="cover" :src="item" :preview-src-list="list.dentalList"
+                      :initial-index="index" />
+                    <text style="margin-top: 20px;">{{ list.dentalName[index] }}</text>
                   </div>
                 </div>
               </div>
@@ -74,12 +76,13 @@
             <div class="pageLeft">
               <div class="title">CT照</div>
               <div class="imgList">
-                <div class="img_item">
-                  <div class="img_box">
-                    <el-image class="img" fit="cover" :src="list[6]" :preview-src-list="list" :initial-index="6" />
-                    <text style="margin-top: 20px;">CT照</text>
-                  </div>
-                </div>
+                <!-- <div class="img_item">
+                  <div class="img_box"> -->
+                <el-image class="img" fit="cover" :src="list.CTList[0]" :preview-src-list="list.CTList"
+                  :initial-index="0" />
+                <!-- <text style="margin-top: 20px;">CT照</text> -->
+                <!-- </div>
+                </div> -->
               </div>
             </div>
             <div class="inform">
@@ -90,25 +93,25 @@
               <el-table :data="tableData" style="width: 100%" border :header-cell-style="headerCellStyle"
                 :span-method="objectSpanMethod">
                 <el-table-column label="Hellman咬合发育阶段" align="center">
-                  <el-table-column prop="name" align="center" />
-                  <el-table-column prop="left8" width="55" align="center" />
-                  <el-table-column prop="left7" width="55" align="center" />
-                  <el-table-column prop="left6" width="55" align="center" />
-                  <el-table-column prop="left5" width="55" align="center" />
-                  <el-table-column prop="left4" width="55" align="center" />
-                  <el-table-column prop="left3" width="55" align="center" />
+                  <el-table-column prop="name" width="45" align="center" />
+                  <el-table-column prop="left8" width="45" align="center" />
+                  <el-table-column prop="left7" width="45" align="center" />
+                  <el-table-column prop="left6" width="45" align="center" />
+                  <el-table-column prop="left5" width="45" align="center" />
+                  <el-table-column prop="left4" width="45" align="center" />
+                  <el-table-column prop="left3" width="45" align="center" />
                 </el-table-column>
                 <el-table-column label="ⅢA" align="center">
-                  <el-table-column prop="left2" width="55" align="center" />
-                  <el-table-column prop="left1" width="55" align="center" />
-                  <el-table-column prop="right1" width="55" align="center" />
-                  <el-table-column prop="right2" width="55" align="center" />
-                  <el-table-column prop="right3" width="55" align="center" />
-                  <el-table-column prop="right4" width="55" align="center" />
-                  <el-table-column prop="right5" width="55" align="center" />
-                  <el-table-column prop="right6" width="55" align="center" />
-                  <el-table-column prop="right7" width="55" align="center" />
-                  <el-table-column prop="right8" width="55" align="center" />
+                  <el-table-column prop="left2" width="45" align="center" />
+                  <el-table-column prop="left1" width="45" align="center" />
+                  <el-table-column prop="right1" width="45" align="center" />
+                  <el-table-column prop="right2" width="45" align="center" />
+                  <el-table-column prop="right3" width="45" align="center" />
+                  <el-table-column prop="right4" width="45" align="center" />
+                  <el-table-column prop="right5" width="45" align="center" />
+                  <el-table-column prop="right6" width="45" align="center" />
+                  <el-table-column prop="right7" width="45" align="center" />
+                  <el-table-column prop="right8" width="45" align="center" />
                 </el-table-column>
               </el-table>
               <div class="selectList" style="margin-top: 40px;">
@@ -127,11 +130,12 @@
           <div class="box">
             <div class="pageLeft">
               <div class="title">口内3D照分析</div>
-              <div class="imgList">
-                <div class="img_item">
+              <div class="imgList1">
+                <div class="img_item" v-for="(item, index) in list.TDList">
                   <div class="img_box">
-                    <el-image class="img" fit="cover" :src="list[7]" :preview-src-list="list" :initial-index="7" />
-                    <text style="margin-top: 20px;">上颌</text>
+                    <el-image class="img" fit="cover" :src="item" :preview-src-list="list.TDList"
+                      :initial-index="index" />
+                    <text style="margin-top: 20px;">{{ index ? '下颌' : '上颌' }}</text>
                   </div>
                 </div>
               </div>
@@ -152,27 +156,96 @@
           </div>
         </el-collapse-item>
         <el-collapse-item title="头侧片分析" name="3">
-          <div>
-            3
+          <div class="box">
+            <div class="pageLeft">
+              <div class="title"></div>
+              <div class="imgList1" style="margin-top: 30px;">
+                <el-image class="img" fit="cover" :src="list.cephalicList[0]" :preview-src-list="list.cephalicList"
+                  :initial-index="0" />
+              </div>
+            </div>
+            <div class="inform">
+              <div class="title_1">
+                <text class="title">头侧片分析结果</text>
+                <div class="edit">编辑</div>
+              </div>
+              <el-table :data="tableData3" style="width: 100%; fontSize: 16px;" border stripe
+                :header-cell-style="headerCellStyle" max-height="310">
+                <el-table-column prop="name" label="分析项目" align="center" />
+                <el-table-column prop="up" label="上颌" align="center" />
+                <el-table-column prop="down" label="下颌" align="center" />
+                <el-table-column prop="deviation" label="偏差值" align="center" />
+              </el-table>
+            </div>
           </div>
         </el-collapse-item>
         <el-collapse-item title="其他类型照片" name="4">
-          <div>
-            4
+          <div class="box">
+            <div class="pageLeft">
+              <!-- <div class="title">口内照</div> -->
+              <div class="imgList1">
+                <div class="img_item" v-for="(item, index) in list.otherPhotoList">
+                  <div class="img_box">
+                    <el-image class="img" fit="cover" :src="item" :preview-src-list="list.otherPhotoList"
+                      :initial-index="index" />
+                    <text style="margin-top: 20px;">{{ index ? '下颌后缩患者前伸下颌侧面照' : '反𬌗患者下颌后退咬合照' }}</text>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="inform">
+              <div class="title_1">
+                <text class="title">其他类型照片分析结果</text>
+              </div>
+              <el-input v-model="textarea" :rows="8" type="textarea" placeholder="请输入照片分析结果" />
+            </div>
           </div>
         </el-collapse-item>
         <el-collapse-item title="其他视频" name="5">
-          <div>
-            4
+          <div class="box">
+            <div class="pageLeft">
+              <!-- <div class="title">口内照</div> -->
+              <div class="imgList1">
+                <div class="img_item" v-for="(item, index) in list.otherVideoList">
+                  <div class="img_box">
+                    <el-image class="img" fit="cover" :src="item" :preview-src-list="list.otherVideoList"
+                      :initial-index="index" />
+                    <text style="margin-top: 20px;">{{ index ? '吞咽视频' : '半身呼吸视频' }}</text>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="inform">
+              <div class="title_1">
+                <text class="title">视频分析结果</text>
+              </div>
+              <el-input v-model="textarea2" :rows="8" type="textarea" placeholder="请输入视频分析结果" />
+            </div>
           </div>
         </el-collapse-item>
       </el-collapse>
+      <div class="btn">下一步</div>
     </div>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header/index.vue";
+
+
+import kounei1 from "@/assets/delete/kouneizuoce.png";
+import kounei2 from "@/assets/delete/kouneizheng.png";
+import kounei3 from "@/assets/delete/kouneiyouce.png";
+import kounei4 from "@/assets/delete/kouneishang.png";
+import kounei5 from "@/assets/delete/kouneixia.png";
+import kounei6 from "@/assets/delete/kounei90.png";
+import ct from "@/assets/delete/ct.png";
+import kounei3Dshang from "@/assets/delete/kounei3Dshang.png";
+import kounei3Dxia from "@/assets/delete/kounei3Dxia.png";
+import other1 from "@/assets/delete/other1.png";
+import other2 from "@/assets/delete/other2.png";
+import toucepian from "@/assets/delete/toucepian.png";
+
 export default {
   name: "",
   data() {
@@ -539,16 +612,127 @@ export default {
           down: '6.34mm'
         },
       ],
-      list: [
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-        'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg',
-      ],
+      list: {
+        faceList: [
+          'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/231050ee-48af-4a69-9122-60f5e3f39a37.jpg',
+          'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/315b5d0c-5070-4863-85f6-ab6e2595238c.jpg',
+          'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/3362c51d-48fb-4559-9923-60e2c50059b6.jpg'
+        ],
+        faceName: [
+          '正面照',
+          '侧面照',
+          '微笑照',
+        ],
+        dentalList: [
+          kounei1,
+          kounei2,
+          kounei3,
+          kounei4,
+          kounei5,
+          kounei6
+        ],
+        dentalName: [
+          '左侧咬合照',
+          '正面',
+          '右侧咬合照',
+          '上颌𬌗面照',
+          '下颌𬌗面照',
+          '90°覆盖照',
+        ],
+        CTList: [ct],
+        TDList: [kounei3Dshang, kounei3Dxia],
+        otherPhotoList: [other1, other2],
+        otherVideoList: [other1, other2],
+        cephalicList: [toucepian]
+      },
+      textarea: '',
+      textarea2: '根内外的吸收、根折、牙根发育情况及牙骨质增生等；髓室及根管情况：髓腔及根管大小、髓石及牙内 吸收等；根尖及根尖周围情况：如根尖',
+      tableData3: [
+        {
+          name: 'SNA',
+          up: '79.8',
+          down: '83',
+          deviation: '4',
+        },
+        {
+          name: 'SNB',
+          up: '76.5',
+          down: '80',
+          deviation: '4',
+        },
+        {
+          name: 'ANB',
+          up: '3.3',
+          down: '3',
+          deviation: '2',
+        },
+        {
+          name: 'Ptm-A(mm)',
+          up: '37.6',
+          down: '45',
+          deviation: '3',
+        },
+        {
+          name: 'Ptm-S(mm)',
+          up: '12.9',
+          down: '18',
+          deviation: '2',
+        },
+        {
+          name: 'PP-FH',
+          up: '0.1',
+          down: '4',
+          deviation: '3',
+        },
+        {
+          name: 'PP-MP',
+          up: '27.6',
+          down: '21',
+          deviation: '4',
+        },
+        {
+          name: 'SNA',
+          up: '79.8',
+          down: '83',
+          deviation: '4',
+        },
+        {
+          name: 'SNB',
+          up: '76.5',
+          down: '80',
+          deviation: '4',
+        },
+        {
+          name: 'ANB',
+          up: '3.3',
+          down: '3',
+          deviation: '2',
+        },
+        {
+          name: 'Ptm-A(mm)',
+          up: '37.6',
+          down: '45',
+          deviation: '3',
+        },
+        {
+          name: 'Ptm-S(mm)',
+          up: '12.9',
+          down: '18',
+          deviation: '2',
+        },
+        {
+          name: 'PP-FH',
+          up: '0.1',
+          down: '4',
+          deviation: '3',
+        },
+        {
+          name: 'PP-MP',
+          up: '27.6',
+          down: '21',
+          deviation: '4',
+        },
+      ]
     }
   },
   components: {
@@ -649,6 +833,20 @@ export default {
         border-bottom: 0;
       }
     }
+
+    .btn {
+      margin: 140px auto;
+      width: 400px;
+      height: 58px;
+      background: #7BA9B9;
+      border-radius: 6px;
+      font-size: 26px;
+      font-family: Source Han Sans SC;
+      font-weight: 400;
+      color: #FFFFFF;
+      line-height: 58px;
+      text-align: center;
+    }
   }
 
   .pageLeft {
@@ -686,10 +884,45 @@ export default {
       }
     }
 
+    .imgList1 {
+      width: 478px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .img_item {
+        width: 189px;
+        margin: 0px 25px 70px;
+
+        .img_box {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .img {
+            width: 189px;
+            height: 205px;
+          }
+        }
+      }
+    }
+
+    .imgList1 {
+      width: 520px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .img {
+        width: 520px;
+        height: 329px;
+      }
+    }
   }
 
   .inform {
     width: 58%;
+    height: 100%;
     margin-left: 2%;
     margin-bottom: 25px;
 
@@ -709,7 +942,7 @@ export default {
 
       .edit {
         color: #02a7f0;
-        // font-size: 14px;
+        font-size: 16px;
       }
 
     }

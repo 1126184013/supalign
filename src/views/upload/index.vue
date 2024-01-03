@@ -10,22 +10,22 @@
       <div class="middle">
         <div class="title">
           <text style="color: red">*</text>面像分析：
-          <input type="file" ref="dentalFileInput" multiple @change="dentalBatch" style="display: none">
-          <el-button class="custom-button" size="large" type="primary" @click="dentalUploadBatch">批量上传</el-button>
+          <input type="file" ref="faceFileInput" multiple @change="dentalBatch($event, 'face')" style="display: none">
+          <el-button class="custom-button" size="large" type="primary" @click="dentalUploadBatch('face')">批量上传</el-button>
           <div class="rule m-l-30">( <text>上传规则</text> )</div>
         </div>
         <div class="box">
           <div class="item_1">
             <div class="upload">
               <div class="upload_item" v-for="(item, index) in face">
-                <input type="file" :ref="`faceUploadFile${index}`" multiple @change="upload($event, index)"
+                <input type="file" :ref="`faceUploadFile${index}`" multiple @change="upload($event, 'face', index)"
                   style="display: none">
-                <div style="height: 187px;" v-if="faceList[index]">
+                <div style="height: 400px;" v-if="faceList[index]">
                   <el-image class="img" fit="cover" :src="faceList[index]" :preview-src-list="faceList"
                     :initial-index="index" />
                   <div class="imgdel" @click="imgdel(index)">删除</div>
                 </div>
-                <img v-else class="img" :src="item.url" @click="uploadClick(index)" />
+                <img v-else class="img" :src="item.url" @click="uploadClick('face', index)" />
                 <text style="margin-top: 20px;">{{ item.name }}</text>
               </div>
             </div>
@@ -35,8 +35,9 @@
       <div class="middle">
         <div class="title">
           <text style="color: red">*</text>牙例分析：
-          <input type="file" ref="dentalFileInput" multiple @change="dentalBatch" style="display: none">
-          <el-button class="custom-button" size="large" type="primary" @click="dentalUploadBatch">批量上传</el-button>
+          <input type="file" ref="dentalFileInput" multiple @change="dentalBatch($event, 'dental')" style="display: none">
+          <el-button class="custom-button" size="large" type="primary"
+            @click="dentalUploadBatch('dental')">批量上传</el-button>
         </div>
         <div class="box">
           <div class="item">
@@ -46,14 +47,14 @@
             </div>
             <div class="upload">
               <div class="upload_item" v-for="(item, index) in intraoral">
-                <input type="file" :ref="`intraoraUploadFile${index}`" multiple @change="upload($event, index)"
+                <input type="file" :ref="`intraoraUploadFile${index}`" multiple @change="upload($event, 'dental', index)"
                   style="display: none">
-                <div style="height: 187px;" v-if="intraoralList[index]">
+                <div style="height: 400px;" v-if="intraoralList[index]">
                   <el-image class="img" fit="cover" :src="intraoralList[index]" :preview-src-list="intraoralList"
                     :initial-index="index" />
                   <div class="imgdel" @click="imgdel(index)">删除</div>
                 </div>
-                <img v-else class="img" :src="item.url" @click="uploadClick(index)" />
+                <img v-else class="img" :src="item.url" @click="uploadClick('dental', index)" />
                 <text style="margin-top: 20px;">{{ item.name }}</text>
               </div>
             </div>
@@ -65,12 +66,13 @@
             </div>
             <div class="upload">
               <div class="upload_item">
-                <input type="file" ref="CTUploadFile" multiple @change="upload($event, 6)" style="display: none">
-                <div style="height: 187px;" v-if="CTList[0]">
+                <input type="file" ref="CTUploadFile" multiple @change="upload($event, 'dental', 6)"
+                  style="display: none">
+                <div style="height: 400px;" v-if="CTList[0]">
                   <el-image class="img" fit="cover" :src="CTList[0]" :preview-src-list="CTList" :initial-index="6" />
                   <div class="imgdel btm" @click="imgdel(6)">删除</div>
                 </div>
-                <img v-else class="img" src="@/assets/dental/CTFile.png" @click="uploadClick(6)">
+                <img v-else class="img" src="@/assets/dental/CTFile.png" @click="uploadClick('dental', 6)">
               </div>
             </div>
           </div>
@@ -81,23 +83,19 @@
             </div>
             <div class="upload">
               <div class="upload_item">
-                <input type="file" ref="TDUploadFile" multiple @change="upload($event, 7)" style="display: none">
-                <div style="height: 187px;" v-if="TDList[0]">
+                <input type="file" ref="TDUploadFile" multiple @change="upload($event, 'dental', 7)"
+                  style="display: none">
+                <div style="height: 400px;" v-if="TDList[0]">
                   <el-image class="img" fit="cover" :src="TDList[0]" :preview-src-list="TDList" :initial-index="7" />
                   <div class="imgdel btm" @click="imgdel(7)">删除</div>
                 </div>
-                <img v-else class="img" src="@/assets/dental/CTFile.png" @click="uploadClick(7)">
+                <img v-else class="img" src="@/assets/dental/CTFile.png" @click="uploadClick('dental', 7)">
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="middle">
-        <!-- <div class="title">
-          <text style="color: red">*</text>牙例分析
-          <input type="file" ref="dentalFileInput" multiple @change="dentalBatch" style="display: none">
-          <el-button class="custom-button" size="large" type="primary" @click="dentalUploadBatch">批量上传</el-button>
-        </div> -->
         <div class="box">
           <div class="item_1">
             <div class="title_1">
@@ -106,13 +104,14 @@
             </div>
             <div class="upload">
               <div class="upload_item">
-                <input type="file" ref="headSideUploadFile" multiple @change="upload($event, 7)" style="display: none">
-                <div style="height: 187px;" v-if="headSideList[0]">
+                <input type="file" ref="headSideUploadFile" multiple @change="upload($event, 'headSide')"
+                  style="display: none">
+                <div style="height: 400px;" v-if="headSideList[0]">
                   <el-image class="img" fit="cover" :src="headSideList[0]" :preview-src-list="headSideList"
                     :initial-index="0" />
                   <div class="imgdel btm" @click="imgdel(7)">删除</div>
                 </div>
-                <img v-else class="img" src="@/assets/dental/CTFile.png" @click="uploadClick(7)">
+                <img v-else class="img" src="@/assets/dental/CTFile.png" @click="uploadClick('headSide')">
               </div>
             </div>
           </div>
@@ -127,20 +126,21 @@
             </div>
             <div class="upload flex_start">
               <div class="upload_item m-r-100" v-for="(item, index) in video">
-                <input type="file" :ref="`videoUploadFile${index}`" multiple @change="upload($event, index)"
+                <input type="file" :ref="`videoUploadFile${index}`" multiple @change="upload($event, 'video', index)"
                   style="display: none">
-                <div style="height: 187px;" v-if="videoList[index]">
+                <div style="height: 400px;" v-if="videoList[index]">
                   <el-image class="img" fit="cover" :src="videoList[index]" :preview-src-list="videoList"
                     :initial-index="index" />
                   <div class="imgdel" @click="imgdel(index)">删除</div>
                 </div>
-                <img v-else class="img" :src="item.url" @click="uploadClick(index)" />
+                <img v-else class="img" :src="item.url" @click="uploadClick('video', index)" />
                 <text style="margin-top: 20px;">{{ item.name }}</text>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="btn" @click="goToanalyze">下一步</div>
     </div>
   </div>
 </template>
@@ -195,14 +195,25 @@ export default {
   },
   methods: {
     // 触发文件上传
-    uploadClick(i) {
-      if (i < 6) this.$refs[`intraoraUploadFile${i}`][0].click();
-      else if (i == 6) this.$refs[`CTUploadFile`].click();
-      else if (i == 7) this.$refs[`TDUploadFile`].click();
+    uploadClick(type, i) {
+      if (type == "face") {
+        this.$refs[`faceUploadFile${i}`][0].click();
+      }
+      else if (type == "dental") {
+        if (i < 6) this.$refs[`intraoraUploadFile${i}`][0].click();
+        else if (i == 6) this.$refs[`CTUploadFile`].click();
+        else if (i == 7) this.$refs[`TDUploadFile`].click();
+      }
+      else if (type == "headSide") {
+        this.$refs[`headSideUploadFile`].click();
+      }
+      else if (type == "video") {
+        this.$refs[`videoUploadFile${i}`][0].click();
+      }
     },
 
     // 上传照片
-    upload(event, i) {
+    upload(event, type, i) {
       // console.log(event, i);
       let files = event.target.files;
 
@@ -212,11 +223,23 @@ export default {
       }
 
       // 发送请求
-      axios.post('/api/upload', formData)
+      axios.post('/api/single', formData)
         .then(response => {
-          if (i < 6) this.intraoralList[i] = response.data.url
-          else if (i == 6) this.CTList[0] = response.data.url
-          else if (i == 7) this.TDList[0] = response.data.url
+          if (type == "face") {
+            this.faceList[i] = response.data.url
+          }
+          else if (type == "dental") {
+            if (i < 6) this.intraoralList[i] = response.data.url
+            else if (i == 6) this.CTList[0] = response.data.url
+            else if (i == 7) this.TDList[0] = response.data.url
+          }
+          else if (type == "headSide") {
+            this.headSideList[0] = response.data.url
+          }
+          else if (type == "video") {
+            this.videoList[i] = response.data.url
+          }
+
         }).catch(error => {
           // 处理上传失败的回调
           ElMessage.error(error)
@@ -224,11 +247,15 @@ export default {
     },
 
     // 批量上传
-    dentalUploadBatch() {
-      this.$refs.dentalFileInput.click();
+    dentalUploadBatch(type) {
+      if (type == "dental") {
+        this.$refs.dentalFileInput.click();
+      } else if (type == 'face') {
+        this.$refs.faceFileInput.click();
+      }
     },
 
-    dentalBatch(event) {
+    dentalBatch(event, type) {
       // 加载动画
       this.loadingInstance = ElLoading.service({
         lock: true,
@@ -237,7 +264,11 @@ export default {
         text: '正在上传图片中...',
       })
 
-      this.intraoralList = []
+      if (type == "dental") {
+        this.intraoralList = []
+      } else if (type == 'face') {
+        this.faceList = []
+      }
       const files = event.target.files;
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
@@ -247,9 +278,15 @@ export default {
       // 发送请求
       axios.post('/api/upload', formData)
         .then(res => {
-          res.data.forEach(item => {
-            this.intraoralList.push(item.url)
-          })
+          if (type == "dental") {
+            res.data.forEach(item => {
+              this.intraoralList.push(item.url)
+            })
+          } else if (type == 'face') {
+            res.data.forEach(item => {
+              this.faceList.push(item.url)
+            })
+          }
           this.loadingInstance.close()
         })
         .catch(error => {
@@ -258,6 +295,10 @@ export default {
           ElMessage.error(error)
         });
     },
+
+    goToanalyze() {
+      this.$router.push({ path: "/analyze" });
+    }
   }
 }
 </script>
@@ -322,6 +363,20 @@ export default {
         }
       }
     }
+
+    .btn {
+      margin: 140px auto;
+      width: 400px;
+      height: 58px;
+      background: #7BA9B9;
+      border-radius: 6px;
+      font-size: 26px;
+      font-family: Source Han Sans SC;
+      font-weight: 400;
+      color: #FFFFFF;
+      line-height: 58px;
+      text-align: center;
+    }
   }
 
 
@@ -351,7 +406,7 @@ export default {
       }
 
       .imgdel {
-        width: 173px;
+        width: 400px;
         background-color: #1d1d1d63;
         color: #FFFFFF;
         position: absolute;
