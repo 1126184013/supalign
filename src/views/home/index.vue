@@ -7,7 +7,7 @@
         <img class="ai" :src="ai" />
         <div class="btn_box">
           <img @click="surface" class="item face" :src="face" />
-          <img class="item dental" :src="dental" />
+          <img @click="goTODental" class="item dental" :src="dental" />
           <img @click="headside" class="item skull" :src="skull" />
           <img class="item video" :src="video" />
         </div>
@@ -25,7 +25,7 @@ import face from "@/assets/home_2/face.png";
 import dental from "@/assets/home_2/dental.png";
 import skull from "@/assets/home_2/skull.png";
 import video from "@/assets/home_2/video.png";
-import Header from "../../components/Header/index.vue";
+import Header from "@/components/Header/index.vue";
 
 const router = useRouter();
 
@@ -43,6 +43,11 @@ const outLogin = async () => {
 // 面像分析
 const surface = async () => {
   router.push({ path: "/face" });
+}
+
+// 牙例分析
+const goTODental = async () => {
+  router.push({ path: "/dental" });
 }
 
 // 头颅侧位分析

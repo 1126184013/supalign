@@ -5,19 +5,19 @@
       <div :class="clientWidth >= 1650 ? 'box' : ''">
         <div class="imglist">
           <div class="img_item">
-            <el-image style="width: 240px; height: 256px" fit="cover"
+            <el-image style="width: 173px; height: 187px" fit="cover"
               :src="faceimg.find(image => image.type === 'front').url" :preview-src-list="srcList">
             </el-image>
             <div class="text">正面照</div>
           </div>
           <div class="img_item">
-            <el-image style="width: 240px; height: 256px" fit="cover"
+            <el-image style="width: 173px; height: 187px" fit="cover"
               :src="faceimg.find(image => image.type === 'profile').url" :preview-src-list="srcList0">
             </el-image>
             <div class="text">侧面照</div>
           </div>
           <div class="img_item">
-            <el-image style="width: 240px; height: 256px" fit="cover"
+            <el-image style="width: 173px; height: 187px" fit="cover"
               :src="faceimg.find(image => image.type === 'smile').url" :preview-src-list="srcList1">
             </el-image>
             <div class="text">微笑照</div>
@@ -219,7 +219,7 @@
             </div>
 
             <div style="display: flex;justify-content: flex-start;width: 66%; margin-top: 20px;">
-              <div style="text-align: left;width: 180px; min-width: 145px;">
+              <div style="text-align: left;width: 145px; min-width: 145px;">
                 <text>口周肌肉分析：</text>
               </div>
               <div class="placeright" style="width: 100%;">
@@ -515,7 +515,7 @@ import isChecked from "@/assets/isChecked.png";
 .front {
   >div {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 5%;
 
     >div {
@@ -549,7 +549,7 @@ import isChecked from "@/assets/isChecked.png";
 }
 
 .placeleft {
-  width: 35% !important;
+  width: 145px !important;
   min-width: 145px;
   text-align: left;
 }
@@ -574,7 +574,7 @@ import isChecked from "@/assets/isChecked.png";
 }
 
 .m-t {
-  width: 60% !important;
+  width: 70% !important;
   margin-top: 80px;
   margin-left: 0 !important;
 }
@@ -585,7 +585,7 @@ import isChecked from "@/assets/isChecked.png";
 }
 
 .inform {
-  width: 48%;
+  width: 58%;
   padding-bottom: 5%;
   margin-left: 2%;
 
@@ -610,13 +610,13 @@ import isChecked from "@/assets/isChecked.png";
 }
 
 .imglist {
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
 
   .img_item {
-    width: 240px;
-    height: 256px;
+    width: 173px;
+    height: 187px;
     position: relative;
     display: flex;
     flex-direction: column;

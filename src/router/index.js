@@ -81,13 +81,53 @@ const router = createRouter({
         icon: 'ele-HomeFilled',
       }
     },
-    //面像评测
+    //面像分析
     {
       path: '/face',
       name: 'Face',
       component: () => import('@/views/face/index.vue'),
       meta: {
         title: '面像评测',
+        hidden: true
+      }
+    },
+    //头颅侧位分析
+    {
+      path: '/headside',
+      name: 'Headside',
+      component: () => import('@/views/headside/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    //牙例分析
+    {
+      path: '/dental',
+      name: 'Dental',
+      component: () => import('@/views/dental/index.vue'),
+      meta: {
+        title: '牙例分析',
+        hidden: true
+      }
+    },
+    //图片上传
+    {
+      path: '/upload',
+      name: 'Upload',
+      component: () => import('@/views/upload/index.vue'),
+      meta: {
+        title: '图片上传',
+        hidden: true
+      }
+    },
+    //分析结果
+    {
+      path: '/analyze',
+      name: 'Analyze',
+      component: () => import('@/views/analyze/index.vue'),
+      meta: {
+        title: '分析结果',
+        hidden: true
       }
     },
     { path: '/:pathMatch(.*)', redirect: '/404', hidden: true }

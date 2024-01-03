@@ -7,17 +7,17 @@
 
       <div class="imglist">
         <div class="img_item">
-          <el-image style="width: 240px; height: 256px" fit="cover"
+          <el-image style="width: 173px; height: 187px" fit="cover"
             :src="faceimg.find(image => image.type === 'front').url" :preview-src-list="srcList">
           </el-image>
         </div>
         <div class="img_item">
-          <el-image style="width: 240px; height: 256px" fit="cover"
+          <el-image style="width: 173px; height: 187px" fit="cover"
             :src="faceimg.find(image => image.type === 'profile').url" :preview-src-list="srcList0">
           </el-image>
         </div>
         <div class="img_item">
-          <el-image style="width: 240px; height: 256px" fit="cover"
+          <el-image style="width: 173px; height: 187px" fit="cover"
             :src="faceimg.find(image => image.type === 'smile').url" :preview-src-list="srcList1">
           </el-image>
         </div>
@@ -28,19 +28,18 @@
         <text class="fonthead">诊断分析结果</text>
       </div>
       <div class="pdfupdata">
-        <el-table :data="list" stripe style="width: 100%">
-          <el-table-column label="正貌" width="120">
-            <el-table-column prop="name" width="120"></el-table-column>
-            <el-table-column prop="status" width="120"></el-table-column>
+        <el-table :data="list" stripe style="width: 100%" :header-cell-style="headerCellStyle">
+          <el-table-column label="正貌" width="120" align="center">
+            <el-table-column prop="name" width="120" align="center" />
+            <el-table-column prop="status" width="120" align="center" />
           </el-table-column>
-          <el-table-column label="临床意义" prop="significance">
+          <el-table-column label="临床意义" prop="significance" header-align="center" />
+
+          <el-table-column label="侧貌" width="120" align="center">
+            <el-table-column prop="flankname" width="120" align="center" />
+            <el-table-column prop="flankstatus" width="120" align="center" />
           </el-table-column>
-          <el-table-column label="侧貌" width="120">
-            <el-table-column prop="flankname" width="120"></el-table-column>
-            <el-table-column prop="flankstatus" width="120"></el-table-column>
-          </el-table-column>
-          <el-table-column label="临床意义" prop="significance1">
-          </el-table-column>
+          <el-table-column label="临床意义" prop="significance1" header-align="center" />
         </el-table>
       </div>
     </div>
@@ -104,19 +103,9 @@ export default {
   },
   components: { Text },
   methods: {
-    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex === 0) {
-        if (rowIndex % 2 === 0) {
-          return {
-            rowspan: 2,
-            colspan: 1
-          };
-        } else {
-          return {
-            rowspan: 0,
-            colspan: 0
-          };
-        }
+    headerCellStyle({ row, column, rowIndex, columnIndex }) {
+      if (rowIndex === 1) {//第二行表头隐藏
+        return { display: 'none' }
       }
     }
   }
@@ -159,13 +148,13 @@ td {
 }
 
 .imglist {
-  width: 50%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
 
   .img_item {
-    width: 240px;
-    height: 256px;
+    width: 173px;
+    height: 187px;
     display: flex;
     flex-direction: column;
     align-items: center;

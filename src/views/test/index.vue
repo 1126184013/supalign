@@ -7,6 +7,86 @@
       <el-table-column prop="amount2" sortable label="Amount 2" />
       <el-table-column prop="amount3" sortable label="Amount 3" />
     </el-table>
+
+    <table class="table">
+      <tr>
+        <th colspan="8">Hellman咬合发育阶段</th>
+        <th colspan="9">ⅢA</th>
+      </tr>
+      <tr>
+        <th rowspan="4">牙列式</th>
+        <td>8</td>
+        <td>7</td>
+        <td>6</td>
+        <td>5</td>
+        <td>4</td>
+        <td>3</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Ⅴ</td>
+        <td>Ⅳ</td>
+        <td>Ⅲ</td>
+        <td>Ⅱ</td>
+        <td>Ⅰ</td>
+        <td>Ⅰ</td>
+        <td>Ⅱ</td>
+        <td>Ⅲ</td>
+        <td>Ⅳ</td>
+        <td>Ⅴ</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Ⅴ</td>
+        <td>Ⅳ</td>
+        <td>Ⅲ</td>
+        <td>Ⅱ</td>
+        <td>Ⅰ</td>
+        <td>Ⅰ</td>
+        <td>Ⅱ</td>
+        <td>Ⅲ</td>
+        <td>Ⅳ</td>
+        <td>Ⅴ</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>7</td>
+        <td>6</td>
+        <td>5</td>
+        <td>4</td>
+        <td>3</td>
+        <td>2</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -89,5 +169,14 @@ export default {
 .page {
   width: 100vw;
   height: 100vh;
+
+  .table {
+    th, td {
+      border-bottom: 1px solid #000;
+      border-right: 1px solid #000;
+      border-left: 1px solid #fff;
+    }
+
+  }
 }
 </style>

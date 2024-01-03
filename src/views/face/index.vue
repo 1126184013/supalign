@@ -39,7 +39,7 @@
           </div>
           <div class="faceimg">
             <input type="file" ref="flankimg" multiple @change="upflankimg" style="display: none">
-            <img src="../../assets/face2/face2.png" alt="" style="width: 173px; height: 187px;" v-if="flankimg.length < 1"
+            <img src="../../assets/face2/face2.png" alt="" style="width: 173px; height: 187px" v-if="flankimg.length < 1"
               @click="openflankimg">
             <div v-else>
               <el-image style="width: 173px; height: 187px" fit="cover" :src="flankimg" :preview-src-list="flankimgbig">
@@ -777,7 +777,7 @@ export default {
   color: #FFFFFF;
   position: relative;
   left: 0;
-  top: -25px;
+  top: -30px;
   display: flex;
   justify-content: center;
   align-items: center;
