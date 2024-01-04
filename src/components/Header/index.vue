@@ -1,25 +1,12 @@
 <template>
-  <div class="header" :class="page == 'home' ? '' : 'bgc'">
-    <div class="box" :class="page == 'home' ? '' : 'width'">
+  <div class="header" :class="page == 'home' ? '' : 'bgc'" :style="{ 'min-width': minW + 'px' }">
+    <div class="box" :class="pageStyle">
       <img class="logo" :src="logo" @click="goToHome" />
 
       <div class="info">
         <el-icon :size="25">
           <BellFilled />
         </el-icon>
-        <!-- <el-dropdown class="item m-l-r">
-        <span class="el-dropdown-link">
-          <span style="font-size: 22px;"> 测试111</span>
-          <el-icon class="el-icon--right">
-            <arrow-down />
-          </el-icon>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item disabled>暂无其他数据</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown> -->
         <el-avatar class="avatar" :size="40" :src="circleUrl" />
         <span class="name">测试账号11</span>
         <div style="font-size: 18px; cursor: pointer;" @click="outLogin">注销</div>
@@ -30,14 +17,24 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import logo from "@/assets/logo.png";
 
-const props = defineProps(['page'])
+const props = defineProps(['page', 'minW'])
 const router = useRouter()
-
 const circleUrl = ref('')
+const pageStyle = ref('')
+
+onMounted(() => {
+  if (props.page == 'home') {
+    pageStyle.value = ''
+  } else if (props.page == 'upload' || props.page == 'analyze') {
+    console.log(1);
+    pageStyle.value = 'width_2'
+  } else pageStyle.value = 'width'
+})
+
 const outLogin = async () => {
   router.push({ path: "/login" });
 }
@@ -98,9 +95,14 @@ const goToHome = () => {
     }
   }
 
-  .width {
-    width: 100% !important;
-  }
+}
+
+.width {
+  width: 100% !important;
+}
+
+.width_2 {
+  width: 1440px !important;
 }
 
 .bgc {

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <Header :page="'upload'" />
+    <Header :page="'upload'" :minW="1440" />
     <div class="content">
       <div class="head">
         <text :class="procedureIndex >= 0 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(0)">1、上传图片/视频 </text>
@@ -313,7 +313,7 @@ export default {
     width: 1440px;
     margin: 0 auto;
     overflow-x: hidden;
-    padding: 20px 0;
+    padding: 20px 35px;
     user-select: none;
     font-size: 20px;
 

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <Header :page="'analyze'" />
+    <Header :page="'analyze'" :minW="1440" />
     <div class="content">
       <div class="head">
         <text :class="procedureIndex >= 0 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(0)">分析结果</text>
@@ -18,7 +18,7 @@
                   <div class="img_box">
                     <el-image class="img" fit="cover" :src="item" :preview-src-list="list.faceList"
                       :initial-index="index" />
-                    <text style="margin-top: 20px;">{{ list.faceName[index] }}</text>
+                    <text style="margin-top: 20px; font-size: 18px;">{{ list.faceName[index] }}</text>
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@
                   <div class="img_box">
                     <el-image class="img" fit="cover" :src="item" :preview-src-list="list.dentalList"
                       :initial-index="index" />
-                    <text style="margin-top: 20px;">{{ list.dentalName[index] }}</text>
+                    <text style="margin-top: 20px; font-size: 18px;">{{ list.dentalName[index] }}</text>
                   </div>
                 </div>
               </div>
@@ -75,14 +75,9 @@
           <div class="box">
             <div class="pageLeft">
               <div class="title">CT照</div>
-              <div class="imgList">
-                <!-- <div class="img_item">
-                  <div class="img_box"> -->
+              <div class="imgList2">
                 <el-image class="img" fit="cover" :src="list.CTList[0]" :preview-src-list="list.CTList"
                   :initial-index="0" />
-                <!-- <text style="margin-top: 20px;">CT照</text> -->
-                <!-- </div>
-                </div> -->
               </div>
             </div>
             <div class="inform">
@@ -135,7 +130,7 @@
                   <div class="img_box">
                     <el-image class="img" fit="cover" :src="item" :preview-src-list="list.TDList"
                       :initial-index="index" />
-                    <text style="margin-top: 20px;">{{ index ? '下颌' : '上颌' }}</text>
+                    <text style="margin-top: 20px; font-size: 18px;">{{ index ? '下颌' : '上颌' }}</text>
                   </div>
                 </div>
               </div>
@@ -159,7 +154,7 @@
           <div class="box">
             <div class="pageLeft">
               <div class="title"></div>
-              <div class="imgList1" style="margin-top: 30px;">
+              <div class="imgList2" style="margin-top: 30px;">
                 <el-image class="img" fit="cover" :src="list.cephalicList[0]" :preview-src-list="list.cephalicList"
                   :initial-index="0" />
               </div>
@@ -170,7 +165,7 @@
                 <div class="edit">编辑</div>
               </div>
               <el-table :data="tableData3" style="width: 100%; fontSize: 16px;" border stripe
-                :header-cell-style="headerCellStyle" max-height="310">
+                :header-cell-style="headerCellStyle" max-height="375">
                 <el-table-column prop="name" label="分析项目" align="center" />
                 <el-table-column prop="up" label="上颌" align="center" />
                 <el-table-column prop="down" label="下颌" align="center" />
@@ -188,7 +183,7 @@
                   <div class="img_box">
                     <el-image class="img" fit="cover" :src="item" :preview-src-list="list.otherPhotoList"
                       :initial-index="index" />
-                    <text style="margin-top: 20px;">{{ index ? '下颌后缩患者前伸下颌侧面照' : '反𬌗患者下颌后退咬合照' }}</text>
+                    <text style="margin-top: 20px; font-size: 18px;">{{ index ? '下颌后缩患者前伸下颌侧面照' : '反𬌗患者下颌后退咬合照' }}</text>
                   </div>
                 </div>
               </div>
@@ -210,7 +205,7 @@
                   <div class="img_box">
                     <el-image class="img" fit="cover" :src="item" :preview-src-list="list.otherVideoList"
                       :initial-index="index" />
-                    <text style="margin-top: 20px;">{{ index ? '吞咽视频' : '半身呼吸视频' }}</text>
+                    <text style="margin-top: 20px; font-size: 18px;">{{ index ? '吞咽视频' : '半身呼吸视频' }}</text>
                   </div>
                 </div>
               </div>
@@ -880,7 +875,7 @@ export default {
     width: 1440px;
     margin: 0 auto;
     overflow-x: hidden;
-    padding: 40px 0;
+    padding: 40px 35px;
     user-select: none;
     font-size: 20px;
 
@@ -966,11 +961,11 @@ export default {
   }
 
   .pageLeft {
-    width: 450px;
+    width: 50%;
     // min-width: 750px;
 
     .title {
-      font-size: 16px;
+      font-size: 20px;
       font-family: Microsoft YaHei;
       font-weight: 400;
       color: #222222;
@@ -978,14 +973,14 @@ export default {
     }
 
     .imgList {
-      width: 450px;
+      width: 100%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      // justify-content: space-between;
 
       .img_item {
-        width: 120px;
-        margin: 0px 15px 70px;
+        width: 173px;
+        margin: 0px 15px 50px;
 
         .img_box {
           display: flex;
@@ -993,22 +988,23 @@ export default {
           align-items: center;
 
           .img {
-            width: 120px;
-            height: 130px;
+            width: 173px;
+            height: 187px;
           }
         }
       }
     }
 
     .imgList1 {
-      width: 478px;
+      width: 100%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      // justify-content: space-around;
 
       .img_item {
-        width: 189px;
-        margin: 0px 25px 70px;
+        width: 240px;
+        // margin: 0px 25px 70px;
+        margin: 0px 15px 50px;
 
         .img_box {
           display: flex;
@@ -1016,28 +1012,29 @@ export default {
           align-items: center;
 
           .img {
-            width: 189px;
-            height: 205px;
+            width: 240px;
+            height: 260px;
           }
         }
       }
     }
 
-    .imgList1 {
-      width: 520px;
+    .imgList2 {
+      width: 100%;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      // justify-content: space-between;
 
       .img {
-        width: 520px;
-        height: 329px;
+        margin: 0px 15px 50px;
+        width: 100%;
+        // height: 329px;
       }
     }
   }
 
   .inform {
-    width: 58%;
+    width: 48%;
     height: 100%;
     margin-left: 2%;
     margin-bottom: 25px;
@@ -1049,7 +1046,7 @@ export default {
       margin-bottom: 20px;
 
       .title {
-        font-size: 16px;
+        font-size: 20px;
         font-family: Microsoft YaHei;
         font-weight: 400;
         color: #222222;
@@ -1077,15 +1074,15 @@ export default {
         align-items: center;
 
         .item_left {
-          width: 160px;
-          font-size: 16px;
+          width: 265px;
+          font-size: 20px;
           font-family: Microsoft YaHei;
           font-weight: 400;
           color: #444444;
         }
 
         :deep(.el-input__inner) {
-          font-size: 14px;
+          font-size: 18px;
           user-select: none;
           height: 32px;
         }

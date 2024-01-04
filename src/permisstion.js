@@ -5,6 +5,19 @@ import DevicePixelRatio from '@/utils/DevicePixelRatio.js';
 // 不用进行token检查的白名单路径数组
 const whiteList = ['/login']
 
+function resizeFun () {
+  const devicePixelRatio = window.devicePixelRatio // 获取下载的缩放 125% -> 1.25    150% -> 1.5
+  if (devicePixelRatio !== 1) {
+    // 如果在笔记本中用IE浏览器打开 则弹出提示
+    if (!! window.ActiveXObject || 'ActiveXObject' in window) {
+      alert('balabala。。。')
+    } else {
+      const c = document.querySelector('body')
+      c.style.zoom = 1 / devicePixelRatio// 修改页面的缩放比例
+    }
+  }
+}
+
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
   // 设置整个页面的标题
@@ -16,7 +29,8 @@ router.beforeEach(async (to, from, next) => {
     // next({ path: '/' })
     next()
   } else { // 请求的不是登陆路由
-    new DevicePixelRatio().init();
+    // resizeFun()
+    // new DevicePixelRatio().init();
     next()
   }
 })

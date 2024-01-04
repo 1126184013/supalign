@@ -22,6 +22,33 @@ export default defineConfig(({ command, mode }) => {
           // rewrite: (path) => path.replace(/^\/api/, ''),
         }
       }
-    }
+    },
+    css: {
+      // postcss: {
+      //   plugins: [require('postcss-pxtorem')({
+      //     rootValue: 19.2, // 设计稿宽度的1/10
+      //     propList: ["*"], // 需要做转化处理的属性，如`hight`、`width`、`margin`等，`*`表示全部, 如果某个样式不需要转换把px改为PX，Px即可
+      //     unitPrecision: 3, // 精确到小数点几位
+      //     selectorBlackList: [], // 哪些属性不要转rem单位
+      //   })]
+      // },
+      loaderOptions: {
+        postcss: {
+          // postcssOptions: {
+            plugins: [
+              [
+                "postcss-pxtorem",
+                {
+                  rootValue: 19.2, // 1rem等于多px
+                  unitPrecision: 3, // 精确到小数点几位
+                  propList: ["*"], // 哪些属性要转rem单位
+                  selectorBlackList: [], // 哪些属性不要转rem单位
+                },
+              ],
+            ],
+          // },
+        },
+      },
+    },
   }
 })

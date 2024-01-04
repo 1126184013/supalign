@@ -7,6 +7,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import '@/assets/css/el-loading.scss'
 import App from './App.vue'
 import './permisstion.js'
+import '@/utils/rem'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

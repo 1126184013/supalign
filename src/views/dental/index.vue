@@ -93,6 +93,16 @@ import vizorFile from "@/assets/dental/vizorFile.png";
 import Analze from "./analze";
 import Report from "./report";
 
+import kounei1 from "@/assets/delete/kouneizuoce.png";
+import kounei2 from "@/assets/delete/kouneizheng.png";
+import kounei3 from "@/assets/delete/kouneiyouce.png";
+import kounei4 from "@/assets/delete/kouneishang.png";
+import kounei5 from "@/assets/delete/kouneixia.png";
+import kounei6 from "@/assets/delete/kounei90.png";
+import ct from "@/assets/delete/ct.png";
+import kounei3Dshang from "@/assets/delete/kounei3Dshang.png";
+import kounei3Dxia from "@/assets/delete/kounei3Dxia.png";
+
 export default {
   name: 'dental',
   data() {
@@ -107,19 +117,7 @@ export default {
         { name: '下颌𬌗面照', url: downFile },
         { name: '90°覆面照', url: vizorFile },
       ],
-      intraoralList: [
-        
-      ],
-      list: [
-        { name: '左侧咬合照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-        { name: '正面照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-        { name: '右侧咬合照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-        { name: '上颌𬌗面照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-        { name: '下颌𬌗面照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-        { name: '90°覆面照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-        { name: 'CT照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-        { name: '口内3D照', url: 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/2a33298e-e667-44f6-87b1-410240569b34.jpg' },
-      ],
+      intraoralList: [kounei1, kounei2, kounei3, kounei4, kounei5, kounei6, ct, kounei3Dshang, kounei3Dxia],
       loadingInstance: ''
     }
   },
