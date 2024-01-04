@@ -271,7 +271,7 @@ import Header from "../../components/Header/index.vue";
         }
         .nextstyle{
             width:20%;
-            background-color:#003399;
+            background-color:#76A0B1;
             margin:0 auto;
             text-align:center;
             color:#fff;

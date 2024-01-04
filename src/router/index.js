@@ -100,6 +100,15 @@ const router = createRouter({
         hidden: true
       }
     },
+    //分析报告
+    {
+      path: '/speech',
+      name: 'Speech',
+      component: () => import('@/views/speech/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
     //牙例分析
     {
       path: '/dental',
