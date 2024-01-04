@@ -34,7 +34,7 @@
       </div>
       <div class="middle">
         <div class="title">
-          <text style="color: red">*</text>牙例分析：
+          <text style="color: red">*</text>牙列分析：
           <input type="file" ref="dentalFileInput" multiple @change="dentalBatch($event, 'dental')" style="display: none">
           <el-button class="custom-button" size="large" type="primary"
             @click="dentalUploadBatch('dental')">批量上传</el-button>
