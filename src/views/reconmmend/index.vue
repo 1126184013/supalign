@@ -326,7 +326,7 @@ import Header from "../../components/Header/index.vue";
             width: 25%;
         }
         .tool{
-            width: 100%;
+            width: 80%;
             padding: 5px;
             background-color: #76A0B1;
             display: flex;
@@ -337,7 +337,7 @@ import Header from "../../components/Header/index.vue";
                 align-items: center;
                 color: #fff;
                 img{
-                    height: 50px;
+                    height: 40px;
                 }
             }
         }
@@ -345,12 +345,12 @@ import Header from "../../components/Header/index.vue";
             width: 86%;
             margin: 5% auto;
             img{
-                width: 100%;
+                width: 80%;
             }
         }
         .nextstyle{
             width:20%;
-            background-color:#003399;
+            background-color:#76A0B1;
             margin:0 auto;
             text-align:center;
             color:#fff;
