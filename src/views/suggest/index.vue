@@ -163,7 +163,7 @@
             </el-collapse-item>
             </el-collapse>
         </div>
-        <div class="nextstyle">
+        <div class="nextstyle" @click="next">
             生成报告
         </div>
       </div>
@@ -207,7 +207,9 @@ import Header from "../../components/Header/index.vue";
       },
       computed: {},
       methods: {
-        
+        next() {
+            this.$router.push('/speech')
+        }
       }
     }
     
