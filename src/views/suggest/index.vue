@@ -53,6 +53,7 @@
                 </div>
                 
             </el-collapse-item>
+            <div style="width: 100%;background-color: #E9ECF1;height: 5px;"></div>
             <el-collapse-item title="风险提示" name="2">
                 <div class="contentBox">
                     <div class="contentLeft " :style="{ border: (pushtext.length === 0) ? 'none' : '' }">
@@ -152,6 +153,7 @@ import Header from "../../components/Header/index.vue";
       props: [],
       data() {
         return {
+            activeNames:['1','2'],
             onepushtext:[],
             pushtext:[],
             checked1:false,
@@ -214,7 +216,7 @@ import Header from "../../components/Header/index.vue";
         margin: 0 auto;
         .sched{
             padding:  2% 0;
-            border-bottom:3px solid #E9ECF1;
+            border-bottom:5px solid #E9ECF1;
         }
         .contentBox{
             display: flex;
@@ -267,13 +269,12 @@ import Header from "../../components/Header/index.vue";
         }
         .nextstyle{
             width:20%;
-            background-color:#76A0B1;
-            margin:0 auto;
+            background-color:#003399;
+            margin:10% auto;
             text-align:center;
             color:#fff;
             padding:8px 0;
             border-radius:5px;
-            margin-top:10%;
         }
     }
 </style>

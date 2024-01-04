@@ -4,11 +4,10 @@
       <div class="box">
         <div class="sched">分析结果 > <text style="color:#3D859E;">推荐产品 ></text>  生成建议 > 完成生成报告</div>
         <div class="product">
-            <el-collapse v-model="activeNames" @change="handleChange">
-                <div class="reconname">塑型器产品推荐</div>
-                <!-- <div class="reconname">SL-O-14BII新1</div> -->
-            <el-collapse-item title="SL-O-14BII新1" name="1">
-                <div class="prodprof">
+            <div class="reconname">塑型器产品推荐</div>
+            <div class="reconname">SL-O-14BII新1</div>
+            <div>
+                <div class="prodprof" :style="{ height: isExpanded ? 'auto' : '50vh', overflow: isExpanded ? 'visible' : 'hidden' }">
                     <div class="prodleft">
                         <div class="productcolor">
                             <div>塑型器颜色：</div>
@@ -35,7 +34,7 @@
                             </div>
                         </div>
                         <div class="productcolor">
-                            <div>塑型器类型：</div>
+                            <div>塑型器产品：</div>
                             <div style="width: 86%;">
                                 <el-radio-group v-model="productEradio">
                                     <el-radio :label="1">SL-O-01</el-radio>
@@ -116,11 +115,13 @@
                     </div>
                 </div>
                 
-            </el-collapse-item>
+                <div class="zdstyle" v-if="isExpanded == false" @click="isExpanded = true">展开 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="isExpanded == true" @click="isExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
+            </div>
             <div class="reconname">矫治器产品推荐</div>
-            <!-- <div class="reconname">SL-O-11All</div> -->
-            <el-collapse-item title="SL-O-11All" name="2">
-                <div class="prodprof">
+            <div class="reconname">SL-O-11All</div>
+            <div>
+                <div class="prodprof" :style="{ height: jzisExpanded ? 'auto' : '50vh', overflow: jzisExpanded ? 'visible' : 'hidden' }">
                     <div class="prodleft">
                         <div class="productcolor">
                             <div>矫治器颜色：</div>
@@ -227,10 +228,12 @@
                         </div>
                     </div>
                 </div>
-            </el-collapse-item>
+                <div class="zdstyle" v-if="jzisExpanded == false" @click="jzisExpanded = true">展开 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="jzisExpanded == true" @click="jzisExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
+            </div>
             <div class="reconname">塑型器产品编辑</div>
-            <el-collapse-item title="" name="3">
-                <div class="productEdit">
+            <div>
+                <div class="productEdit" >
                     <div class="tool">
                         <div>
                             <div><img src="../../assets/cd.png" alt=""></div>
@@ -253,8 +256,8 @@
                         <img src="../../assets/prodceshi.png" alt="">
                     </div>
                 </div>
-            </el-collapse-item>
-            </el-collapse>
+                
+            </div>
         </div>
         <div class="nextstyle" @click="next">
             下一步
@@ -273,6 +276,9 @@ import Header from "../../components/Header/index.vue";
       props: ['editstart'],
       data() {
         return {
+            isExpanded:false,//默认不展开
+            jzisExpanded:false,//默认不展开
+            imgisExpanded:false,//默认不展开
             shaperadio:1,
             shapModelEradio:1,
             productEradio:1
@@ -299,6 +305,16 @@ import Header from "../../components/Header/index.vue";
   </script>
   
 <style lang="scss" scoped>
+    .collapse .el-collapse-item__header {
+        /* 修改标题的颜色为红色 */
+        color: red !important;
+    }
+    .zdstyle{
+        color: #7BA9B9;
+        width: 100%;
+        text-align: center;
+        padding: 1% 0;
+    }
     .box{
         width: 90%;
         margin: 0 auto;
@@ -311,10 +327,12 @@ import Header from "../../components/Header/index.vue";
         }
         .reconname{
             color: #3D859E;
+            padding: 0.5% 0;
+            font-weight: bold;
         }
         .productcolor{
             display: flex;
-            align-items: center;
+            align-items: baseline;
         }
         .prodprof{
             display: flex;
