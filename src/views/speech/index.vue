@@ -3,11 +3,12 @@
       <Header />
       <div class="box">
         <div class="sched" style="color:#76A0B1;">查看资料</div>
-        <div class="" style="display:flex;width:90%;padding:1%;border-bottom:5px solid #cecece">
-            <div style="color:#76A0B1;border-bottom:1px solid #76A0B1;margin-left:20%">初诊</div>
+        <div class="" style="display:flex;width:35%;padding:1%;">
+            <div style="color:#76A0B1;margin-left:20%">初诊</div>
             <div style="margin-left:10%">复诊一</div>
             <div style="margin-left:10%">复诊二</div>
         </div>
+        <div style="background-color:#cecece;height:  5px ;width: 96%;margin: 0 auto;"></div>
         <div class="product">
             <el-collapse v-model="activeNames" @change="handleChange">
             <el-collapse-item title="患者分析" name="1">
@@ -36,17 +37,17 @@
                 
             </el-collapse-item>
             <el-collapse-item title="面像分析" name="2">
+                <div>初诊</div>
                 <div class="contentBox">
-                    <div style="padding:3% 0;">初诊</div>
                     <div class="faceAnaly">
                         <div>
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/face1.png" alt="">
                         </div>
                         <div>
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/face2.png" alt="">
                         </div>
                         <div>
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/face3.png" alt="">
                         </div>
                     </div>
                     <div style="padding:3% 0;">分析结果</div>
@@ -58,12 +59,12 @@
                                 <td colspan="2">侧貌</td>
                                 <td></td>
                             </tr>
-                            <tr>
-                                <td>正面型</td>
-                                <td>短面</td>
+                            <tr class="tableback">
+                                <td style="width: 8%;">正面型</td>
+                                <td style="width: 8%;">短面</td>
                                 <td>呈水平生长型，面型方短，常因上下领骨垂直发育不足所致，可伴有咬肌肥大，多见于骨性深覆合和宽面畸形的患者</td>
-                                <td>侧面型</td>
-                                <td>直</td>
+                                <td  style="width: 8%;">侧面型</td>
+                                <td style="width: 8%;">直</td>
                                 <td>上下颁骨前后关系协调，软组织额点、鼻底点和额前点基本在一条直线上;</td>
                             </tr>
                             <tr>
@@ -74,7 +75,7 @@
                                 <td>正常</td>
                                 <td>鼻小柱与上唇前缘线间形成的一个侧面角</td>
                             </tr>
-                            <tr>
+                            <tr class="tableback">
                                 <td>对称性</td>
                                 <td>面中线</td>
                                 <td>眉间点、鼻尖点、上唇最凹点和领部中点应位于正中矢状面上</td>
@@ -90,7 +91,7 @@
                                 <td>正常</td>
                                 <td>鼻小柱与上唇前缘线间形成的个面角</td>
                             </tr>
-                            <tr>
+                            <tr class="tableback">
                                 <td>唇齿位</td>
                                 <td>唇闭合不全</td>
                                 <td>在上唇自然松驰状态下，上下唇应接触或上中切牙切缘在上唇下2mm</td>
@@ -106,7 +107,7 @@
                                 <td>正常</td>
                                 <td>检查时可将口镜柄置于患者的下颔下缘，观察下颁支后缘与下箭下缘的关系，估计下颔角的大</td>
                             </tr>
-                            <tr>
+                            <tr class="tableback">
                                 <td>周口肌肉</td>
                                 <td colspan="4">频肌紧张</td>
                                 <td></td>
@@ -118,30 +119,30 @@
             <el-collapse-item title="面像分析" name="3">
                 <div class="contentBox">
                     <div>口内照</div>
-                    <div>初诊</div>
+                    <div style="">初诊</div>
                     <div class="imgbox">
                         <div class="imglist">
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/ya1.png" alt="">
                             <div>左侧咬合照</div>
                         </div>
                         <div class="imglist">
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/ya2.png" alt="">
                             <div>正面</div>
                         </div>
                         <div class="imglist">
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/ya3.png" alt="">
                             <div>右侧咬合照</div>
                         </div>
                         <div class="imglist">
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/ya4.png" alt="">
                             <div>上领面照</div>
                         </div>
                         <div class="imglist">
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/ya5.png" alt="">
                             <div>下殆面照</div>
                         </div>
                         <div class="imglist">
-                            <img src="../../assets/delete/kounei90.png" alt="">
+                            <img src="../../assets/ya6.png" alt="">
                             <div>90°覆盖照</div>
                         </div>
                     </div>
@@ -153,19 +154,19 @@
                                 <td colspan="2">上颌</td>
                                 <td colspan="2">下颌</td>
                             </tr>
-                            <tr>
+                            <tr class="tableback">
                                 <td>弓型</td>
                                 <td colspan="2">方圆</td>
                                 <td colspan="2">尖圆</td>
                             </tr>
                             <tr>
-                                <td>对称性</td>
-                                <td>水平对称性</td>
+                                <td style="width: 8%;">对称性</td>
+                                <td  style="width: 8%;">水平对称性</td>
                                 <td>水平对称性以聘中缝为参考线。</td>
-                                <td>前后向对称性</td>
+                                <td style="width: 10%;">前后向对称性</td>
                                 <td>以上领结节平面为参考平面，水平对称性即通过上领结节最远端并与聘中缝垂直的平面。测量牙弓左右侧同名牙齿到上领结节平面的距离，可判断牙齿在近远中向是否对称。</td>
                             </tr>
-                            <tr>
+                            <tr class="tableback">
                                 <td>拥挤度</td>
                                 <td>轻</td>
                                 <td>拥挤度≤4mm</td>
@@ -349,6 +350,15 @@ table {
     margin-top:2%;
     text-align:center;
   }
+  table tr:nth-child(even) {
+        background-color: #F2F5F9;
+    }
+    table tr:first-child {
+        background-color: none;
+    }
+    .tableback{
+        background-color: #F2F5F9;
+    }
   th, td {
     border: 1px solid #76A0B1;
     padding: 8px;
@@ -398,7 +408,7 @@ table {
             margin:0 auto;
         }
         .imgbox{
-            width:40%;
+            width:60%;
             display:flex;
             margin-left:10%;
             flex-wrap: wrap;
@@ -407,6 +417,10 @@ table {
                 display:flex;
                 flex-direction: column;
                 align-items: center;
+                width: 30%;
+                img{
+                    max-width: 100%;
+                }
             }
         }
         .faceAnaly{
