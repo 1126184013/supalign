@@ -301,7 +301,7 @@
             
         </div>
         <div class="nextbox">
-            <div class="nextstyle">
+            <div class="nextstyle" @click="upPDF">
                 下载PDF
             </div>
             <div class="nextstyle">
@@ -340,7 +340,13 @@ import Header from "../../components/Header/index.vue";
       },
       computed: {},
       methods: {
-        
+        upPDF(){
+            let url = 'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/p9snmu5r.pdf';
+            let link = document.createElement('a');
+            link.href = url;
+            link.download = '分析报告.pdf';
+            link.click();
+        }
       }
     }
     
@@ -408,7 +414,7 @@ table {
         }
         .nextstyle{
             width:20%;
-            background-color:#003399;
+            background-color:#7BAABA;
             text-align:center;
             color:#fff;
             padding:8px 0;
