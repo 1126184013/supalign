@@ -2,9 +2,19 @@
     <div class="body">
       <Header />
       <div class="box">
+        <div  style="padding: 2% 0;font-size: 20px;border-bottom:5px solid #E9ECF1;">
+            <text style="color: #3D859E;">
+                <text @click="gowher(1)"> 上传图片 ></text>
+                <text @click="gowher(5)"> 分析结果 ></text> 
+                <text @click="gowher(2)">推荐产品 ></text> 
+                <text @click="gowher(3)"> 生成建议 ></text>
+                <text > 生成报告 </text> 
+            </text>
+                
+        </div>
         <div class="sched" style="color:#76A0B1;">查看资料</div>
         <div class="" style="display:flex;width:35%;padding-top:0%;">
-            <div style="color:#76A0B1;margin-left:20%;border-bottom:2px solid #76A0B1;padding-bottom:0.2%">初诊</div>
+            <div style="color:#76A0B1;margin-left:30%;border-bottom:2px solid #76A0B1;padding-bottom:0.2%">初诊</div>
             <div style="margin-left:10%">复诊一</div>
             <div style="margin-left:10%">复诊二</div>
         </div>
@@ -39,7 +49,6 @@
             <div>
                 <h4>面像分析</h4>
                 <div class="line"></div>
-                <div class="middle">初诊</div>
                 <div class="contentBox">
                     <div class="faceAnaly">
                         <div class="imgst">
@@ -47,19 +56,20 @@
                             <div>正面照</div>
                         </div>
                         <div class="imgst">
-                            <img src="../../assets/face2.png" alt="">
-                            <div>侧面照</div>
-
-                        </div>
-                        <div class="imgst">
                             <img src="../../assets/face3.png" alt="">
                             <div>微笑照</div>
 
                         </div>
+                        <div class="imgst">
+                            <img src="../../assets/face2.png" alt="">
+                            <div>侧面照</div>
+
+                        </div>
+                        
                     </div>
-                    <div style="padding:0.5% 0;">面像分析结果</div>
+                    <div style="">面像分析结果</div>
                     <div class="faceProfile">
-                        <table >
+                        <table style="margin-top:2%">
                             <tr class="tabcolor">
                                 <td colspan="2">正貌</td>
                                 <td></td>
@@ -127,10 +137,9 @@
             <div class="scheds"></div>
 
             <div>
-                <h4>面像分析</h4>
+                <h4>牙列分析</h4>
                 <div class="line"></div>
-                <div class="middle">口内照</div>
-                <div>初诊</div>
+                
                 <div class="imgbox" >
                     <div class="imgst">
                         <img src="../../assets/ya1.png" alt="">
@@ -270,8 +279,8 @@
                         </tr>
                     </table>
                 </div>
-                <div class="zdstyle" v-if="mouthisExpanded == false" @click="mouthisExpanded = true">展开 <img src="../../assets/zk.png" alt=""></div>
-                <div class="zdstyle" v-if="mouthisExpanded == true" @click="mouthisExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="mouthisExpanded == false" @click="mouthisExpanded = true">展开 <img src="../../assets/zk.png" alt="" style="width:12px"></div>
+                <div class="zdstyle" v-if="mouthisExpanded == true" @click="mouthisExpanded = false">收起 <img src="../../assets/sq.png" alt="" style="width:12px"></div>
             </div>
             <div class="scheds"></div>
             <div  class="contentBox">
@@ -362,6 +371,13 @@ import Header from "../../components/Header/index.vue";
         },
         gohome(){
             this.$router.push('/')
+        },
+        gowher(i){
+            if (i == 1) this.$router.push({ path: '/upload' })
+            else if (i == 2) this.$router.push({ path: "/reconmmend" })
+            else if (i == 3) this.$router.push({ path: '/suggest' })
+            else if (i == 4) this.$router.push({ path: '/speech' })
+            else if (i == 5) this.$router.push({ path: '/analyze' })
         }
       }
     }
@@ -371,7 +387,7 @@ import Header from "../../components/Header/index.vue";
 <style lang="scss" scoped>
 .sched{
             padding-top:  2% ;
-            padding-bottom:  1% ;
+            padding-bottom: 1% ;
             font-size: 18px;
         }
 .tabcolor{
@@ -394,6 +410,7 @@ import Header from "../../components/Header/index.vue";
             align-items: center;
             >div{
                 padding: 10% 0;
+                font-size: 16px;
             }
         }
 table {
@@ -434,7 +451,7 @@ table {
             padding-left: 2%;
             align-items: center;
             justify-content: space-between;
-            line-height: 25px;
+            line-height: 40px;
             width:74%;
             .profileLeft{
                 width:49%

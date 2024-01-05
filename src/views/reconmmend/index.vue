@@ -2,7 +2,16 @@
     <div class="body">
       <Header />
       <div class="box">
-        <div class="sched"><text style="color: #3D859E;cursor: pointer;">上传图片 > 分析结果 > 推荐产品 ></text>  生成建议 > 完成生成报告</div>
+        <div class="sched">
+            <text style="color: #3D859E;">
+                <text @click="gowher(1)"> 上传图片 ></text>
+                <text  @click="gowher(5)"> 分析结果 ></text> 
+                <text>推荐产品 ></text> 
+                
+            </text>
+            <text > 生成建议 ></text> 
+                <text > 生成报告 </text> 
+        </div>
         <div class="product">
             <div class="reconname">塑型器产品推荐</div>
             <div class="reconname">SL-O-14BII新1</div>
@@ -118,14 +127,14 @@
                     <div class="prodright">
                         <div class="reconname">塑型器产品推荐</div>
                         <div class="reconname">SL-O-14BII新1</div>
-                        <div style="width: 100%;">
+                        <div style="width: 100%;margin-top:5%">
                             <img src="../../assets/prodceshi.png" alt="" style="max-width: 100%;">
                         </div>
                     </div>
                 </div>
                 
-                <div class="zdstyle" v-if="isExpanded == false" @click="isExpanded = true">展开 <img src="../../assets/zk.png" alt=""></div>
-                <div class="zdstyle" v-if="isExpanded == true" @click="isExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="isExpanded == false" @click="isExpanded = true">展开 <img src="../../assets/zk.png" alt=""  style="width:12px"></div>
+                <div class="zdstyle" v-if="isExpanded == true" @click="isExpanded = false">收起 <img src="../../assets/sq.png" alt=""  style="width:12px"></div>
             </div>
             <div class="coarse"></div>
             <div class="reconname">矫治器产品推荐</div>
@@ -257,13 +266,13 @@
                     <div class="prodright">
                         <div class="reconname">矫治器产品详情</div>
                         <div class="reconname">SL-O-14BII新1</div>
-                        <div style="width: 100%;">
+                        <div style="width: 100%;margin-top:5%">
                             <img src="../../assets/prodceshi.png" alt="" style="max-width: 100%;">
                         </div>
                     </div>
                 </div>
-                <div class="zdstyle" v-if="jzisExpanded == false" @click="jzisExpanded = true">展开 <img src="../../assets/zk.png" alt=""></div>
-                <div class="zdstyle" v-if="jzisExpanded == true" @click="jzisExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="jzisExpanded == false" @click="jzisExpanded = true">展开 <img src="../../assets/zk.png" alt="" style="width:12px"></div>
+                <div class="zdstyle" v-if="jzisExpanded == true" @click="jzisExpanded = false">收起 <img src="../../assets/sq.png" alt="" style="width:12px"></div>
             </div>
             <div class="coarse"></div>
             <div class="reconname"> 塑形器产品编辑</div>
@@ -344,6 +353,13 @@ import Header from "../../components/Header/index.vue";
         },
         handleCheckboxChange(value) {
             this.selectedItem = value;
+        },
+        gowher(i){
+            if (i == 1) this.$router.push({ path: '/upload' })
+            else if (i == 2) this.$router.push({ path: "/reconmmend" })
+            else if (i == 3) this.$router.push({ path: '/suggest' })
+            else if (i == 4) this.$router.push({ path: '/speech' })
+            else if (i == 5) this.$router.push({ path: '/analyze' })
         }
       }
     }
@@ -463,18 +479,18 @@ input[type="checkbox"]:checked::after {
             width: 25%;
         }
         .tool{
-            width: 80%;
-            padding: 5px;
+            width: 100%;
+            padding: 10px;
             background-color: #76A0B1;
             display: flex;
             >div{
-                width: 10%;
+                width: 7%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 color: #fff;
                 img{
-                    height: 40px;
+                    height: 30px;
                 }
             }
         }

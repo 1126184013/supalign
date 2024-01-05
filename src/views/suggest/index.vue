@@ -2,15 +2,23 @@
     <div class="body">
       <Header />
       <div class="box">
-        <div class="sched" ><text style="color: #3D859E;">上传图片 > 分析结果 > 推荐产品 > 生成建议 ></text>  完成生成报告</div>
+        <div class="sched">
+            <text style="color: #3D859E;">
+                <text @click="gowher(1)"> 上传图片 ></text>
+                <text @click="gowher(5)"> 分析结果 ></text> 
+                <text @click="gowher(2)">推荐产品 ></text> 
+                <text > 生成建议 ></text>
+            </text>
+                <text > 生成报告 </text> 
+        </div>
         <div class="product">
             <div>
                 <h4>方案提示沟通</h4>
                 <div class="line"></div>
                 <div class="contentBox">
-                    <div class="contentLeft" :style="{ border: (onepushtext.length === 0) ? 'none' : '' }">
-                        <div v-if="onepushtext.length > 0">
-                            <div v-for="item in onepushtext">
+                    <div class="contentLeft">
+                        <div>
+                            <div :style="{ border: (onepushtext.length === 0) ? 'none' : '' }" v-if="onepushtext.length > 0" v-for="item in onepushtext">
                                 {{ item }}<br><br>
                             </div>
                         </div>
@@ -58,9 +66,9 @@
                 <h4>风险提示</h4>
                 <div class="line"></div>
                 <div class="contentBox">
-                    <div class="contentLeft " :style="{ border: (pushtext.length === 0) ? 'none' : '' }">
-                        <div v-if="pushtext.length > 0">
-                            <div v-for=" item in pushtext">
+                    <div class="contentLeft ">
+                        <div  style="min-height: 100vh;">
+                            <div :style="{ border: (pushtext.length === 0) ? 'none' : '' }" v-for=" item in pushtext">
                                 {{ item }}<br><br>
                             </div>
                         </div>
@@ -204,6 +212,13 @@ import Header from "../../components/Header/index.vue";
         next() {
             this.$router.push('/speech')
         },
+        gowher(i){
+            if (i == 1) this.$router.push({ path: '/upload' })
+            else if (i == 2) this.$router.push({ path: "/reconmmend" })
+            else if (i == 3) this.$router.push({ path: '/suggest' })
+            else if (i == 4) this.$router.push({ path: '/speech' })
+            else if (i == 5) this.$router.push({ path: '/analyze' })
+        }
     }}
     
   </script>
@@ -214,6 +229,7 @@ import Header from "../../components/Header/index.vue";
     margin-top: 2.4%;
 }
 h4{
+    font-size: 18px;
     color:#3D859E;
   }
 .line{
@@ -242,10 +258,12 @@ h4{
                 line-height: 25px;
                 border-radius: 5px;padding: 10px;
                 margin-top: 2.4%;
+
                 >div{
                     padding: 15px;
                     background-color: #DBE6EC;
                     border-radius: 5px;
+                    min-height: 40vh;
                 }
             }
             .contentRight{
@@ -261,6 +279,7 @@ h4{
                     >div{
                         align-items: flex-start;
                         display: flex;
+                        
                         input{
                             margin-top: 4px;
                         }
@@ -292,7 +311,7 @@ h4{
     input[type="checkbox"] {
   width: 15px;
   height: 15px;
-  margin-right: 8px;
+  margin-right:1%;
   cursor: pointer;
   position: relative;
 }
