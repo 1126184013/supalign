@@ -12,7 +12,7 @@
         <div class="product">
             <div>
                 <h4>患者分析</h4>
-                <div>患者信息</div>
+                <div style="padding:1% 0">患者信息</div>
                 <div class="propProfile" >
                     <div class="profileLeft">
                         <div>患者姓名:张二</div>
@@ -259,7 +259,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="zdstyle" v-if="mouthisExpanded == false" @click="mouthisExpanded = true">展开 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="mouthisExpanded == false" @click="mouthisExpanded = true">展开 <img src="../../assets/zk.png" alt=""></div>
                 <div class="zdstyle" v-if="mouthisExpanded == true" @click="mouthisExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
             </div>
             <div  class="contentBox">
@@ -304,7 +304,7 @@
             <div class="nextstyle" @click="upPDF">
                 下载PDF
             </div>
-            <div class="nextstyle">
+            <div class="nextstyle" @click="gohome">
                 保存
             </div>
         </div>
@@ -346,6 +346,9 @@ import Header from "../../components/Header/index.vue";
             link.href = url;
             link.download = '分析报告.pdf';
             link.click();
+        },
+        gohome(){
+            this.$router.push('/')
         }
       }
     }
@@ -393,6 +396,8 @@ table {
             padding-left: 2%;
             align-items: center;
             justify-content: space-between;
+            line-height: 25px;
+            width:70%;
             .profileLeft{
                 width:49%
             }
