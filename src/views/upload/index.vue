@@ -171,6 +171,7 @@ export default {
   name: "upload",
   data() {
     return {
+      id: 0,
       procedure: 0,
       procedureIndex: 0,
       face: [
@@ -204,6 +205,9 @@ export default {
   },
   components: {
     Header,
+  },
+  created() {
+    this.id = this.$route.query.id;
   },
   methods: {
     // 触发文件上传
@@ -314,7 +318,7 @@ export default {
 
     changeCrumbs(i) {
       if (i == 0) return
-      else if (i == 1) this.$router.push({ path: "/analyze" })
+      else if (i == 1) this.$router.push({ path: "/analyze", query: { id: this.id }})
       else if (i == 2) this.$router.push({ path: "/reconmmend" })
       else if (i == 3) this.$router.push({ path: "/suggest" })
       else if (i == 4) this.$router.push({ path: "/speech" })

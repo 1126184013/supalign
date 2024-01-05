@@ -226,7 +226,7 @@
       <div class="btn_box">
         <div class="btn" @click="openPDF">下载PDF</div>
         <div class="btn" @click="">保存</div>
-        <div class="btn" @click="next">下一步</div>
+        <div class="btn" @click="next" v-if="!id">下一步</div>
       </div>
     </div>
   </div>
@@ -253,6 +253,7 @@ export default {
   name: "",
   data() {
     return {
+      id: 0,
       procedure: 1,
       procedureIndex: 1,
       activeNames: ['1'],
@@ -844,6 +845,9 @@ export default {
   },
   components: {
     Header,
+  },
+  created() {
+    this.id = this.$route.query.id;
   },
   methods: {
     handleChange(val) {
