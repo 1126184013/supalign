@@ -3,9 +3,11 @@
     <Header :page="'upload'" :minW="1440" />
     <div class="content">
       <div class="head">
-        <text :class="procedureIndex >= 0 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(0)">1、上传图片/视频 </text>
-        <text :class="procedureIndex >= 1 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(1)">> 2、分析结果 </text>
-        <text :class="procedureIndex >= 2 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(2)">> 3、生成报告</text>
+        <text :class="procedureIndex >= 0 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(0)">上传图片 </text>
+        <text :class="procedureIndex >= 1 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(1)">> 分析结果 </text>
+        <text :class="procedureIndex >= 2 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(2)">> 推荐产品 </text>
+        <text :class="procedureIndex >= 3 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(3)">> 生成建议 </text>
+        <text :class="procedureIndex >= 4 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(4)">> 生成报告 </text>
       </div>
       <div class="middle">
         <div class="title">
@@ -35,9 +37,9 @@
       <div class="middle">
         <div class="title">
           <text style="color: red">*</text>牙列分析：
-          <input type="file" ref="dentalFileInput" multiple @change="dentalBatch($event, 'dental')" style="display: none">
+          <!-- <input type="file" ref="dentalFileInput" multiple @change="dentalBatch($event, 'dental')" style="display: none">
           <el-button class="custom-button" size="large" type="primary"
-            @click="dentalUploadBatch('dental')">批量上传</el-button>
+            @click="dentalUploadBatch('dental')">批量上传</el-button> -->
         </div>
         <div class="box">
           <div class="item">
@@ -61,7 +63,7 @@
           </div>
           <div class="item">
             <div class="title_1">
-              <text style="color: red;">*</text>CT照：
+              <text style="color: red;">*</text>口内CT照：
               <div class="rule">( <text>上传规则</text> )</div>
             </div>
             <div class="upload">
@@ -81,15 +83,16 @@
               <text style="color: red;">*</text>口内3D照分析：
               <div class="rule">( <text>上传规则</text> )</div>
             </div>
-            <div class="upload">
-              <div class="upload_item">
-                <input type="file" ref="TDUploadFile" multiple @change="upload($event, 'dental', 7)"
+            <div class="upload w_2">
+              <div class="upload_item" v-for="(item, index) in TDDefault">
+                <input type="file" :ref="`TDUploadFile${index}`" multiple @change="upload($event, 'TD', index)"
                   style="display: none">
-                <div style="height: 260px;" v-if="TDList[0]">
-                  <el-image class="img" fit="cover" :src="TDList[0]" :preview-src-list="TDList" :initial-index="7" />
-                  <div class="imgdel btm" @click="imgdel(7)">删除</div>
+                <div style="height: 260px;" v-if="TDList[index]">
+                  <el-image class="img" fit="cover" :src="TDList[index]" :preview-src-list="TDList" :initial-index="index" />
+                  <div class="imgdel" @click="imgdel(index)">删除</div>
                 </div>
-                <img v-else class="img" src="@/assets/dental/CTFile.png" @click="uploadClick('dental', 7)">
+                <img v-else class="img" :src="item.url" @click="uploadClick('TD', index)">
+                <text style="margin-top: 20px;">{{ item.name }}</text>
               </div>
             </div>
           </div>
@@ -121,7 +124,8 @@
         <div class="box">
           <div class="item_1">
             <div class="title_1">
-              <text style="color: red;">*</text>视频分析：
+              <!-- <text style="color: red;">*</text> -->
+              视频分析：
               <div class="rule">( <text>上传规则</text> )</div>
             </div>
             <div class="upload flex_start">
@@ -171,8 +175,8 @@ export default {
       procedureIndex: 0,
       face: [
         { name: '正面照', url: face1 },
-        { name: '侧面照', url: face2 },
         { name: '微笑照', url: face3 },
+        { name: '侧面照', url: face2 },
       ],
       faceList: [],
       intraoral: [
@@ -185,6 +189,10 @@ export default {
       ],
       intraoralList: [],
       CTList: [],
+      TDDefault: [
+      { name: '上颌', url: defaultFile },
+      { name: '下颌', url: defaultFile },
+      ],
       TDList: [],
       headSideList: [],
       video: [
@@ -206,7 +214,9 @@ export default {
       else if (type == "dental") {
         if (i < 6) this.$refs[`intraoraUploadFile${i}`][0].click();
         else if (i == 6) this.$refs[`CTUploadFile`].click();
-        else if (i == 7) this.$refs[`TDUploadFile`].click();
+      }
+      else if (type == 'TD') {
+        this.$refs[`TDUploadFile${i}`][0].click();
       }
       else if (type == "headSide") {
         this.$refs[`headSideUploadFile`].click();
@@ -235,7 +245,9 @@ export default {
           else if (type == "dental") {
             if (i < 6) this.intraoralList[i] = response.data.url
             else if (i == 6) this.CTList[0] = response.data.url
-            else if (i == 7) this.TDList[0] = response.data.url
+          }
+          else if (type == "TD") {
+            this.TDList[i] = response.data.url
           }
           else if (type == "headSide") {
             this.headSideList[0] = response.data.url
@@ -298,6 +310,14 @@ export default {
           this.loadingInstance.close()
           ElMessage.error(error)
         });
+    },
+
+    changeCrumbs(i) {
+      if (i == 0) return
+      else if (i == 1) this.$router.push({ path: "/analyze" })
+      else if (i == 2) this.$router.push({ path: "/reconmmend" })
+      else if (i == 3) this.$router.push({ path: "/suggest" })
+      else if (i == 4) this.$router.push({ path: "/speech" })
     },
 
     goToanalyze() {
@@ -375,7 +395,7 @@ export default {
 
       .btn {
         margin: 0 20px;
-        width: 400px;
+        width: 300px;
         height: 58px;
         background: #7BA9B9;
         border-radius: 6px;
@@ -459,6 +479,10 @@ export default {
   .flex_start {
     display: flex;
     justify-content: flex-start;
+  }
+
+  .w_2 {
+    width: 640px;
   }
 }
 </style>

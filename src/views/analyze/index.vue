@@ -3,10 +3,11 @@
     <Header :page="'analyze'" :minW="1440" />
     <div class="content">
       <div class="head">
-        <text :class="procedureIndex >= 0 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(0)">分析结果</text>
-        <text :class="procedureIndex >= 1 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(1)">> 推荐产品</text>
-        <text :class="procedureIndex >= 2 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(2)">> 生成建议</text>
-        <text :class="procedureIndex >= 3 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(2)">> 完成生成报告</text>
+        <text :class="procedureIndex >= 0 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(0)"> 上传图片 </text>
+        <text :class="procedureIndex >= 1 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(1)">> 分析结果 </text>
+        <text :class="procedureIndex >= 2 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(2)">> 推荐产品 </text>
+        <text :class="procedureIndex >= 3 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(3)">> 生成建议 </text>
+        <text :class="procedureIndex >= 4 ? 'headcolor' : 'no_drop'" @click="changeCrumbs(4)">> 生成报告 </text>
       </div>
       <el-collapse class="collapse" v-model="activeNames" @change="handleChange">
         <el-collapse-item title="面像分析" name="1">
@@ -88,25 +89,25 @@
               <el-table :data="tableData" style="width: 100%" border :header-cell-style="headerCellStyle"
                 :span-method="objectSpanMethod">
                 <el-table-column label="Hellman咬合发育阶段" align="center">
-                  <el-table-column prop="name" width="45" align="center" />
-                  <el-table-column prop="left8" width="45" align="center" />
-                  <el-table-column prop="left7" width="45" align="center" />
-                  <el-table-column prop="left6" width="45" align="center" />
-                  <el-table-column prop="left5" width="45" align="center" />
-                  <el-table-column prop="left4" width="45" align="center" />
-                  <el-table-column prop="left3" width="45" align="center" />
+                  <el-table-column prop="name" width="41" align="center" />
+                  <el-table-column prop="left8" width="37" align="center" />
+                  <el-table-column prop="left7" width="37" align="center" />
+                  <el-table-column prop="left6" width="37" align="center" />
+                  <el-table-column prop="left5" width="37" align="center" />
+                  <el-table-column prop="left4" width="37" align="center" />
+                  <el-table-column prop="left3" width="37" align="center" />
                 </el-table-column>
                 <el-table-column label="ⅢA" align="center">
-                  <el-table-column prop="left2" width="45" align="center" />
-                  <el-table-column prop="left1" width="45" align="center" />
-                  <el-table-column prop="right1" width="45" align="center" />
-                  <el-table-column prop="right2" width="45" align="center" />
-                  <el-table-column prop="right3" width="45" align="center" />
-                  <el-table-column prop="right4" width="45" align="center" />
-                  <el-table-column prop="right5" width="45" align="center" />
-                  <el-table-column prop="right6" width="45" align="center" />
-                  <el-table-column prop="right7" width="45" align="center" />
-                  <el-table-column prop="right8" width="45" align="center" />
+                  <el-table-column prop="left2" width="37" align="center" />
+                  <el-table-column prop="left1" width="37" align="center" />
+                  <el-table-column prop="right1" width="37" align="center" />
+                  <el-table-column prop="right2" width="37" align="center" />
+                  <el-table-column prop="right3" width="37" align="center" />
+                  <el-table-column prop="right4" width="37" align="center" />
+                  <el-table-column prop="right5" width="37" align="center" />
+                  <el-table-column prop="right6" width="37" align="center" />
+                  <el-table-column prop="right7" width="37" align="center" />
+                  <el-table-column prop="right8" width="37" align="center" />
                 </el-table-column>
               </el-table>
               <div class="selectList" style="margin-top: 40px;">
@@ -167,9 +168,10 @@
               <el-table :data="tableData3" style="width: 100%; fontSize: 16px;" border stripe
                 :header-cell-style="headerCellStyle" max-height="375">
                 <el-table-column prop="name" label="分析项目" align="center" />
-                <el-table-column prop="up" label="上颌" align="center" />
-                <el-table-column prop="down" label="下颌" align="center" />
+                <el-table-column prop="up" label="测量值" align="center" />
+                <el-table-column prop="down" label="标准值" align="center" />
                 <el-table-column prop="deviation" label="偏差值" align="center" />
+                <el-table-column prop="" label="临床意义" align="center" />
               </el-table>
             </div>
           </div>
@@ -220,6 +222,7 @@
         </el-collapse-item>
       </el-collapse>
       <div class="btn_box">
+        <div class="btn" @click="openPDF">下载PDF</div>
         <div class="btn" @click="">保存</div>
         <div class="btn" @click="next">下一步</div>
       </div>
@@ -248,8 +251,8 @@ export default {
   name: "",
   data() {
     return {
-      procedure: 0,
-      procedureIndex: 0,
+      procedure: 1,
+      procedureIndex: 1,
       activeNames: ['1'],
       faceOptions: [
         [{
@@ -681,7 +684,7 @@ export default {
       ],
       CTMockList: [
         { name: '牙齿发育阶段', value: 0 },
-        { name: '多生牙', value: 0 },
+        { name: '牙齿数目', value: 0 },
         { name: '阻生牙', value: 0 },
         { name: '根尖', value: 0 },
         { name: '颌骨情况', value: 0 },
@@ -864,6 +867,18 @@ export default {
           return { rowspan: 0, colspan: 0 }
         }
       }
+    },
+
+    openPDF() {
+      window.open("https://purplemoonfile.oss-cn-beijing.aliyuncs.com/p9snmu5r.pdf");
+    },
+
+    changeCrumbs(i) {
+      if (i == 0) this.$router.push({ path: '/upload' })
+      else if (i == 1) return
+      else if (i == 2) this.$router.push({ path: "/reconmmend" })
+      else if (i == 3) this.$router.push({ path: '/suggest' })
+      else if (i == 4) this.$router.push({ path: '/speech' })
     }
   }
 }
@@ -875,7 +890,7 @@ export default {
     width: 1440px;
     margin: 0 auto;
     overflow-x: hidden;
-    padding: 40px 35px;
+    padding: 20px 35px;
     user-select: none;
     font-size: 20px;
 
@@ -885,7 +900,7 @@ export default {
 
     .head {
       width: 100%;
-      padding-bottom: 30px;
+      padding-bottom: 15px;
       position: relative;
       font-size: 20px;
       font-family: Microsoft YaHei;
@@ -945,7 +960,7 @@ export default {
 
       .btn {
         margin: 0 20px;
-        width: 400px;
+        width: 300px;
         height: 58px;
         background: #7BA9B9;
         border-radius: 6px;
@@ -976,7 +991,7 @@ export default {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      // justify-content: space-between;
+      justify-content: space-between;
 
       .img_item {
         width: 173px;
@@ -999,7 +1014,7 @@ export default {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      // justify-content: space-around;
+      justify-content: space-between;
 
       .img_item {
         width: 240px;
@@ -1023,7 +1038,7 @@ export default {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      // justify-content: space-between;
+      justify-content: space-between;
 
       .img {
         margin: 0px 15px 50px;
@@ -1087,6 +1102,10 @@ export default {
           height: 32px;
         }
       }
+    }
+
+    :deep(.el-table .cell) {
+      padding: 0 8px;
     }
   }
 
