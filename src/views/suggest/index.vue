@@ -2,21 +2,22 @@
     <div class="body">
       <Header />
       <div class="box">
-        <div class="sched">分析结果 > 推荐产品 > <text style="color: #3D859E;">生成建议 ></text>  完成生成报告</div>
+        <div class="sched"><text style="color: #3D859E;">上传图片 > 分析结果 > 推荐产品 > 生成建议 ></text>  完成生成报告</div>
         <div class="product">
-            <el-collapse v-model="activeNames" @change="handleChange">
-            <el-collapse-item title="方案提示沟通" name="1">
+            <div>
+                <h4>方案提示沟通</h4>
+                <div class="line"></div>
                 <div class="contentBox">
                     <div class="contentLeft" :style="{ border: (onepushtext.length === 0) ? 'none' : '' }">
                         <div v-if="onepushtext.length > 0">
                             <div v-for="item in onepushtext">
-                                {{ item }}
+                                {{ item }}<br><br>
                             </div>
                         </div>
                     </div>
                     <div class="contentRight">
                         <div>编辑方案</div>
-                        <label>
+                        <label style="margin-top:2%">
                             <div>
                                 <input type="checkbox" v-model="checked1" @click="checkedtw(checked1,'1.早期矫治的主要目的是降低后续矫治的难度及可能性，降低后续矫治时拔牙的概率，降低后续进行正畸正颌联合治疗的概率。但由于生长发育，依从性，个体表达，以及遗传因素等原因，并不能百分百杜绝后续介入其他治疗的可能。')">
                                 <span>1.早期矫治的主要目的是降低后续矫治的难度及可能性，降低后续矫治时拔牙的概率，
@@ -51,22 +52,23 @@
                         </label>
                     </div>
                 </div>
-                
-            </el-collapse-item>
-            <div style="width: 100%;background-color: #E9ECF1;height: 5px;"></div>
-            <el-collapse-item title="风险提示" name="2">
+            </div>
+            <div style="margin:1.5% 0; width: 100%;background-color: #E9ECF1;height: 5px;"></div>
+            <div>
+                <h4>风险提示</h4>
+                <div class="line"></div>
                 <div class="contentBox">
                     <div class="contentLeft " :style="{ border: (pushtext.length === 0) ? 'none' : '' }">
                         <div v-if="pushtext.length > 0">
                             <div v-for=" item in pushtext">
-                                {{ item }}
+                                {{ item }}<br><br>
                             </div>
                         </div>
                         
                     </div>
                     <div class="contentRight">
                         <div>编辑风险</div>
-                        <label>
+                        <label style="margin-top:2%">
                             <div>
                                 <input type="checkbox" v-model="editchecked1" @click="checked(editchecked1,'1.全景片由于放大率不一致？疑似双侧关节不对称/右侧髁突影像不清，疑似双侧关节长度不一致，侧位片下颌平面双侧重叠度不佳，请医生临床密切关注关节情况，若关节情况不佳，不建议进行塑形治疗。')">
                                 <span>1.全景片由于放大率不一致？疑似双侧关节不对称/右侧髁突影像不清，疑似双侧关节长度不一致，侧位片
@@ -133,8 +135,8 @@
                         </label>
                     </div>
                 </div>
-            </el-collapse-item>
-            </el-collapse>
+            </div>
+            
         </div>
         <div class="nextstyle" @click="next">
             生成报告
@@ -211,6 +213,15 @@ import Header from "../../components/Header/index.vue";
     width: 49%;
     margin-top: 2.4%;
 }
+h4{
+    color:#3D859E;
+  }
+.line{
+            width:100%;
+            background-color:#E9ECF1;
+            height:1px;
+            margin:1% 0;
+        }
     .box{
         width: 90%;
         margin: 0 auto;
@@ -227,7 +238,7 @@ import Header from "../../components/Header/index.vue";
             .contentLeft{
                 width: 49%;
                 border: 1px solid #DBE6EC;
-                
+                line-height: 25px;
                 border-radius: 5px;padding: 10px;
                 margin-top: 2.4%;
                 >div{
@@ -277,4 +288,39 @@ import Header from "../../components/Header/index.vue";
             border-radius:5px;
         }
     }
+    input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  cursor: pointer;
+  position: relative;
+}
+input[type="checkbox"]::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #d9d9d9;
+  box-sizing: border-box;
+}
+input[type="checkbox"]:checked::after {
+  content: "\2713";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #76A0B1;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius:2px;
+}
 </style>

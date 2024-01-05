@@ -2,7 +2,7 @@
     <div class="body">
       <Header />
       <div class="box">
-        <div class="sched">分析结果 > <text style="color:#3D859E;">推荐产品 ></text>  生成建议 > 完成生成报告</div>
+        <div class="sched"><text style="color:#3D859E;">上传图片 > 分析结果 > 推荐产品 ></text>  生成建议 > 完成生成报告</div>
         <div class="product">
             <div class="reconname">塑型器产品推荐</div>
             <div class="reconname">SL-O-14BII新1</div>
@@ -11,33 +11,35 @@
                 <div class="prodprof" :style="{ height: isExpanded ? 'auto' : '50vh', overflow: isExpanded ? 'visible' : 'hidden' }">
                     <div class="prodleft">
                         <div class="productcolor">
-                            <div>塑型器颜色：</div>
-                            <div>
-                                <div style="display:flex;">
-                                <div style=""><input type="checkbox"><span>l 类</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>粉红</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>蓝</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>透明</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>其它</span></div>
+                            <div class="sizewid">塑型器颜色：</div>
+                            <div style="width:40%">
+                                <div class="spanbox">
+                                    <div ><input type="checkbox"  class="my-checkbox"><span>l 类</span></div>
+                                    <div style=""><input type="checkbox" class="my-checkbox"><span>粉红</span></div>
+                                    <div style=""><input type="checkbox" class="my-checkbox"><span>蓝</span></div>
+                                    <div style=""><input type="checkbox" class="my-checkbox"><span>透明</span></div>
+                                    <div style=""><input type="checkbox" class="my-checkbox"><span>其它</span></div>
                                 
-                            </div>
-                                
-                            </div>
-                        </div>
-                        <div class="productcolor">
-                            <div>塑型器类型：</div>
-                            <div style="display:flex;">
-                                <div style=""><input type="checkbox"><span>l 类</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>II 类</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>III 类</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>O</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>S</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>T</span></div>
+                                </div>
                                 
                             </div>
                         </div>
                         <div class="productcolor">
-                            <div>塑型器产品：</div>
+                            <div class="sizewid">塑型器类型：</div>
+                                <div style="width:48%">
+                                <div class="spanbox">
+                                    <div style=""><input type="checkbox"><span>l 类</span></div>
+                                    <div style=""><input type="checkbox"><span>II 类</span></div>
+                                    <div style=""><input type="checkbox"><span>III 类</span></div>
+                                    <div style=""><input type="checkbox"><span>O</span></div>
+                                    <div style=""><input type="checkbox"><span>S</span></div>
+                                    <div style=""><input type="checkbox"><span>T</span></div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="productcolor">
+                            <div class="sizewid">塑型器产品：</div>
                             <div style="width: 86%;">
                                 <div class="checbox">
                                     <div>
@@ -122,7 +124,7 @@
                     </div>
                 </div>
                 
-                <div class="zdstyle" v-if="isExpanded == false" @click="isExpanded = true">展开 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="isExpanded == false" @click="isExpanded = true">展开 <img src="../../assets/zk.png" alt=""></div>
                 <div class="zdstyle" v-if="isExpanded == true" @click="isExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
             </div>
             <div class="coarse"></div>
@@ -133,33 +135,50 @@
                 <div class="prodprof" :style="{ height: jzisExpanded ? 'auto' : '50vh', overflow: jzisExpanded ? 'visible' : 'hidden' }">
                     <div class="prodleft">
                         <div class="productcolor">
-                            <div>矫治器颜色：</div>
-                            <div>
-                                <div style="display:flex;">
-                                <div style=""><input type="checkbox"><span>l 类</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>粉红</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>蓝</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>透明</span></div>
-                                <div style="margin-left:15px;"><input type="checkbox"><span>其它</span></div>
+                            <div class="sizewid">矫治器颜色：</div>
+                            <div style="width:40%">
+                                <div class="spanbox">
+                                <div style=""><input type="checkbox" style="background-color:red"><span>l 类</span></div>
+                                <div style=""><input type="checkbox"><span>粉红</span></div>
+                                <div style=""><input type="checkbox"><span>蓝</span></div>
+                                <div style=""><input type="checkbox"><span>透明</span></div>
+                                <div style=""><input type="checkbox"><span>其它</span></div>
                             </div>
                             </div>
                         </div>
                         <div class="productcolor">
-                            <div>矫治器类型：</div>
-                            <div>
-                                <div style="display:flex;">
-                                    <div><input type="checkbox" value="l" v-model="selectedItem"><span>l 类</span></div>
-                                    <div style="margin-left:15px;"><input type="checkbox" value="II" v-model="selectedItem"><span>II 类</span></div>
-                                    <div style="margin-left:15px;"><input type="checkbox" value="III" v-model="selectedItem"><span>III 类</span></div>
-                                    <div style="margin-left:15px;"><input type="checkbox" value="O" v-model="selectedItem"><span>O</span></div>
-                                    <div style="margin-left:15px;"><input type="checkbox" value="S" v-model="selectedItem"><span>S</span></div>
-                                    <div style="margin-left:15px;"><input type="checkbox" value="T" v-model="selectedItem"><span>T</span></div>
-                                
-                            </div>
+                            <div class="sizewid">矫治器类型：</div>
+                            <div style="width:46.4%">
+                                <div class="spanbox">
+                                    <div>
+                                    <input type="checkbox" value="l" v-model="selectedItem" @change="handleCheckboxChange('l')">
+                                    <span>l 类</span>
+                                    </div>
+                                    <div style="margin-left:15px;">
+                                    <input type="checkbox" value="II" v-model="selectedItem" @change="handleCheckboxChange('II')">
+                                    <span>II 类</span>
+                                    </div>
+                                    <div style="margin-left:15px;">
+                                    <input type="checkbox" value="III" v-model="selectedItem" @change="handleCheckboxChange('III')">
+                                    <span>III 类</span>
+                                    </div>
+                                    <div style="margin-left:15px;">
+                                    <input type="checkbox" value="O" v-model="selectedItem" @change="handleCheckboxChange('O')">
+                                    <span>O</span>
+                                    </div>
+                                    <div style="margin-left:15px;">
+                                    <input type="checkbox" value="S" v-model="selectedItem" @change="handleCheckboxChange('S')">
+                                    <span>S</span>
+                                    </div>
+                                    <div style="margin-left:15px;">
+                                    <input type="checkbox" value="T" v-model="selectedItem" @change="handleCheckboxChange('T')">
+                                    <span>T</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="productcolor">
-                            <div>矫治器产品：</div>
+                            <div class="sizewid">矫治器产品：</div>
                             <div style="width: 86%;">
                                 <div class="checbox">
                                     <div>
@@ -243,7 +262,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="zdstyle" v-if="jzisExpanded == false" @click="jzisExpanded = true">展开 <img src="../../assets/sq.png" alt=""></div>
+                <div class="zdstyle" v-if="jzisExpanded == false" @click="jzisExpanded = true">展开 <img src="../../assets/zk.png" alt=""></div>
                 <div class="zdstyle" v-if="jzisExpanded == true" @click="jzisExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
             </div>
             <div class="reconname"> </div>
@@ -297,7 +316,7 @@ import Header from "../../components/Header/index.vue";
             shaperadio:1,
             shapModelEradio:1,
             productEradio:1,
-            selectedItem: []
+            selectedItem: ''
         }
       },
       components:{ 
@@ -308,7 +327,7 @@ import Header from "../../components/Header/index.vue";
         
       },
       computed: {
-        selectedCategory() {
+        selectedItem() {
             // 如果选中项个数为1，则返回选中项的值；否则返回空字符串
             return this.selectedItem.length === 1 ? this.selectedItem[0] : '';
         }
@@ -320,6 +339,9 @@ import Header from "../../components/Header/index.vue";
       methods: {
         next(){
             this.$router.push('/suggest'); // 替换为你想要跳转的路由路径
+        },
+        handleCheckboxChange(value) {
+            this.selectedItem = value;
         }
       }
     }
@@ -327,10 +349,63 @@ import Header from "../../components/Header/index.vue";
   </script>
   
 <style lang="scss" scoped>
-    .collapse .el-collapse-item__header {
-        /* 修改标题的颜色为红色 */
-        color: red !important;
+    input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  cursor: pointer;
+  position: relative;
+}
+input[type="checkbox"]::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #d9d9d9;
+  box-sizing: border-box;
+}
+input[type="checkbox"]:checked::after {
+  content: "\2713";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #76A0B1;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius:2px;
+
+}
+
+
+// input[type="checkbox"]:checked::before {
+//   content: "\2713";
+//   color: #fff;
+//   background-color: #7BA9B9;
+//     width: 100%;
+//     height: 100%;
+//   text-align: center;
+// //   line-height: 14px;
+// }
+.sizewid{
+    font-size:16px
+}
+.spanbox{
+    display:flex;
+    width:100%;
+    >div{
+        width:40%;
     }
+}
     .checbox{
         display:flex;
         flex-wrap: wrap;
@@ -357,11 +432,13 @@ import Header from "../../components/Header/index.vue";
             margin-top: 2%;
         }
         .reconname{
+            font-size: 18px;
             color: #3D859E;
             padding: 0.5% 0;
             font-weight: bold;
         }
         .productcolor{
+            
             display: flex;
             align-items: baseline;
         }
@@ -420,4 +497,7 @@ import Header from "../../components/Header/index.vue";
             margin-top:10%;
         }
     }
+    
+
+    
 </style>
