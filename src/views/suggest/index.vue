@@ -2,7 +2,7 @@
     <div class="body">
       <Header />
       <div class="box">
-        <div class="sched"><text style="color: #3D859E;">上传图片 > 分析结果 > 推荐产品 > 生成建议 ></text>  完成生成报告</div>
+        <div class="sched" ><text style="color: #3D859E;">上传图片 > 分析结果 > 推荐产品 > 生成建议 ></text>  完成生成报告</div>
         <div class="product">
             <div>
                 <h4>方案提示沟通</h4>
@@ -227,6 +227,7 @@ h4{
         margin: 0 auto;
         .sched{
             padding:  2% 0;
+            font-size: 20px;
             border-bottom:5px solid #E9ECF1;
         }
         .contentBox{

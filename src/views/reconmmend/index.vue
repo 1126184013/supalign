@@ -2,7 +2,7 @@
     <div class="body">
       <Header />
       <div class="box">
-        <div class="sched"><text style="color:#3D859E;">上传图片 > 分析结果 > 推荐产品 ></text>  生成建议 > 完成生成报告</div>
+        <div class="sched"><text style="color: #3D859E;cursor: pointer;">上传图片 > 分析结果 > 推荐产品 ></text>  生成建议 > 完成生成报告</div>
         <div class="product">
             <div class="reconname">塑型器产品推荐</div>
             <div class="reconname">SL-O-14BII新1</div>
@@ -265,8 +265,10 @@
                 <div class="zdstyle" v-if="jzisExpanded == false" @click="jzisExpanded = true">展开 <img src="../../assets/zk.png" alt=""></div>
                 <div class="zdstyle" v-if="jzisExpanded == true" @click="jzisExpanded = false">收起 <img src="../../assets/sq.png" alt=""></div>
             </div>
-            <div class="reconname"> </div>
-            <div>
+            <div class="coarse"></div>
+            <div class="reconname"> 塑形器产品编辑</div>
+            <div class="line"></div>
+            <div style="margin-top:1%">
                 <div class="productEdit" >
                     <div class="tool">
                         <div>
@@ -404,15 +406,20 @@ input[type="checkbox"]:checked::after {
     width:100%;
     >div{
         width:40%;
+        display:flex;
+        align-items: center;
     }
 }
+
     .checbox{
         display:flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         >div{
             width:19%;
-            padding-top:5px
+            padding-top:5px;
+            display:flex;
+            align-items: center;
         }
     }
     .zdstyle{
@@ -426,10 +433,11 @@ input[type="checkbox"]:checked::after {
         margin: 0 auto;
         .sched{
             padding:  2% 0;
+            font-size: 20px;
             border-bottom:5px solid #E9ECF1;
         }
         .product{
-            margin-top: 2%;
+            margin-top: 0.8%;
         }
         .reconname{
             font-size: 18px;
@@ -447,6 +455,9 @@ input[type="checkbox"]:checked::after {
         }
         .prodleft{
             width: 75%;
+            >div{
+                margin-top:1.3%
+            }
         }
         .prodright{
             width: 25%;
@@ -484,17 +495,17 @@ input[type="checkbox"]:checked::after {
             width:100%;
             background-color:#E9ECF1;
             height:5px;
-            margin:0.5% 0;
+            margin:0.4% 0;
         }
         .nextstyle{
             width:20%;
             background-color:#7BAABA;
-            margin:0 auto;
+            margin:10% auto;
             text-align:center;
             color:#fff;
             padding:8px 0;
             border-radius:5px;
-            margin-top:10%;
+            // margin:10%;
         }
     }
     
