@@ -13,7 +13,9 @@
         <el-collapse-item title="面像分析" name="1">
           <div class="box">
             <div class="pageLeft">
-              <div class="title">口内照</div>
+              <div class="title">
+                <!-- 口内照 -->
+              </div>
               <div class="imgList">
                 <div class="img_item" v-for="(item, index) in list.faceList">
                   <div class="img_box">
@@ -720,13 +722,13 @@ export default {
       list: {
         faceList: [
           'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/231050ee-48af-4a69-9122-60f5e3f39a37.jpg',
+          'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/3362c51d-48fb-4559-9923-60e2c50059b6.jpg',
           'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/315b5d0c-5070-4863-85f6-ab6e2595238c.jpg',
-          'https://purplemoonfile.oss-cn-beijing.aliyuncs.com/3362c51d-48fb-4559-9923-60e2c50059b6.jpg'
         ],
         faceName: [
           '正面照',
-          '侧面照',
           '微笑照',
+          '侧面照',
         ],
         dentalList: [
           kounei1,
