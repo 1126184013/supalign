@@ -29,8 +29,7 @@ const pageStyle = ref('')
 onMounted(() => {
   if (props.page == 'home') {
     pageStyle.value = ''
-  } else if (props.page == 'upload' || props.page == 'analyze') {
-    console.log(1);
+  } else if (props.page == 'upload' || props.page == 'analyze'|| props.page == 'reconmmend'|| props.page == 'suggest'|| props.page == 'speech') {
     pageStyle.value = 'width_2'
   } else pageStyle.value = 'width'
 })
