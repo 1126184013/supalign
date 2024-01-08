@@ -1,7 +1,12 @@
-import { createRouter, createWebHashHistory  } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHashHistory(),
+
+  // 新注册的路由按着顺序往下写
+  // 新注册的路由按着顺序往下写
+  // 新注册的路由按着顺序往下写
+
   routes: [
     // 登录
     {
@@ -12,40 +17,14 @@ const router = createRouter({
         hidden: true
       }
     },
-    //面像分析
+    // 首页
     {
-      path: '/face',
-      name: 'Face',
-      component: () => import('@/views/face/index.vue'),
+      path: '/home',
+      name: 'Home',
+      component: () => import('@/views/home/index.vue'),
       meta: {
-        hidden: true
-      }
-    },
-    // 推荐产品
-    {
-      path: '/reconmmend',
-      name: 'Reconmmend',
-      component: () => import('@/views/reconmmend/index.vue'),
-      meta: {
-        hidden: true
-      }
-    },
-    // 生成建议
-    {
-      path: '/suggest',
-      name: 'Suggest',
-      component: () => import('@/views/suggest/index.vue'),
-      meta: {
-        hidden: true
-      }
-    },
-    //头颅侧位分析
-    {
-      path: '/headside',
-      name: 'Headside',
-      component: () => import('@/views/headside/index.vue'),
-      meta: {
-        hidden: true
+        title: '首页',
+        icon: 'ele-HomeFilled',
       }
     },
     // 404
@@ -62,25 +41,7 @@ const router = createRouter({
       path: '/',
       redirect: '/home',
     },
-    // 首页
-    {
-      path: '/home',
-      name: 'Home',
-      component: () => import('@/views/home/index.vue'),
-      meta: {
-        title: '首页',
-        icon: 'ele-HomeFilled',
-      }
-    },
-    {
-      path: '/test',
-      name: 'Test',
-      component: () => import('@/views/test/index.vue'),
-      meta: {
-        title: '测试',
-        icon: 'ele-HomeFilled',
-      }
-    },
+
     //面像分析
     {
       path: '/face',
@@ -91,24 +52,6 @@ const router = createRouter({
         hidden: true
       }
     },
-    //头颅侧位分析
-    {
-      path: '/headside',
-      name: 'Headside',
-      component: () => import('@/views/headside/index.vue'),
-      meta: {
-        hidden: true
-      }
-    },
-    //分析报告
-    {
-      path: '/speech',
-      name: 'Speech',
-      component: () => import('@/views/speech/index.vue'),
-      meta: {
-        hidden: true
-      }
-    },
     //牙例分析
     {
       path: '/dental',
@@ -116,6 +59,15 @@ const router = createRouter({
       component: () => import('@/views/dental/index.vue'),
       meta: {
         title: '牙例分析',
+        hidden: true
+      }
+    },
+    //头颅侧位分析
+    {
+      path: '/headside',
+      name: 'Headside',
+      component: () => import('@/views/headside/index.vue'),
+      meta: {
         hidden: true
       }
     },
@@ -139,6 +91,44 @@ const router = createRouter({
         hidden: true
       }
     },
+    // 推荐产品
+    {
+      path: '/reconmmend',
+      name: 'Reconmmend',
+      component: () => import('@/views/reconmmend/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    // 生成建议
+    {
+      path: '/suggest',
+      name: 'Suggest',
+      component: () => import('@/views/suggest/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    //分析报告
+    {
+      path: '/speech',
+      name: 'Speech',
+      component: () => import('@/views/speech/index.vue'),
+      meta: {
+        hidden: true
+      }
+    },
+    // test
+    {
+      path: '/test',
+      name: 'Test',
+      component: () => import('@/views/test/index.vue'),
+      meta: {
+        title: '测试',
+        icon: 'ele-HomeFilled',
+      }
+    },
+    // 404 必须在最后
     { path: '/:pathMatch(.*)', redirect: '/404', hidden: true }
   ],
   scrollBehavior() {
