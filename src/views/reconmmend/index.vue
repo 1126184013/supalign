@@ -1,12 +1,12 @@
 <template>
     <div class="body">
-      <Header />
+      <Header :page="'reconmmend'" :minW="1440" />
       <div class="box">
         <div class="sched">
             <text style="color: #3D859E;">
                 <text @click="gowher(1)"> 上传图片 ></text>
                 <text  @click="gowher(5)"> 分析结果 ></text> 
-                <text>推荐产品 ></text> 
+                <text> 推荐产品 ></text> 
                 
             </text>
             <text > 生成建议 ></text> 
@@ -445,12 +445,14 @@ input[type="checkbox"]:checked::after {
         padding: 1% 0;
     }
     .box{
-        width: 90%;
+        width: 1440px;
         margin: 0 auto;
+        padding: 20px 35px;
+        
         .sched{
-            padding:  2% 0;
+            padding-bottom: 15px;
             font-size: 20px;
-            border-bottom:5px solid #E9ECF1;
+            border-bottom:8px solid #E9ECF1;
         }
         .product{
             margin-top: 0.8%;
@@ -480,7 +482,7 @@ input[type="checkbox"]:checked::after {
         }
         .tool{
             width: 100%;
-            padding: 10px;
+            padding: 18px;
             background-color: #76A0B1;
             display: flex;
             >div{

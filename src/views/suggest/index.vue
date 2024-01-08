@@ -1,12 +1,12 @@
 <template>
     <div class="body">
-      <Header />
+      <Header :page="'suggest'"  :minW="1440" />
       <div class="box">
         <div class="sched">
             <text style="color: #3D859E;">
                 <text @click="gowher(1)"> 上传图片 ></text>
                 <text @click="gowher(5)"> 分析结果 ></text> 
-                <text @click="gowher(2)">推荐产品 ></text> 
+                <text @click="gowher(2)"> 推荐产品 ></text> 
                 <text > 生成建议 ></text>
             </text>
                 <text > 生成报告 </text> 
@@ -239,12 +239,14 @@ h4{
             margin:1% 0;
         }
     .box{
-        width: 90%;
+        width: 1440px;
         margin: 0 auto;
+        padding: 20px 35px;
+
         .sched{
-            padding:  2% 0;
+            padding-bottom: 15px;
             font-size: 20px;
-            border-bottom:5px solid #E9ECF1;
+            border-bottom:8px solid #E9ECF1;
         }
         .contentBox{
             display: flex;
@@ -311,7 +313,7 @@ h4{
     input[type="checkbox"] {
   width: 15px;
   height: 15px;
-  margin-right:1%;
+  margin-right:2%;
   cursor: pointer;
   position: relative;
 }

@@ -1,29 +1,29 @@
 <template>
     <div class="body">
-      <Header />
+      <Header :page="'speech'" />
       <div class="box">
-        <div  style="padding: 2% 0;font-size: 20px;border-bottom:5px solid #E9ECF1;">
+        <div  style="padding-bottom: 15px ;font-size: 20px;border-bottom:8px solid #E9ECF1;">
             <text style="color: #3D859E;">
                 <text @click="gowher(1)"> 上传图片 ></text>
                 <text @click="gowher(5)"> 分析结果 ></text> 
-                <text @click="gowher(2)">推荐产品 ></text> 
+                <text @click="gowher(2)"> 推荐产品 ></text> 
                 <text @click="gowher(3)"> 生成建议 ></text>
                 <text > 生成报告 </text> 
             </text>
                 
         </div>
-        <div class="sched" style="color:#76A0B1;">查看资料</div>
-        <div class="" style="display:flex;width:35%;padding-top:0%;">
-            <div style="color:#76A0B1;margin-left:30%;border-bottom:2px solid #76A0B1;padding-bottom:0.2%">初诊</div>
-            <div style="margin-left:10%">复诊一</div>
-            <div style="margin-left:10%">复诊二</div>
+        <div class="" style="display:flex;width:35%;margin-top:1.5%;">
+            <div style="color:#76A0B1;padding:8px 0;">查看资料</div>
+            <div style="color:#76A0B1;margin-left:25%;border-bottom:2px solid #76A0B1;padding:8px 0;">初诊</div>
+            <div style="margin-left:10%;padding:8px 0;">复诊一</div>
+            <div style="margin-left:10%;padding:8px 0;">复诊二</div>
         </div>
         <div style="background-color:#E9ECF1;height:  5px ;width: 100%;margin: 0 auto;"></div>
         <div class="product">
             <div>
-                <h4>患者分析</h4>
+                <h4>患者信息</h4>
                 <div class="line"></div>
-                <div style="padding:0.5% 0">患者信息</div>
+                <div style="padding:0.5% 0"></div>
                 <div class="propProfile" >
                     <div class="profileLeft">
                         <div>患者姓名: 张二</div>
@@ -386,8 +386,8 @@ import Header from "../../components/Header/index.vue";
   
 <style lang="scss" scoped>
 .sched{
-            padding-top:  2% ;
-            padding-bottom: 1% ;
+            padding: 15px;
+            
             font-size: 18px;
         }
 .tabcolor{
@@ -400,7 +400,7 @@ import Header from "../../components/Header/index.vue";
         padding: 1% 0;
     }
     .scheds{
-            padding:  1% 0;
+            padding:  15px 0;
             font-size: 20px;
             border-bottom:5px solid #E9ECF1;
         }
@@ -443,9 +443,9 @@ table {
             margin:0.5% 0;
         }
     .box{
-        width: 90%;
+        width: 1440px;
         margin: 0 auto;
-        
+        padding: 20px 35px;
         .propProfile{
             display: flex;
             padding-left: 2%;
