@@ -880,11 +880,11 @@ export default {
     },
 
     changeCrumbs(i) {
-      if (i == 0) this.$router.push({ path: '/upload' })
+      if (i == 0) this.$router.push({ path: '/upload', query: { index: this.procedureIndex }})
       else if (i == 1) return
-      else if (i == 2) this.$router.push({ path: "/reconmmend" })
-      else if (i == 3) this.$router.push({ path: '/suggest' })
-      else if (i == 4) this.$router.push({ path: '/speech' })
+      // else if (i == 2) this.$router.push({ path: "/reconmmend" })
+      // else if (i == 3) this.$router.push({ path: '/suggest' })
+      // else if (i == 4) this.$router.push({ path: '/speech' })
     }
   }
 }
@@ -966,17 +966,15 @@ export default {
 
       .btn {
         margin: 0 20px;
-        width: 300px;
-        height: 58px;
+        width: 340px;
         background: #7BA9B9;
-        border-radius: 6px;
-        font-size: 26px;
+        border-radius: 5px;
         font-family: Source Han Sans SC;
         font-weight: 400;
         color: #FFFFFF;
-        line-height: 58px;
         text-align: center;
         cursor: pointer;
+        padding: 8px 0;
       }
     }
   }
