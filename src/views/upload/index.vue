@@ -401,7 +401,7 @@ export default {
 
       .btn {
         margin: 0 20px;
-        width: 340px;
+        width: 20%;
         background: #7BA9B9;
         border-radius: 5px;
         font-family: Source Han Sans SC;
