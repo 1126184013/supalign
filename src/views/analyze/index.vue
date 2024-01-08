@@ -848,6 +848,7 @@ export default {
   },
   created() {
     this.id = this.$route.query.id;
+    if (this.$route.query.index) this.procedureIndex = this.$route.query.index;
   },
   methods: {
     handleChange(val) {
@@ -882,9 +883,9 @@ export default {
     changeCrumbs(i) {
       if (i == 0) this.$router.push({ path: '/upload', query: { index: this.procedureIndex }})
       else if (i == 1) return
-      // else if (i == 2) this.$router.push({ path: "/reconmmend" })
-      // else if (i == 3) this.$router.push({ path: '/suggest' })
-      // else if (i == 4) this.$router.push({ path: '/speech' })
+      else if (i == 2 && this.procedureIndex >= 2) this.$router.push({ path: "/reconmmend", query: { index: this.procedureIndex } })
+      else if (i == 3 && this.procedureIndex >= 3) this.$router.push({ path: '/suggest', query: { index: this.procedureIndex } })
+      else if (i == 4 && this.procedureIndex >= 4) this.$router.push({ path: '/speech', query: { index: this.procedureIndex } })
     }
   }
 }
