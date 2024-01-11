@@ -4,7 +4,7 @@
       <div class="head">
         <text :class="procedure>=0?'headcolor':''">1、上传头颅CT图片 > </text>
         <text :class="procedure>=1?'headcolor':''">2、分析结果 > </text>
-        <text :class="procedure>=2?'headcolor':''">3、生成生成报告</text>
+        <text :class="procedure>=2?'headcolor':''">3、生成报告</text>
       </div>
       <div class="headflankbody"  v-if="procedure==0">
             <text>头侧片分析</text>  

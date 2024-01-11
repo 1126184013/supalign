@@ -1,12 +1,12 @@
 <template>
     <div class="body">
         <div class="liftimg" v-if="editshow == 0">
-          <div style="width: 50%;">
+          <div style="">
             <!-- <el-image 
             :src="url" 
             :preview-src-list="srcList">
           </el-image> -->
-          <canvas ref="myCanvas" @click="addPoint"  :width="canvasWidth" :height="canvasHeight"></canvas>
+            <canvas ref="myCanvas" @click="addPoint"  :width="canvasWidth" :height="canvasHeight"></canvas>
           </div>
           <!-- <img src="../../assets/15251548944895.png" alt="" style="width: 120px;height: 130px;"> -->
           
@@ -65,8 +65,8 @@ import { Text } from 'vue'
           url: '',
           editshow:0,
           points: [], // 存储标点坐标的数组
-          canvasWidth:300,
-          canvasHeight:400,
+          canvasWidth:600,
+          canvasHeight:800,
           tabdaproj:['SNA','A_N_perp','SNB','Pog_N_perp','ANB','FMA','SN_MP','S_Go_N_Me','S_N','Go_Me','FH_NPo','Na_S_Ar','S_Ar_Go','Ar_Go_Me','Ar_Go_N','Na_Go_Me',
             'Sum_of_Angles','PtV_U6','ANS_Xi_Pm','Dc_Xi_Pm','U1_SN','U1_NA','L1_MP','L1_FH','L1_NB','U1_L1','UL_EP','LL_EP'],
           tableData: [
@@ -243,7 +243,7 @@ import { Text } from 'vue'
 
           ],
           editstart:{},
-          scale:0.2
+          scale:1
         }
       },
       created() {
@@ -252,7 +252,7 @@ import { Text } from 'vue'
         this.url = this.face.climg
         // this.canvasWidth = this.face.cllist.width
         // this.canvasHeight = this.face.cllist.height
-        this.scale = (300 / this.face.cllist.width).toFixed(2);
+        this.scale = (550 / this.face.cllist.width).toFixed(2);
         //编辑组件赋值
         this.editstart.img = this.face.climg
         this.editstart.list = this.face.cllist
@@ -339,6 +339,7 @@ import { Text } from 'vue'
 <style lang="scss" scoped>
 .body{
   display: flex;
+  justify-content: space-between;
 }
   .liftimg{
       width: 40%;
@@ -346,7 +347,7 @@ import { Text } from 'vue'
 
   }
   .rightlist{
-      width: 59%;
+      width: 50%;
       height: 100%;
   }
 </style>
