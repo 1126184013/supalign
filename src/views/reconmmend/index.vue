@@ -321,6 +321,7 @@ import Header from "../../components/Header/index.vue";
       props: ['editstart'],
       data() {
         return {
+            procedureIndex: 2,
             isExpanded:false,//默认不展开
             jzisExpanded:false,//默认不展开
             imgisExpanded:false,//默认不展开
@@ -335,7 +336,7 @@ import Header from "../../components/Header/index.vue";
         Header
      },
       created() {
-        
+        if (this.$route.query.index) this.procedureIndex = this.$route.query.index;
       },
       computed: {
         selectedItem() {
@@ -355,11 +356,11 @@ import Header from "../../components/Header/index.vue";
             this.selectedItem = value;
         },
         gowher(i){
-            if (i == 1) this.$router.push({ path: '/upload' })
-            else if (i == 2) this.$router.push({ path: "/reconmmend" })
-            else if (i == 3) this.$router.push({ path: '/suggest' })
-            else if (i == 4) this.$router.push({ path: '/speech' })
-            else if (i == 5) this.$router.push({ path: '/analyze' })
+            if (i == 1) this.$router.push({ path: '/upload', query: { index: this.procedureIndex } })
+            else if (i == 2) return
+            else if (i == 3 && this.procedureIndex >= 3) this.$router.push({ path: '/suggest', query: { index: this.procedureIndex } })
+            else if (i == 4 && this.procedureIndex >= 4) this.$router.push({ path: '/speech', query: { index: this.procedureIndex } })
+            else if (i == 5) this.$router.push({ path: '/analyze', query: { index: this.procedureIndex } })
         }
       }
     }

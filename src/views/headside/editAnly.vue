@@ -515,7 +515,6 @@
   const line2 = { x: point3.x - point2.x, y: point3.y - point2.y };
 
   // 计算两条线段的夹角
-  // 计算两条线段的夹角
 let angleRadians = Math.atan2(line2.y, line2.x) - Math.atan2(line1.y, line1.x);
 if (angleRadians < 0) {
   angleRadians += 2 * Math.PI;

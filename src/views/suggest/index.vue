@@ -163,6 +163,7 @@ import Header from "../../components/Header/index.vue";
       props: [],
       data() {
         return {
+            procedureIndex: 3,
             activeNames:['1','2'],
             onepushtext:[],
             pushtext:[],
@@ -186,7 +187,7 @@ import Header from "../../components/Header/index.vue";
         Header
      },
       created() {
-        
+        if (this.$route.query.index) this.procedureIndex = this.$route.query.index;
       },
       mounted() {
         
@@ -213,11 +214,11 @@ import Header from "../../components/Header/index.vue";
             this.$router.push('/speech')
         },
         gowher(i){
-            if (i == 1) this.$router.push({ path: '/upload' })
-            else if (i == 2) this.$router.push({ path: "/reconmmend" })
-            else if (i == 3) this.$router.push({ path: '/suggest' })
-            else if (i == 4) this.$router.push({ path: '/speech' })
-            else if (i == 5) this.$router.push({ path: '/analyze' })
+            if (i == 1) this.$router.push({ path: '/upload', query: { index: this.procedureIndex } })
+            else if (i == 2) this.$router.push({ path: "/reconmmend", query: { index: this.procedureIndex } })
+            else if (i == 3) return
+            else if (i == 4 && this.procedureIndex >= 4) this.$router.push({ path: '/speech', query: { index: this.procedureIndex } })
+            else if (i == 5) this.$router.push({ path: '/analyze', query: { index: this.procedureIndex } })
         }
     }}
     

@@ -88,7 +88,8 @@
                 <input type="file" :ref="`TDUploadFile${index}`" multiple @change="upload($event, 'TD', index)"
                   style="display: none">
                 <div style="height: 260px;" v-if="TDList[index]">
-                  <el-image class="img" fit="cover" :src="TDList[index]" :preview-src-list="TDList" :initial-index="index" />
+                  <el-image class="img" fit="cover" :src="TDList[index]" :preview-src-list="TDList"
+                    :initial-index="index" />
                   <div class="imgdel" @click="imgdel(index)">删除</div>
                 </div>
                 <img v-else class="img" :src="item.url" @click="uploadClick('TD', index)">
@@ -191,8 +192,8 @@ export default {
       intraoralList: [],
       CTList: [],
       TDDefault: [
-      { name: '上颌', url: defaultFile },
-      { name: '下颌', url: defaultFile },
+        { name: '上颌', url: defaultFile },
+        { name: '下颌', url: defaultFile },
       ],
       TDList: [],
       headSideList: [],
@@ -208,6 +209,7 @@ export default {
   },
   created() {
     this.id = this.$route.query.id;
+    if (this.$route.query.index) this.procedureIndex = this.$route.query.index;
   },
   methods: {
     // 触发文件上传
@@ -318,10 +320,10 @@ export default {
 
     changeCrumbs(i) {
       if (i == 0) return
-      else if (i == 1) this.$router.push({ path: "/analyze", query: { id: this.id }})
-      else if (i == 2) this.$router.push({ path: "/reconmmend" })
-      else if (i == 3) this.$router.push({ path: "/suggest" })
-      else if (i == 4) this.$router.push({ path: "/speech" })
+      else if (i == 1 && this.procedureIndex >= 1) this.$router.push({ path: "/analyze", query: { id: this.id, index: this.procedureIndex } })
+      else if (i == 2 && this.procedureIndex >= 2) this.$router.push({ path: "/reconmmend", query: { index: this.procedureIndex } })
+      else if (i == 3 && this.procedureIndex >= 3) this.$router.push({ path: '/suggest', query: { index: this.procedureIndex } })
+      else if (i == 4 && this.procedureIndex >= 4) this.$router.push({ path: '/speech', query: { index: this.procedureIndex } })
     },
 
     goToanalyze() {
@@ -399,17 +401,15 @@ export default {
 
       .btn {
         margin: 0 20px;
-        width: 300px;
-        height: 58px;
+        width: 20%;
         background: #7BA9B9;
-        border-radius: 6px;
-        font-size: 26px;
+        border-radius: 5px;
         font-family: Source Han Sans SC;
         font-weight: 400;
         color: #FFFFFF;
-        line-height: 58px;
         text-align: center;
         cursor: pointer;
+        padding: 8px 0;
       }
     }
   }
