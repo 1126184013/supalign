@@ -54,7 +54,7 @@
   
   <script>
   import axios from 'axios'
-  import  Edit  from './editAnly.vue'
+  import  Edit  from './edit.vue'
 import { Text } from 'vue'
     export default {
       name: 'faceReport',

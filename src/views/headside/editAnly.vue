@@ -369,6 +369,12 @@
         this.canvas = this.$refs.myCanvas;
         this.ctx = this.canvas.getContext('2d');
         this.drawCanvas()
+
+        // alert(1);
+
+       
+        // alert(2);
+
       },
       computed: {
         canvasWidth() {
@@ -393,7 +399,10 @@
             
           };
 
+
+
           image.src = this.imageSrc;
+
         },
     addPoint(event) {
       
@@ -462,7 +471,18 @@
           }
           ctx.closePath();
         });
+
+        this.ctx.beginPath(); // 开始绘制
+        this.ctx.moveTo(50, 100); // 曲线起点
+        // 绘制贝塞尔曲线，控制点1 (100,150), 控制点2 (150,50), 终点 (200,100)
+        this.ctx.bezierCurveTo(100, 150, 150, 50, 200, 100,200,150);
+        this.ctx.strokeStyle = 'blue'; // 设置线条颜色为红色
+
+        this.ctx.stroke(); // 执行绘制
+
+
       };
+
 
       image.src = this.imageSrc;
     },
