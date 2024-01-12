@@ -163,8 +163,8 @@
                 }
             }else{
                 params = {
+                    id:this.checkid,
                     content:{
-                        id:this.checkid,
                         list:this.checkList,
                         name:this.selectname,
                         template:this.rigChecked==true?1:2
