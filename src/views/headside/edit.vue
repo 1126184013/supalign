@@ -233,6 +233,9 @@
           </div>
         </div>
       </div>
+      <div class="next">
+        <div class="nextsty" @click="nextfunc">保存</div>
+      </div>
       <div style="position: absolute;left: 0%;top:0%;z-index: 999;height: calc(100% + 100%);width: 100%;" v-if="customShow==true">
         <Custom @updatevalue="updatevalue"/>
       </div>
@@ -679,7 +682,9 @@
             //     this.points[index].name = newName;
             // }
         },
-
+        nextfunc(){
+          this.$emit('update');
+        },
 
 
 
@@ -1248,6 +1253,23 @@
 .hover-bg :hover{
   background-color: #76A0B1;
 }
+.next{
+      display: flex;
+      position: relative;
+      left: 35%;
+      top: 0%;
+      // margin: 0 auto;
+      padding: 10%;
+      .nextsty{
+        width: 10%;
+        padding: 5px;
+        background-color: #7BA9B9;
+        color: #FFFFFF;
+        border-radius: 5px;
+        text-align: center;
+        margin-left: 1%;
+      }
+    }
 .tablesty{
   width:30%;
   cursor: default;
@@ -1322,6 +1344,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  min-height: 150vh;
 }
 
 .upload-area {

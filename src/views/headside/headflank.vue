@@ -49,7 +49,7 @@
         </div>
         
         <div class="nextsty" v-if="editshow == 1">
-          <Edit :editstart="editstart"></Edit>
+          <Edit @update="update" :editstart="editstart"></Edit>
         </div>
     </div>
     <div class="next" v-if="editshow == 0">
@@ -337,6 +337,9 @@ import { Text } from 'vue'
         },
         edit(){
           this.editshow = 1
+        },
+        update(){
+          this.editshow = 0
         },
         nextfunc(){
           this.$emit('update');

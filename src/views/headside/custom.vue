@@ -151,6 +151,7 @@
         },
         //保存.
         projectSave(){
+            let that = this;
             let params = {}
             if(this.checkid==''){
                 params = {
@@ -176,6 +177,7 @@
             axios.post('api/method_upate', params).then(response => {
             // 处理上传成功的回调
             console.log(response,'处理上传成功的回调');
+            that.customEdit = false
             
           })
         },
