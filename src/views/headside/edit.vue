@@ -621,6 +621,7 @@
 
             return angle;
         },
+        
         CanvasClic(event){
 
             let rect = this.$refs.myCanvas.getBoundingClientRect();
