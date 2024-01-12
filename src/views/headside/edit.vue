@@ -71,6 +71,10 @@
               <el-slider v-model="grayValue"></el-slider>
             </div>
           </div>
+          <div class="modelimg" style="margin-left: 20px; width: 22%;" @click="customShow = true">
+              <img src="../../assets/zdy.png" alt="" style="width: 43px;">
+              <div>自定义分析法</div>
+          </div>
         </div>
       </div>
       <div class="container">
@@ -229,11 +233,15 @@
           </div>
         </div>
       </div>
+      <div style="position: absolute;left: 0%;top:0%;z-index: 999;height: calc(100% + 100%);width: 100%;" v-if="customShow==true">
+        <Custom @updatevalue="updatevalue"/>
+      </div>
     </div>
   </template>
   
   <script>
   import axios from 'axios'
+  import Custom from './custom.vue'
  import { Text } from 'vue'
     export default {
       name: 'faceReport',
@@ -241,7 +249,7 @@
       data() {
         return {
             editMode:0,//0 正常 1 长度 2 角度
-
+            customShow:false,
         rotateAngle:0,
 
           hoverIndex: -1,
@@ -483,7 +491,7 @@
           heightend:{},
         }
       },
-      components:{ Text },
+      components:{ Text,Custom },
       created() {
         console.log(this.editstart,'编辑')
         let that = this
@@ -1201,6 +1209,29 @@
       this.pointname = this.points[this.pointsindex].name
       this.nameeditstart = 1
     },  
+    //子组件传参
+    updatevalue(e){
+      this.customShow = false
+      if(e != ''){
+        let listValue={
+              itemName:'',
+              measure:'',
+              stand:'83',
+              deviation:'4',
+              sense:''
+            }
+        let that = this
+        // this.tabdaproj = e.list
+        this.tableData = []
+        console.log(this.tabdaproj,'子组件传参ssss') 
+        e.list.map((item,index)=>{
+          this.tableData.push(listValue)
+          that.tableData[index].itemName = item
+          that.tableData[index].measure = Number(this.editstart.list.result[index]).toFixed(1)
+        })
+
+      }
+    },
     setHover(index) {
       this.hoverIndex = index;
     },
@@ -1236,7 +1267,7 @@
   background-color: #76A0B1; /* 修改背景颜色 */
 }
 .bodyed{
-  width: 100vw;
+  width: 96vw;
   height: 100%;
   display: flex;
   flex-direction: column;

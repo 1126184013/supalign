@@ -112,7 +112,8 @@
             noChecked: false,//否存为模板
             customList:[],//自定义列表
             selectname:'',//名称
-            checkList: [],
+            checkList:[],//选中列表
+            checkid: "",
             selectTxt:['SNA','A_N_perp','SNB','Pog_N_perp','ANB','FMA','SN_MP','S_Go_N_Me','S_N','Go_Me','FH_NPo','Na_S_Ar','S_Ar_Go','Ar_Go_Me','Ar_Go_N','Na_Go_Me',
             'Sum_of_Angles','PtV_U6','ANS_Xi_Pm','Dc_Xi_Pm','U1_SN','U1_NA','L1_MP','L1_FH','L1_NB','U1_L1','UL_EP','LL_EP'],
         }
@@ -138,18 +139,39 @@
             
             this.$emit('updatevalue');
         },
+        edit(e){
+            this.customEdit = true;
+            console.log(e,'编辑');
+            this.selectname = e.name;
+            this.checkList = e.list;
+            this.checkid = e.id;
+        },
         useList(e){
             this.$emit('updatevalue',e);
         },
         //保存
         projectSave(){
-            let params = {
-                content:{
-                    list:this.checkList,
-                    name:this.selectname,
-                    template:this.rigChecked==true?1:2
+            let params = {}
+            if(this.checkid==''){
+                params = {
+                    content:{
+                        list:this.checkList,
+                        name:this.selectname,
+                        template:this.rigChecked==true?1:2
+                    }
+                }
+            }else{
+                params = {
+                    content:{
+                        id:this.checkid,
+                        list:this.checkList,
+                        name:this.selectname,
+                        template:this.rigChecked==true?1:2
+                    }
                 }
             }
+
+            
             console.log(toString(params), params,'params');
             axios.post('api/method_upate', params).then(response => {
             // 处理上传成功的回调
