@@ -601,13 +601,24 @@
 
         calculateAngle(A, B, C) {
             var AB = { x: B.x - A.x, y: B.y - A.y };
+            var AC = { x: C.x - A.x, y: C.y - A.y };
             var BC = { x: C.x - B.x, y: C.y - B.y };
 
-            var dotProduct = (AB.x * BC.x) + (AB.y * BC.y);
+            var dotProductAB_AC = (AB.x * AC.x) + (AB.y * AC.y);
+            var dotProductAB_BC = (AB.x * BC.x) + (AB.y * BC.y);
             var magnitudeAB = Math.sqrt(AB.x * AB.x + AB.y * AB.y);
             var magnitudeBC = Math.sqrt(BC.x * BC.x + BC.y * BC.y);
-            
-            var angle = Math.acos(dotProduct / (magnitudeAB * magnitudeBC)) * 180 / Math.PI;
+
+            var angle = Math.acos(dotProductAB_BC / (magnitudeAB * magnitudeBC)) * 180 / Math.PI;
+
+            // 检查角度是锐角还是钝角
+            if (dotProductAB_AC < 0) {
+                // 如果点积小于零，则角 ABC 是钝角
+                angle = 180 - angle;
+            }
+
+            angle = 180-angle;
+
             return angle;
         },
         CanvasClic(event){
