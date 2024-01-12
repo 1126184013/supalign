@@ -1179,6 +1179,7 @@
     zoomOut() {
       this.scale /= 1.2; // 缩小缩放比例
     },
+    
     brate(){
         
         
