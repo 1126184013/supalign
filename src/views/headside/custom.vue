@@ -149,7 +149,7 @@
         useList(e){
             this.$emit('updatevalue',e);
         },
-        //保存
+        //保存.
         projectSave(){
             let params = {}
             if(this.checkid==''){
