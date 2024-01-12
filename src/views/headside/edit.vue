@@ -507,7 +507,7 @@
           that.tableData[index].itemName = item
           that.tableData[index].measure = Number(this.editstart.list.result[index]).toFixed(1)
           that.tableData[index].deviation = that.deviation[index]
-          that.tableData[index].sense = that.standard[index]
+          that.tableData[index].stand = that.standard[index]
         })
 
       },
@@ -1254,7 +1254,7 @@
           this.tableData[i].itemName = e.list[i]
           that.tableData[i].stand = this.standard[objindex]
           that.tableData[i].deviation = this.deviation[objindex]
-          that.tableData[i].measure = Number(that.editstart.list.result[i]).toFixed(1)
+          that.tableData[i].measure = Number(that.editstart.list.result[objindex]).toFixed(1)
           
         }
         
