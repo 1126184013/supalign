@@ -25,11 +25,11 @@
         </div>
         <div class="tool">
           <div>
-            <div class="toolicon" @click="islengthstate = !islengthstate">
+            <div class="toolicon" @click="islengthstat">
               <img src="../../assets/cd.png" alt=""  style="width: 25px;">
               <text>长度</text>
             </div>
-            <div class="toolicon">
+            <div class="toolicon" @click="isAnglestat">
               <img src="../../assets/jd.png" alt=""  style="width: 25px;">
               <text>角度</text>
             </div>
@@ -55,7 +55,7 @@
             <div>校准</div>
           </div>
         </div>
-        <div class="tool" style="width: 35%;border: none;">
+        <div class="tool" style="width: 45%;border: none;">
           <div class="modelimg" style="width: 22%;">
             <img src="../../assets/lk.png" alt="" style="width: 43px;">
             <div>轮廓重置</div>
@@ -63,17 +63,21 @@
           <div style="width: 55%;">
             <div class="slider">
               <div class="demonstration">图片亮度</div>
-              <el-slider v-model="value1"></el-slider>
+              <el-slider v-model="value1" @input="intensity"></el-slider>
             </div>
             <div class="slider">
               <div class="demonstration">图像灰度</div>
-              <el-slider v-model="value1"></el-slider>
+              <el-slider v-model="value2" @input="intensity"></el-slider>
             </div>
+          </div>
+          <div class="modelimg" style="width: 22%;" @click="customShow = true">
+              <img src="../../assets/zdy.png" alt="" style="width: 43px;">
+              <div>自定义分析法</div>
           </div>
         </div>
       </div>
       <div class="container">
-        <div style="width:70%;position: relative;">
+        <div style="width:70%;position: relative;overflow: auto;">
           <canvas ref="myCanvas" @click="addPoint" @mousedown="startDrag" @mousemove="dragPoint" @mouseup="endDrag" :width="canvasWidth" :height="canvasHeight"></canvas>
           <div @click="nameedit" class="namesty" >{{ this.pointname }}</div>
         </div>
@@ -118,11 +122,16 @@
           </div>
         </div>
       </div>
+      <div style="position: absolute;left: -4%;top:-16%;z-index: 999;height: calc(100% + 19%);" v-if="customShow==true">
+        <Custom @updatevalue="updatevalue"/>
+      </div>
+      
     </div>
   </template>
   
   <script>
   import axios from 'axios'
+  import Custom from './custom.vue'
  import { Text } from 'vue'
     export default {
       name: 'faceReport',
@@ -134,14 +143,19 @@
           nameshow:false,
           isRotated: false, // 是否已经旋转
           isDragging:false, // 是否正在拖动
+          islengthstate:false, // 是否处于长度模式
+          isAnglestate:false, // 是否处于角度模式
           lines:[], // 存储标点连线
           pointRadius: 10, // 标点半径
-          islengthstate:false, // 是否处于长度模式
           islength:false, 
           ctx: null,
           canvasstart:1, // 切换模式
           pointname:"",
+          lengthpoint:[],//长度标点
+          Anglespoint:[],//角度标点
           names:'',
+          value1:50,//图片亮度
+          value2:0,//图片灰度
           options:[{
             value: 1,
             label: '点线模式'
@@ -158,7 +172,7 @@
           currentDraggingPoint: null, // 当前正在拖动的点
           points: [], // 存储标点坐标的数组
           scale: 1, // 当前的缩放比例
-          canvasWidth:850,
+          canvasWidth:1000,
           canvasHeight:'',
           nameeditstart:1,
           isPointLineMode:false, // 是否处于标点连线模式
@@ -343,9 +357,10 @@
           newposin:{},
           heightinit:{},
           heightend:{},
+          customShow:false,
         }
       },
-      components:{ Text },
+      components:{ Text,Custom },
       created() {
         console.log(this.editstart,'编辑')
         let that = this
@@ -368,13 +383,9 @@
         console.log(this.points,'标点坐标')
         this.canvas = this.$refs.myCanvas;
         this.ctx = this.canvas.getContext('2d');
+        
+        
         this.drawCanvas()
-
-        // alert(1);
-
-       
-        // alert(2);
-
       },
       computed: {
         canvasWidth() {
@@ -386,17 +397,37 @@
       },
       methods: {
         drawCanvas() {
-          const canvas = this.$refs.myCanvas;
+          let that =this
+          const canvas = that.$refs.myCanvas;
           const ctx = canvas.getContext('2d');
-
+          that.ctx = ctx
           const image = new Image();
           image.onload = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // 绘制图片时指定宽度和高度为 canvas 的宽度和高度
-            
-            this.drawPoints(); // 绘制标点
 
+            ctx.filter = `brightness(${that.value1 + 50}%) grayscale(${that.value2 *3}%)`;
             
+            // function draw() {
+            //   // 动态设置滤镜效果
+            //   let filterValue = `brightness(${that.value1}%)`; // 设置亮度调整滤镜效果
+            //   let filtergrayscale = that.value2 *2; // 设置色相旋转滤镜效果
+              
+            //   ctx.filter = filterValue;
+
+            //   // 绘制图像到 Canvas 上
+            //   ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            //   // 更新亮度值
+            //   filterValue = (filterValue) % 200;
+
+            //   // 在下一帧时更新滤镜效果
+            //   requestAnimationFrame(draw);
+            // }
+            
+            // draw()
+            that.drawPoints(); // 绘制标点
+
           };
 
 
@@ -429,6 +460,78 @@
         }
         this.points.push({ x, y , name: this.names});
         this.drawPoints();
+      }
+      //长度标点
+      if(this.islengthstate){
+        // 添加点到数组中
+        this.lengthpoint.push({x:x*this.scale, y:y*this.scale});
+        if (this.lengthpoint.length === 3) {
+          this.lengthpoint = [];
+          this.drawPoints();
+        }
+
+        // 绘制点
+        this.ctx.beginPath();
+        this.ctx.fillStyle = 'red';
+        this.ctx.arc(x*this.scale, y*this.scale, 3, 0, Math.PI * 2);
+        this.ctx.fill();
+        // 如果已经添加了两个点，则绘制连接线
+        if (this.lengthpoint.length === 2) {
+          this.ctx.beginPath();
+          this.ctx.strokeStyle = '#ff0000';
+          this.ctx.moveTo(this.lengthpoint[0].x, this.lengthpoint[0].y);
+          this.ctx.lineTo(this.lengthpoint[1].x, this.lengthpoint[1].y);
+          this.ctx.stroke();
+        }
+      }
+      //角度标点
+      if(this.isAnglestate){
+        // 添加点到数组中
+        this.Anglespoint.push({x:x*this.scale, y:y*this.scale});
+        if (this.Anglespoint.length === 4) {
+          this.Anglespoint = [];
+          this.drawPoints();
+        }
+        // 绘制点
+        this.ctx.beginPath();
+        this.ctx.fillStyle = 'red';
+        this.ctx.arc(x*this.scale, y*this.scale, 3, 0, Math.PI * 2);
+        this.ctx.fill();
+        if (this.Anglespoint.length >= 2) {
+          this.ctx.beginPath();
+          this.ctx.strokeStyle = '#ff0000';
+          if(this.Anglespoint.length === 2){
+            this.ctx.moveTo(this.Anglespoint[0].x, this.Anglespoint[0].y);
+            this.ctx.lineTo(this.Anglespoint[1].x, this.Anglespoint[1].y);
+          }else if(this.Anglespoint.length === 3){
+            this.ctx.moveTo(this.Anglespoint[1].x, this.Anglespoint[1].y);
+            this.ctx.lineTo(this.Anglespoint[2].x, this.Anglespoint[2].y);
+
+            const point1 = this.Anglespoint[0];
+            const point2 = this.Anglespoint[1];
+            const point3 = this.Anglespoint[2];
+
+             // 连接两条线段
+  const line1 = { x: point2.x - point1.x, y: point2.y - point1.y };
+  const line2 = { x: point3.x - point2.x, y: point3.y - point2.y };
+
+  // 计算两条线段的夹角
+let angleRadians = Math.atan2(line2.y, line2.x) - Math.atan2(line1.y, line1.x);
+if (angleRadians < 0) {
+  angleRadians += 2 * Math.PI;
+}
+let angleDegrees = (angleRadians * 180) / Math.PI;
+
+// 将角度限制在 0 到 180 度之间
+if (angleDegrees > 180) {
+  angleDegrees = 360 - angleDegrees;
+}
+
+  console.log("两条线段的夹角为: " + angleDegrees + " 度");
+          }
+          
+          this.ctx.stroke();
+        }
       }
       
     },
@@ -515,21 +618,21 @@
       if (this.currentDraggingPoint && this.editradggstate) {
         this.isDragging = true;
       }
-      if(this.islengthstate){
-        this.heightinit = { x:mouseX, y:mouseY }
-        this.heightend = { x:mouseX, y:mouseY }
-        this.newposin = { x:mouseX, y:mouseY }
-        this.islength = true;
+      // if(this.islengthstate){
+      //   this.heightinit = { x:mouseX, y:mouseY }
+      //   this.heightend = { x:mouseX, y:mouseY }
+      //   this.newposin = { x:mouseX, y:mouseY }
+      //   this.islength = true;
 
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.heightinit.x*this.scale, this.heightinit.y*this.scale);
-        this.ctx.lineTo(this.heightend.x+1*this.scale  , this.heightend.y+1*this.scale );
-        this.ctx.stroke();
-        // this.isDragging = true;
-        // this.currentDraggingPoint = this.newposin
-        this.drawPoints();
+      //   this.ctx.beginPath();
+      //   this.ctx.moveTo(this.heightinit.x*this.scale, this.heightinit.y*this.scale);
+      //   this.ctx.lineTo(this.heightend.x+1*this.scale  , this.heightend.y+1*this.scale );
+      //   this.ctx.stroke();
+      //   // this.isDragging = true;
+      //   // this.currentDraggingPoint = this.newposin
+      //   this.drawPoints();
 
-      }
+      // }
       
 
 
@@ -618,6 +721,12 @@
         this.ctx.stroke();
       }
     },
+    intensity(){
+      console.log(this.value1,"value1")
+      this.drawCanvas()
+
+    },
+    
     clearCanvas() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
@@ -628,6 +737,15 @@
     imgedig(){
       this.editradggstate = !this.editradggstate
       this.isPointLineMode = false
+    },
+    islengthstat(){
+      this.islengthstate = !this.islengthstate
+      this.isAnglestate = false
+    },
+    isAnglestat(){
+      this.isAnglestate = !this.isAnglestate
+      this.islengthstate = false
+
     },
     handstart(){
       this.drawPoints()
@@ -668,6 +786,10 @@
       this.pointname = this.points[this.pointsindex].name
       this.nameeditstart = 1
     },  
+    //子组件传参
+    updatevalue(){
+      this.customShow = false
+    },
     setHover(index) {
       this.hoverIndex = index;
     },
@@ -693,6 +815,7 @@
   height: auto;
   border: 1px solid #76A0B1;
   text-align: center;
+
 }
 
 .dropdown div{
@@ -703,12 +826,12 @@
   background-color: #76A0B1; /* 修改背景颜色 */
 }
 .bodyed{
-  width: 100vw;
+  width: 92vw;
   height: 100%;
   display: flex;
   flex-direction: column;
   cursor: default;
-
+  position: relative;
 }
 .namesty{
   position: absolute;
@@ -720,12 +843,13 @@
   color: #FFFFFF;
 }
 .headlist{
-  width: 100%;
+  width: 98.5%;
   height: 13vh;
   background-color: #76A0B1;
   display: flex;
   // justify-content: space-around;
   align-items: center;
+  padding: 10px;
   .tool{
     width: 15%;
     display: flex;
