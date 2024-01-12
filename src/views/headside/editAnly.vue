@@ -775,8 +775,27 @@ if (angleDegrees > 180) {
       this.nameeditstart = 1
     },  
     //子组件传参
-    updatevalue(){
+    updatevalue(e){
       this.customShow = false
+      if(e != ''){
+        let listValue={
+              itemName:'',
+              measure:'',
+              stand:'83',
+              deviation:'4',
+              sense:''
+            }
+        let that = this
+        // this.tabdaproj = e.list
+        this.tableData = []
+        console.log(this.tabdaproj,'子组件传参ssss') 
+        e.list.map((item,index)=>{
+          this.tableData.push(listValue)
+          that.tableData[index].itemName = item
+          that.tableData[index].measure = Number(this.editstart.list.result[index]).toFixed(1)
+        })
+
+      }
     },
     setHover(index) {
       this.hoverIndex = index;

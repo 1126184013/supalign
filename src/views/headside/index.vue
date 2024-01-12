@@ -2,8 +2,8 @@
     <div class="body">
       <Header />
       <div class="head">
-        <text :class="procedure>=0?'headcolor':''">1、上传头颅CT图片 > </text>
-        <text :class="procedure>=1?'headcolor':''">2、分析结果 > </text>
+        <text :class="procedure>=0?'headcolor':''" @click="procedure=0">1、上传头颅CT图片 > </text>
+        <text :class="procedure>=1?'headcolor':''" @click="procedure=1">2、分析结果 > </text>
         <text :class="procedure>=2?'headcolor':''">3、生成报告</text>
       </div>
       <div class="headflankbody"  v-if="procedure==0">
@@ -18,16 +18,16 @@
                 <img :src="clsrc" alt="">
               </div>
             </div>
-          </div>
+        </div>
           <div  v-if="procedure==1">
-            <Headflank :face="face"></Headflank>
+            <Headflank @update="update" :face="face"></Headflank>
           </div>
           <div v-if="procedure==2">
               <HeadflankReport :face="face"></HeadflankReport>
           </div>
         <div class="next">
         
-        <div @click="nexttype" class="nextsty">开始分析</div>
+        <div @click="nexttype" class="nextsty" v-if="procedure==0">开始分析</div>
       </div>
       <el-loading v-if="loading" :text="loadingText" :spinner="loadingSpinner" >
         <i class="el-icon-phone"></i>
@@ -83,6 +83,9 @@ import Header from "../../components/Header/index.vue";
             // 处理上传失败的回调
             this.loading = false; // 隐藏加载动画
           });
+        },
+        update(){
+          this.procedure++
         },
         //头侧
         upheadflank(event){

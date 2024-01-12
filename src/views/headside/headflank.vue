@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="body">
         <div class="liftimg" v-if="editshow == 0">
           <div style="">
@@ -46,10 +47,16 @@
             </el-table-column>
           </el-table>
         </div>
-        <div v-if="editshow == 1">
+        
+        <div class="nextsty" v-if="editshow == 1">
           <Edit :editstart="editstart"></Edit>
         </div>
     </div>
+    <div class="next" v-if="editshow == 0">
+      <div class="nextsty" @click="nextfunc">生成报告</div>
+    </div>
+  </div>
+    
   </template>
   
   <script>
@@ -330,6 +337,9 @@ import { Text } from 'vue'
         },
         edit(){
           this.editshow = 1
+        },
+        nextfunc(){
+          this.$emit('update');
         }
       }
     }
@@ -338,8 +348,26 @@ import { Text } from 'vue'
   
 <style lang="scss" scoped>
 .body{
+  margin-top: 3%;
   display: flex;
   justify-content: space-between;
+  .next{
+      display: flex;
+      position: relative;
+      left: 35%;
+      top: 5%;
+      // margin: 0 auto;
+      padding: 10%;
+      .nextsty{
+        width: 8%;
+        padding: 5px;
+        background-color: #7BA9B9;
+        color: #FFFFFF;
+        border-radius: 5px;
+        text-align: center;
+        margin-left: 1%;
+      }
+    }
 }
   .liftimg{
       width: 40%;

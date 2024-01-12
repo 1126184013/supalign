@@ -10,7 +10,7 @@
               <div>
                 <!-- <img :src="faceimg[1].url" alt="" style="width: 120px;height: 130px;"> -->
                 <el-image 
-                    style="width: 190px; height: 210px"
+                    style="width: 310px; "
                     :src="url" 
                     :preview-src-list="srcList">
                 </el-image>
@@ -50,6 +50,10 @@
                     </el-table-column>
                 </el-table>
             </div>
+        </div>
+        <div class="nextsty">
+            <div>下载PDF</div>
+            <div>保存</div>
         </div>
     </div>
   </template>
@@ -136,7 +140,21 @@ import { Text } from 'vue'
   
 <style lang="scss" scoped>
 .pdfupdata{
-    height: 100vh;
+  padding-bottom: 10%;
+}
+.nextsty{
+  width: 100%;
+  justify-content: space-evenly;
+  display: flex;
+  padding: 5% 0;
+  >div{
+        width: 8%;
+        padding: 5px;
+        background-color: #7BA9B9;
+        color: #FFFFFF;
+        border-radius: 5px;
+        text-align: center;
+  }
 }
 .fonthead{
     font-size: 18px;

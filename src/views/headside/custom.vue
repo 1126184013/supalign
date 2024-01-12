@@ -26,7 +26,7 @@
                                 <td class="cztd">
                                     <div style="color: #FF0000;">删除</div>
                                     <div @click="edit(item)">编辑</div>
-                                    <div>使用</div>
+                                    <div @click="useList(item)">使用</div>
                                 </td>
                             </tr>
                         </table>
@@ -137,6 +137,9 @@
         cancelPopup(){
             
             this.$emit('updatevalue');
+        },
+        useList(e){
+            this.$emit('updatevalue',e);
         },
         //保存
         projectSave(){
