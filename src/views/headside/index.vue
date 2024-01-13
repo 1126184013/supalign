@@ -38,7 +38,18 @@
       </el-loading>
       <div class="rule" v-if="rulestate==1">
         <div class="rulebox">
-          <div class="rulehead"><text>X光照上传规则</text><text>X</text></div>
+          <div class="rulehead"><text>X光照上传规则</text><text @click="rulestate=0">X</text></div>
+          <div class="rulebody">
+            <text>1、画质清晰，左右对称</text>
+            <text>2、需包含双侧下关节(红色部分)</text>
+            <text>3、图像中无伪影(拍摄时需摘除金属饰品)</text>
+            <h3>头侧片要求</h3>
+            <text>1、软硬组织清晰</text>
+            <text>2、左右重叠好</text>
+            <text>3、耳平面和地面平行</text>
+            <text>4、有标尺(红色部分)</text>
+            <text>5、需包含颈椎信息</text>
+          </div>
         </div>
       </div>
       
@@ -154,6 +165,13 @@ import Header from "../../components/Header/index.vue";
         padding-bottom: 15px;
         border-bottom: 8px solid #dddddd;
         margin-top: 3%;
+    }
+    .rulebody{
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      line-height: 28px;
+      padding: 5px 10px;
     }
     .rule{
       position: absolute;
