@@ -2,9 +2,9 @@
     <div class="body">
       <Header />
       <div class="head">
-        <text :class="procedure>=0?'headcolor':''" @click="schedule>0?procedure=0:''">1、上传头颅CT图片 > </text>
-        <text :class="procedure>=1?'headcolor':''" @click="schedule>=1?procedure=1:''">2、分析结果 > </text>
-        <text :class="procedure>=2?'headcolor':''">3、生成报告</text>
+        <text :class="procedure>=0?'headcolor':''" @click="schedule>0?procedure=0:''">上传头颅CT图片 > </text>
+        <text :class="procedure>=1?'headcolor':''" @click="schedule>=1?procedure=1:''">分析结果 > </text>
+        <text :class="procedure>=2?'headcolor':''">生成报告</text>
       </div>
       <div class="headflankbody"  v-if="procedure==0">
           <div style="display: flex;flex-direction: column;font-size: 16px;">
