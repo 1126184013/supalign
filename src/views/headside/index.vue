@@ -2,12 +2,15 @@
     <div class="body">
       <Header />
       <div class="head">
-        <text :class="procedure>=0?'headcolor':''" @click="procedure=0">1、上传头颅CT图片 > </text>
-        <text :class="procedure>=1?'headcolor':''" @click="procedure=1">2、分析结果 > </text>
+        <text :class="procedure>=0?'headcolor':''" @click="schedule>0?procedure=0:''">1、上传头颅CT图片 > </text>
+        <text :class="procedure>=1?'headcolor':''" @click="schedule>=1?procedure=1:''">2、分析结果 > </text>
         <text :class="procedure>=2?'headcolor':''">3、生成报告</text>
       </div>
       <div class="headflankbody"  v-if="procedure==0">
-            <text>头侧片分析</text>  
+          <div style="display: flex;flex-direction: column;font-size: 16px;">
+            <text>头侧片分析</text> 
+            <text style="margin-top: 10px;color: rgb(168, 168, 168);" @click="rulestate=1">上传规则</text>
+          </div>
             <div class="imgbox">
               <input type="file" ref="headflank" multiple @change="upheadflank" style="display: none">
               <div class="headflank" @click="openheadflank" v-if="clsrc == ''">
@@ -33,6 +36,12 @@
         <i class="el-icon-phone"></i>
         <div class="loading">正在分析...</div>
       </el-loading>
+      <div class="rule" v-if="rulestate==1">
+        <div class="rulebox">
+          <div class="rulehead"><text>X光照上传规则</text><text>X</text></div>
+        </div>
+      </div>
+      
     </div>
   </template>
   
@@ -49,8 +58,25 @@ import Header from "../../components/Header/index.vue";
         return {
           face:{},
           procedure:0,
-          clsrc:''
+          schedule:0 ,
+          clsrc:'',
+          rulestate:0,
         }
+      },
+      watch: {
+        procedure(newVal) {
+          // 当步骤变化时，根据当前步骤更新链接状态
+          const links = this.$el.querySelectorAll('text');
+          for (let i = 0; i < links.length; i++) {
+            if (i <= newVal) {
+              links[i].classList.add('headcolor');
+              links[i].onclick = () => { this.procedure = i; };
+            } else {
+              links[i].classList.remove('headcolor');
+              links[i].onclick = null;
+            }
+          }
+        },
       },
       components:{ 
         Text,
@@ -76,6 +102,7 @@ import Header from "../../components/Header/index.vue";
             this.face.cllist = response.data
             this.face.climg = this.clsrc
             this.procedure++
+            this.schedule++
             this.loading = false; // 隐藏加载动画
             
           })
@@ -86,6 +113,7 @@ import Header from "../../components/Header/index.vue";
         },
         update(){
           this.procedure++
+          this.schedule++
         },
         //头侧
         upheadflank(event){
@@ -118,13 +146,36 @@ import Header from "../../components/Header/index.vue";
         margin: 0 auto;
         // border: 1px solid #030303;
         padding: 20px 0;
-        
+        position: relative;
     }
     .head{
         width:100%;
+        font-size: 18px;
         padding-bottom: 15px;
         border-bottom: 8px solid #dddddd;
         margin-top: 3%;
+    }
+    .rule{
+      position: absolute;
+      left: -2%;
+      top:0;
+      background-color: #3b3b3b7e;
+      width: 100vw;
+      height: 100%;
+      .rulebox{
+        width: 86%;
+        min-height: 80%;
+        background-color: #FFFFFF;
+        margin: 5% auto;
+        .rulehead{
+          width: 96%;
+          background-color: #76A0B1;
+          display: flex;
+          justify-content: space-between;
+          padding: 1.5% 2%;
+          color: #FFFFFF;
+        }
+      }
     }
 .headflankbody{
   padding: 5% 0;
@@ -151,16 +202,15 @@ import Header from "../../components/Header/index.vue";
   .next{
       display: flex;
       position: relative;
-      left: 45%;
-      top: 5%;
+      left: 36%;
+      top: 15%;
       .nextsty{
-        width: 8%;
-        padding: 5px;
+        width: 20%;
+        padding: 8px 0;
         background-color: #7BA9B9;
         color: #FFFFFF;
         border-radius: 5px;
         text-align: center;
-        margin-left: 1%;
       }
     }
     .loading{

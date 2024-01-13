@@ -2,7 +2,7 @@
   <div>
     <div class="body">
         <div class="liftimg" v-if="editshow == 0">
-          <div style="">
+          <div>
             <!-- <el-image 
             :src="url" 
             :preview-src-list="srcList">
@@ -13,7 +13,7 @@
           
         </div>
         <div class="rightlist" v-if="editshow == 0">
-          <div style="display: flex;justify-content: space-between;">
+          <div style="display: flex;justify-content: space-between;padding-bottom: 3%;">
             <text>头侧片分析结果</text>
             <el-button type="primary" @click="edit">编辑</el-button>
           </div>
@@ -71,6 +71,8 @@ import { Text } from 'vue'
         return {
           url: '',
           editshow:0,
+          canvas:'',
+          ctx:'',
           points: [], // 存储标点坐标的数组
           canvasWidth:600,
           canvasHeight:800,
@@ -271,6 +273,7 @@ import { Text } from 'vue'
           // console.log(that.tableData,'下标数据')
 
         })
+        
         console.log(this.tableData,'列表数据')
       },
       components:{ 
@@ -280,11 +283,17 @@ import { Text } from 'vue'
       mounted(){
         //返回图片标点坐标处理
         let that = this
-        this.face.cllist.landmarks.map((item,index)=>{
-          that.points.push({x:item[0],y:item[1]})
-        })
-        console.log(this.points,'标点坐标')
-        this.drawCanvas()
+        const image = new Image();
+        image.onload = () => {
+          //返回图片标点坐标处理
+          this.face.cllist.landmarks.map((item, index) => {
+            that.points.push({ x: item[0], y: item[1] });
+          });
+          console.log(this.points, '标点坐标');
+          this.drawCanvas();
+        };
+
+        image.src = this.url;
       },
       computed: {
         canvasWidth() {
@@ -340,6 +349,19 @@ import { Text } from 'vue'
         },
         update(){
           this.editshow = 0
+          let that = this
+        const image = new Image();
+        image.onload = () => {
+          //返回图片标点坐标处理
+          this.face.cllist.landmarks.map((item, index) => {
+            that.points.push({ x: item[0], y: item[1] });
+          });
+          console.log(this.points, '标点坐标');
+          this.drawCanvas();
+        };
+
+        image.src = this.url;
+
         },
         nextfunc(){
           this.$emit('update');
@@ -354,21 +376,21 @@ import { Text } from 'vue'
   margin-top: 3%;
   display: flex;
   justify-content: space-between;
+  font-size: 16px;
   .next{
       display: flex;
       position: relative;
-      left: 35%;
+      left: 30%;
       top: 5%;
       // margin: 0 auto;
       padding: 10%;
       .nextsty{
-        width: 8%;
-        padding: 5px;
+        width: 20%;
+        padding: 8px 0;
         background-color: #7BA9B9;
         color: #FFFFFF;
         border-radius: 5px;
         text-align: center;
-        margin-left: 1%;
       }
     }
 }

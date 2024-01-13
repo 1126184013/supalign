@@ -143,17 +143,16 @@ import { Text } from 'vue'
   padding-bottom: 10%;
 }
 .nextsty{
-  width: 100%;
+  margin:10% auto;
+  display:flex;
   justify-content: space-evenly;
-  display: flex;
-  padding: 5% 0;
   >div{
-        width: 8%;
-        padding: 5px;
-        background-color: #7BA9B9;
-        color: #FFFFFF;
-        border-radius: 5px;
-        text-align: center;
+    width:20%;
+            background-color:#7BAABA;
+            text-align:center;
+            color:#fff;
+            padding:8px 0;
+            border-radius:5px;
   }
 }
 .fonthead{

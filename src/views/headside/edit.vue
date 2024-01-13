@@ -200,6 +200,7 @@
             <el-table-column
               prop="itemName"
               label="分析项目"
+              width="120"
               >
             </el-table-column>
             <el-table-column
@@ -1285,17 +1286,16 @@
       // margin: 0 auto;
       padding: 10%;
       .nextsty{
-        width: 10%;
+        width: 20%;
         padding: 5px;
         background-color: #7BA9B9;
         color: #FFFFFF;
         border-radius: 5px;
         text-align: center;
-        margin-left: 1%;
       }
     }
 .tablesty{
-  width:30%;
+  width:34%;
   cursor: default;
 }
 .dropdown{

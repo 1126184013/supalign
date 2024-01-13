@@ -284,6 +284,9 @@
         width: 94%;
         margin: 0 auto;
         margin-top: 20px ;
+        max-height: 300px;  
+        overflow: auto;
+
         tr{
             width: 94%;
             td{
