@@ -76,181 +76,13 @@ import { Text } from 'vue'
           points: [], // 存储标点坐标的数组
           canvasWidth:600,
           canvasHeight:800,
+          standard:['83','80','3','45','18','4','21','19','73','59','17','30','26','64','88','53','61','77','64','55','124'],
+          deviation:['4','4','2','3','2','3','4','4','4','3','3','6','4','2','3','3','3','7','2','3','8'],
           tabdaproj:['SNA','A_N_perp','SNB','Pog_N_perp','ANB','FMA','SN_MP','S_Go_N_Me','S_N','Go_Me','FH_NPo','Na_S_Ar','S_Ar_Go','Ar_Go_Me','Ar_Go_N','Na_Go_Me',
             'Sum_of_Angles','PtV_U6','ANS_Xi_Pm','Dc_Xi_Pm','U1_SN','U1_NA','L1_MP','L1_FH','L1_NB','U1_L1','UL_EP','LL_EP'],
           tableData: [
-            {
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },
-            {
-              itemName:'',
-              measure:'',
-              stand:'80',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'3',
-              deviation:'2',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'45',
-              deviation:'3',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'18',
-              deviation:'2',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'4',
-              deviation:'3',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'21',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'19',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'73',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'59',
-              deviation:'3',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'17',
-              deviation:'3',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'30',
-              deviation:'6',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'26',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'64',
-              deviation:'2',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'55',
-              deviation:'3',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'124',
-              deviation:'8',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },{
-              itemName:'',
-              measure:'',
-              stand:'83',
-              deviation:'4',
-              sense:''
-            },
-
-          ],
+            
+            ],
           editstart:{},
           scale:1
         }
@@ -267,9 +99,17 @@ import { Text } from 'vue'
         this.editstart.list = this.face.cllist
         //列表
         this.tabdaproj.map((item,index)=>{
-          // that.tableData.push({})
+          that.tableData.push({
+              itemName:'',
+              measure:'',
+              stand:'83',
+              deviation:'4',
+              sense:''
+            })
           that.tableData[index].itemName = item
           that.tableData[index].measure =Number(this.face.cllist.result[index]).toFixed(1)
+          that.tableData[index].deviation = that.deviation[index]
+          that.tableData[index].stand = that.standard[index]
           // console.log(that.tableData,'下标数据')
 
         })
@@ -347,7 +187,8 @@ import { Text } from 'vue'
         edit(){
           this.editshow = 1
         },
-        update(){
+        update(e){
+          this.tableData = e
           this.editshow = 0
           let that = this
         const image = new Image();
@@ -364,7 +205,7 @@ import { Text } from 'vue'
 
         },
         nextfunc(){
-          this.$emit('update');
+          this.$emit('update',this.tableData);
         }
       }
     }
