@@ -92,7 +92,7 @@
 
             <!-- <img src="@/assets/line.png" style="width: 100%;position: absolute;"> -->
 
-            <img v-if="points.length>=38 && canvasstart!=3" src="@/assets/8.png" style="position: absolute; " 
+            <!-- <img v-if="points.length>=38 && canvasstart!=3" src="@/assets/8.png" style="position: absolute; " 
             v-bind:style="{width:212*scale*ratio(33,25,0,0,150,738)+'px', left:points[33].x*scale+'px',top:points[33].y*scale+'px',transform: 'translate(-'+57*scale+'px,-'+3*scale+'px)'}">
 
 
@@ -100,9 +100,9 @@
             v-bind:style="{width:879*scale*ratio(0,26,0,0,333,486)+'px', left:points[0].x*scale+'px',top:points[0].y*scale+'px',transform: 'translate(-'+333*scale*ratio(0,26,0,0,333,486)+'px,-'+262*scale*ratio(0,26,0,0,333,486)+'px)'}">
 
             <img v-if="points.length>=38 && canvasstart!=3" src="@/assets/7.png" style="position: absolute; " 
-            v-bind:style="{width:628*scale*ratio(16,20,0,0,550,80)+'px', left:points[16].x*scale+'px',top:points[16].y*scale+'px',transform: 'translate(-'+0*scale*ratio(16,20,0,0,550,80)+'px,-'+63*scale*ratio(16,20,0,0,550,80)+'px)'}">
+            v-bind:style="{width:628*scale*ratio(16,20,0,0,550,80)+'px', left:points[16].x*scale+'px',top:points[16].y*scale+'px',transform: 'translate(-'+0*scale*ratio(16,20,0,0,550,80)+'px,-'+63*scale*ratio(16,20,0,0,550,80)+'px)'}"> -->
 
-            <img v-if="points.length>=38 && canvasstart!=3" src="@/assets/1.png" style="position: absolute; " 
+            <!-- <img v-if="points.length>=38 && canvasstart!=3" src="@/assets/1.png" style="position: absolute; " 
             v-bind:style="{width:183*scale*ratio(2,33,0,0,290,0)+'px', left:points[2].x*scale+'px',top:points[2].y*scale+'px',transform: 'translate(-'+100*scale*ratio(2,33,0,0,290,0)+'px,-'+413*scale*ratio(2,33,0,0,290,0)+'px)'}">
 
             <img v-if="points.length>=38 && canvasstart!=3" src="@/assets/5.png" style="position: absolute; " 
@@ -118,14 +118,30 @@
             v-bind:style="{width:288*scale*ratio(7,5,0,0,98,250)+'px', left:points[7].x*scale+'px',top:points[7].y*scale+'px',transform: 'translate(-'+82*scale*ratio(7,5,0,0,98,250)+'px,-'+474*scale*ratio(7,5,0,0,98,250)+'px)'}">
 
             <img v-if="points.length>=38 && canvasstart!=3" src="@/assets/3.png" style="position: absolute; " 
-            v-bind:style="{width:83*scale*ratio(3,24,0,0,150,45)+'px', left:points[3].x*scale+'px',top:points[3].y*scale+'px',transform: 'translate(-'+43*scale*ratio(3,24,0,0,150,45)+'px,-'+45*scale*ratio(3,24,0,0,150,45)+'px)'}">
+            v-bind:style="{width:83*scale*ratio(3,24,0,0,150,45)+'px', left:points[3].x*scale+'px',top:points[3].y*scale+'px',transform: 'translate(-'+43*scale*ratio(3,24,0,0,150,45)+'px,-'+45*scale*ratio(3,24,0,0,150,45)+'px)'}"> -->
 
 
 
             <svg v-if="points.length>=38 && canvasstart!=3" :width="canvasWidth" :height="canvasHeight" style="z-index: 99;position: absolute;">
 
 
-                <path v-for="line in curveLines" :key="line" v-bind:d="generatePathD(line)" stroke="blue" fill="none" stroke-width="3"/>
+                <!-- <path v-for="line in curveLines" :key="line" v-bind:d="generatePathD(line)" stroke="blue" fill="none" stroke-width="3"/> -->
+
+                <path   v-bind:d="generatePath2()" stroke="blue" fill="none" stroke-width="3"/>
+
+                <path   v-bind:d="generatePath3()" stroke="blue" fill="none" stroke-width="3"/>
+
+                <path   v-bind:d="generatePath4()" stroke="blue" fill="none" stroke-width="3"/>
+
+
+                <path   v-bind:d="generatePath5()" stroke="blue" fill="none" stroke-width="3"/>
+                <path   v-bind:d="generatePath6()" stroke="blue" fill="none" stroke-width="3"/>
+                <path   v-bind:d="generatePath7()" stroke="blue" fill="none" stroke-width="3"/>
+                <path   v-bind:d="generatePath8()" stroke="blue" fill="none" stroke-width="3"/>
+                <path   v-bind:d="generatePath9()" stroke="blue" fill="none" stroke-width="3"/>
+                <path   v-bind:d="generatePath10()" stroke="blue" fill="none" stroke-width="3"/>
+                <path   v-bind:d="generatePath11()" stroke="blue" fill="none" stroke-width="3"/>
+                <path   v-bind:d="generatePath12()" stroke="blue" fill="none" stroke-width="3"/>
 
 
                 <path v-if="editPoints.length>1"  
@@ -174,9 +190,9 @@
             <div v-if="canvasstart != 2" v-for="(item, index) in points" class="move_point"
                 @mousedown.prevent="selectPoint(index, $event)" 
                 @dblclick="renamePoint(index)"
-                style="position: absolute; width: 5px; height: 5px; background-color: red; border-radius: 50%;color: yellow;z-index: 999;"
+                style="position: absolute; width: 5px; font-size: 8px; height: 5px; background-color: red; border-radius: 50%;color: yellow;z-index: 999;"
                 :key="index" 
-                :style="{ left: item.x*scale + 'px', top: item.y*scale + 'px' }">{{ pointName(index) }}</div>
+                :style="{ left: item.x*scale + 'px', top: item.y*scale + 'px','background-color':pointColor(index)  }">{{ pointName(index) }}</div>
 
 
 
@@ -518,8 +534,8 @@
           that.points.push({x:item[0],y:item[1]})
         })
 
-        var rule1={x:this.points[25].x,y:this.points[33].y}
-        var rule2={x:this.points[25].x,y:this.points[17].y}
+        var rule1={x:this.points[112].x,y:this.points[0].y}
+        var rule2={x:this.points[112].x,y:this.points[11].y}
         this.rulePoints.push(rule1);
         this.rulePoints.push(rule2);
 
@@ -712,6 +728,126 @@
             }
             // d += ' L' + this.points[line.end].x * this.scale + ',' + this.points[line.end].y * this.scale;
             return d;
+        },
+
+
+        generatePath2(){
+
+          var path=[0,105,11,86,22,112,33,120,44,79,54,99,63,122];
+
+            let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+            for (let i = 1; i < path.length; i++) {
+                d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+            }
+            return d;
+        },
+
+        generatePath3(){
+
+        var path=[121,74,78,98,83,2,111,3,92,4,101,5,87,6];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+
+        generatePath4(){
+
+          var path=[100,50,51,52,53,94,95,128,84,110,91,100,55,56,57,123,93,117,58,108,88,60,61,116,62,114,64,65,115];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+
+        generatePath5(){
+
+          var path=[7,8,104,10,9,12,104];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+
+        generatePath6(){
+
+          var path=[13,14,15,106,16];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+
+        generatePath7(){
+
+          var path=[17,18,19,20,127,21,23];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+
+        generatePath8(){
+
+          var path=[17,18,19,20,127,21,23];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+
+        generatePath9(){
+
+          var path=[43,45,26,27,28,29,30,31,32,34,35,36,37,85,38,39,40,41,42];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+
+        generatePath10(){
+
+          var path=[24,25,26];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+        generatePath11(){
+
+          var path=[114,49,47,113,48,114];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
+        },
+        generatePath12(){
+
+          var path=[65,73,72,71,70,69,68,81,67,80,66,119,124,77,76,65];
+
+          let d = 'M' + this.points[path[0]].x * this.scale + ',' + this.points[path[0]].y * this.scale;;
+          for (let i = 1; i < path.length; i++) {
+              d += ' L' + this.points[path[i]].x * this.scale + ',' + this.points[path[i]].y * this.scale;
+          }
+          return d;
         },
         ratio(start,end,x1,y1,x2,y2) {
 
@@ -1128,43 +1264,120 @@
 
 
     },
+    pointColor(e){
+      var pointname='white';
+      if(e === 118){
+        pointname = "red";
+      }else if(e === 104){
+        pointname = "red";
+      }else if(e === 106){
+        pointname = "red";
+      }else if(e === 107){
+        pointname = "red";
+      }else if(e === 110){
+        pointname = "red";
+      }else if(e === 95){
+        pointname = "red";
+      }else if(e === 117){
+        pointname = "red";
+      }else if(e === 78){
+        pointname = "red";
+      }else if(e === 124){
+        pointname = "red";
+      }else if(e === 82){
+        pointname = "red";
+      }else if(e === 25){
+        pointname = "red";
+      }else if(e === 113){
+        pointname = "red";
+      }else if(e === 132){
+        pointname = "red";
+      }else if(e === 81){
+        pointname = "red";
+      }else if(e === 79){
+        pointname = "red";
+      }else if(e === 83){
+        pointname = "red";
+      // }else if(e === 93){
+      //   pointname = "Ep"; // 注意这里Dc, Ep和Gonion共用相同的索引
+
+      }else if(e === 100){
+        pointname = "red";
+      }else if(e === 48){
+        pointname = "red";
+      }else if(e === 15){
+        pointname = "red";
+      }else if(e === 120){
+        pointname = "red";
+      }else if(e === 99){
+        pointname = "red";
+      // }else if(e === 19){
+      //   pointname = "Xi";
+      }
+      return pointname;
+    },
     pointName(e){
       console.log(e)
       var pointname='';
-      if(e == 0){
-        pointname = "Sella"
-      }else if(e == 1){
-        pointname = "Nasion"
-      }else if(e == 2){
-        pointname = "Orbitale"
-      }else if(e == 3){
-        pointname = "Porion"
-      }else if(e == 4){ 
-        pointname = "Dc"
-      }else if(e == 5){
-        pointname = "Ep"
-      }else if(e == 6){
-        pointname = "Pogonion"
-      }else if(e == 7){
-        pointname = "LowerIncisor"
-      }else if(e == 9){
-        pointname = "Gonion"
-      }else if(e == 13){
-        pointname = "LowerLip"
-      }else if(e == 17){
-        pointname = "UpperIncisor"
-      }else if(e == 18){
-        pointname = "Articulare"
-      }else if(e == 25){
-        pointname = ""
-      }else if(e == 27){
-        pointname = "PtV"
-      }else if(e == 36){
-        pointname = "U6"
+      if(e === 118){
+        pointname = "Sella";
+      }else if(e === 104){
+        pointname = "Nasion";
+      }else if(e === 106){
+        pointname = "Orbitale";
+      }else if(e === 107){
+        pointname = "Porion";
+      // }else if(e === 93){
+      //   pointname = "Dc"; // 注意这里Dc, Ep和Gonion共用相同的索引
+      // }else if(e === 93){
+      //   pointname = "Ep";
+      }else if(e === 110){
+        pointname = "Pogonion";
+      }else if(e === 95){
+        pointname = "LowerIncisor";
+      }else if(e === 117){
+        pointname = "Gonion";
+      }else if(e === 78){
+        pointname = "LowerLip";
+      }else if(e === 124){
+        pointname = "UpperIncisor";
+      }else if(e === 82){
+        pointname = "Articulare";
+      }else if(e === 25){
+        pointname = "25";
+      }else if(e === 113){
+        pointname = "PtV";
+      }else if(e === 132){
+        pointname = "U6";
+      }else if(e === 81){
+        pointname = "ANS";
+      }else if(e === 79){
+        pointname = "A_point";
+      }else if(e === 83){
+        pointname = "B_point";
+      // }else if(e === 93){
+      //   pointname = "Ep"; // 注意这里Dc, Ep和Gonion共用相同的索引
+
+      }else if(e === 100){
+        pointname = "Menton";
+      }else if(e === 48){
+        pointname = "Pm";
+      }else if(e === 15){
+        pointname = "15";
+      }else if(e === 120){
+        pointname = "Nasion";
+      }else if(e === 99){
+        pointname = "UpperLip";
+      // }else if(e === 19){
+      //   pointname = "Xi";
+      }else {
+        pointname = ""; // 用于处理不在列表中的索引
       }
+
     //   else{
     //     pointname=e;
     //   }
+    // pointname=e
         pointname=e+' '+pointname;
       return pointname;
     },
