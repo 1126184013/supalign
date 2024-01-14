@@ -209,6 +209,7 @@
           <div @click="nameedit" class="namesty" >{{ this.pointname }}</div>
         </div>
         <div class="tablesty" v-if="nameeditstart == 1">
+          <div style="padding-bottom: 5%;">分析结果</div>
           <el-table
             :data="tableData"
             border
