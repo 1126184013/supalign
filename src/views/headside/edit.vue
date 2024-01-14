@@ -1186,81 +1186,8 @@
 
 
 
-    addPoint(event) {
-      
-        const canvas = this.$refs.myCanvas;
-        const rect = canvas.getBoundingClientRect();
-
-        const x = (event.clientX - rect.left) / this.scale; // 根据缩放比例计算实际坐标
-        const y = (event.clientY - rect.top) / this.scale; // 根据缩放比例计算实际坐标
-        // 遍历已有的标点数组，判断鼠标是否在某个标点附近
-        for (let i = 0; i < this.points.length; i++) {
-          const point = this.points[i];
-          const distance = Math.sqrt((x - point.x ) ** 2 + (y - point.y ) ** 2);
-          this.celepoints.push({ x, y});
-          if (distance <= this.pointRadius) {
-            this.pointName(i)
-            break;
-          }
-        }
-        
-      if(this.isPointLineMode){
-        this.names = prompt('请输入名称：')
-        if(this.names === null){
-          return
-        }
-        this.points.push({ x, y , name: this.names});
-      }
-      
-    },
 
 
-    //拖拽
-    startDrag(event) {
-      const canvas = this.$refs.myCanvas;
-      const rect = canvas.getBoundingClientRect();
-
-      const mouseX = (event.clientX - rect.left)/ this.scale;
-      const mouseY = (event.clientY - rect.top)/ this.scale;
-
-      // 遍历已有的标点数组，判断鼠标是否在某个标点附近
-      for (let i = 0; i < this.points.length; i++) {
-        const point = this.points[i];
-        const distance = Math.sqrt((mouseX - point.x ) ** 2 + (mouseY - point.y ) ** 2);
-
-        // 如果鼠标在标点附近，将该标点设为当前拖拽对象
-        
-        if (distance <= this.pointRadius) {
-          this.pointName(i)
-          
-          this.currentDraggingPoint = point;
-          this.pointsindex = i;
-          break;
-        }
-      }
-
-      // 如果存在当前拖拽对象，将其设为正在拖拽状态
-      if (this.currentDraggingPoint && this.editradggstate) {
-        this.isDragging = true;
-      }
-      if(this.islengthstate){
-        this.heightinit = { x:mouseX, y:mouseY }
-        this.heightend = { x:mouseX, y:mouseY }
-        this.newposin = { x:mouseX, y:mouseY }
-        this.islength = true;
-
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.heightinit.x*this.scale, this.heightinit.y*this.scale);
-        this.ctx.lineTo(this.heightend.x+1*this.scale  , this.heightend.y+1*this.scale );
-        this.ctx.stroke();
-        // this.isDragging = true;
-        // this.currentDraggingPoint = this.newposin
-
-      }
-      
-
-
-    },
     pointColor(e){
       var pointname='white';
       if(e === 118){
