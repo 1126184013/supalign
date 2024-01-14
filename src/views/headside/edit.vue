@@ -704,11 +704,7 @@
         },
 
        
-        // 结束拖拽
-        endDrag() {
-            this.selectedPoint = null;
-            this.onselectedPoint=false;
-        },
+  
         // 重命名点
         renamePoint(index) {
             // const newName = prompt("请输入新的名称:");
@@ -1383,24 +1379,7 @@
       return pointname;
     },
    
-    endDrag(event){
-      const canvas = this.$refs.myCanvas;
-      const rect = canvas.getBoundingClientRect();
-
-      const mouseX = (event.clientX - rect.left);
-      const mouseY = (event.clientY - rect.top);
-
-      this.isDragging = false;
-      this.currentDraggingPoint = null
-      this.islength = false
-      
-      if(this.islengthstate){
-        this.ctx.beginPath();
-        this.ctx.moveTo(this.heightinit.x*this.scale, this.heightinit.y*this.scale);
-        this.ctx.lineTo(this.newposin.x  , this.newposin.y );
-        this.ctx.stroke();
-      }
-    },
+   
     clearCanvas() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
