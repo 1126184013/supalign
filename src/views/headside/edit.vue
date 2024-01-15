@@ -656,7 +656,7 @@
                 if(this.editPoints.length==2)
                 {
                     var length = Math.sqrt(Math.pow(this.editPoints[1].x-this.editPoints[0].x,2)+Math.pow(this.editPoints[1].y-this.editPoints[0].y,2))/this.ruleUnit;
-                    this.ruleText=length+'mm';
+                    this.ruleText=length.toFixed(1)+'mm';
                 }
                 else{
                     this.ruleText='';
@@ -675,7 +675,7 @@
                 {
                     //根据三点计算角度
                     var angle = this.calculateAngle(this.editPoints[0],this.editPoints[1],this.editPoints[2]);
-                    this.angleText=angle+'';
+                    this.angleText=angle.toFixed(1)+'';
                 }
                 else{
                     this.angleText='';
