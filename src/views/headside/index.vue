@@ -26,7 +26,7 @@
             <Headflank @update="update" :face="face"></Headflank>
           </div>
           <div v-if="procedure==2">
-              <HeadflankReport :face="face"></HeadflankReport>
+              <HeadflankReport :face="face" :tabdata="tabdata"></HeadflankReport>
           </div>
         <div class="next">
         
@@ -72,6 +72,7 @@ import Header from "../../components/Header/index.vue";
           schedule:0 ,
           clsrc:'',
           rulestate:0,
+          tabdata:[],
         }
       },
       watch: {
@@ -122,7 +123,8 @@ import Header from "../../components/Header/index.vue";
             this.loading = false; // 隐藏加载动画
           });
         },
-        update(){
+        update(e){
+          this.tabdata = e
           this.procedure++
           this.schedule++
         },

@@ -713,7 +713,7 @@
             // }
         },
         nextfunc(){
-          this.$emit('update');
+          this.$emit('update',this.tableData);
         },
 
 

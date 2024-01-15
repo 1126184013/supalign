@@ -27,17 +27,17 @@
                     border
                     style="width: 100%">
                     <el-table-column
-                    prop="daprojectte"
+                    prop="itemName"
                     label="分析项目"
                     width="180">
                     </el-table-column>
                     <el-table-column
-                    prop="maxillary"
+                    prop="measure"
                     label="测量值"
                     width="180">
                     </el-table-column>
                     <el-table-column
-                    prop="jaw"
+                    prop="stand"
                     label="标准值">
                     </el-table-column>
                     <el-table-column
@@ -45,7 +45,7 @@
                     label="偏差值">
                     </el-table-column>
                     <el-table-column
-                    prop="deviation"
+                    prop="sense"
                     label="临床意义">
                     </el-table-column>
                 </el-table>
@@ -63,58 +63,29 @@
 import { Text } from 'vue'
     export default {
       name: 'faceReport',
-      props: ['face'],
+      props: ['face','tabdata'],
       data() {
         return {
             srcList:[],
+            standard:['83','80','3','45','18','4','21','19','73','59','17','30','26','64','88','53','61','77','64','55','124'],
+          deviation:['4','4','2','3','2','3','4','4','4','3','3','6','4','2','3','3','3','7','2','3','8'],
+          tabdaproj:['SNA','A_N_perp','SNB','Pog_N_perp','ANB','FMA','SN_MP','S_Go_N_Me','S_N','Go_Me','FH_NPo','Na_S_Ar','S_Ar_Go','Ar_Go_Me','Ar_Go_N','Na_Go_Me',
+            'Sum_of_Angles','PtV_U6','ANS_Xi_Pm','Dc_Xi_Pm','U1_SN','U1_NA','L1_MP','L1_FH','L1_NB','U1_L1','UL_EP','LL_EP'],
             srcList0:[],
             srcList1:[],
             faceimg:[],
             url: '',
           srcList: [],
-          tableData: [{
-            daprojectte: 'SNA',
-            maxillary: '79.8',
-            jaw: '83',
-            deviation:"4"
-          }, {
-            daprojectte: 'SNB',
-            maxillary: '79.8',
-            jaw: '83',
-            deviation:"4"
-          }, {
-            daprojectte: 'ANB',
-            maxillary: '2',
-            jaw: '83',
-            deviation:"4"
-          }, {
-            daprojectte: 'Ptm-A(mm)',
-            maxillary: '79.8',
-            jaw: '83',
-            deviation:"4"
-          }, {
-            daprojectte: 'Ptm-s(mm)',
-            maxillary: '12',
-            jaw: '18',
-            deviation:"2"
-          }, {
-            daprojectte: 'PP-FH',
-            maxillary: '0.1',
-            jaw: '4',
-            deviation:"3"
-          }, {
-            daprojectte: 'PP-MP',
-            maxillary: '27',
-            jaw: '21',
-            deviation:"4"
-          }, 
-        ]
+          tableData: [],
         }
       },
       created() {
         console.log(this.face,'created')
+        let that = this
         this.url = this.face.climg
         this.srcList.push(this.url)
+        this.tableData = this.tabdata
+
       },
       components:{ Text },
       methods: {
