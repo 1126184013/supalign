@@ -48,7 +48,7 @@
         <div v-else>
             <div class="editnameLsit">
                 <div class="namelisthead">
-                    <div>自定义分析法</div>
+                    <div>自定义分析法编辑</div>
                     <div></div>
                 </div>
                 <div class="editbod">
